@@ -19,3 +19,5 @@ RoxygenNote: 7.1.1
 Imports: 
     stringr,
     magrittr
+URL: https://github.com/rforbiochemists/wellr
+BugReports: https://github.com/rforbiochemists/wellr/issues
