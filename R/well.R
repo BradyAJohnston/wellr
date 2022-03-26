@@ -132,13 +132,13 @@ well_to_rownum <- function(x) {
 
 #' Converts Well ID to a Numeric Index
 #'
-#' Indexes along rows first, so A12 is index 12 and B01 is index 13 for a 96
-#' well plate.
+#' @description  Indexes along rows first, so A12 is index 12 and B01 is index
+#'   13 for a 96 well plate.
 #'
 #' @param x string well ID
 #' @param plate size of the plate. One of c(6, 12, 24, 96, 384)
-#' @param colwise if TRUE, index instead down the columns, so H01 is index 8
-#'   and B01 is index 2 for a 96 well plate.
+#' @param colwise if TRUE, index instead down the columns, so H01 is index 8,
+#'   A12 is index 89 and B01 is index 2 for a 96 well plate.
 #'
 #' @return numeric well index.
 #' @export

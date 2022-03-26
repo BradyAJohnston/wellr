@@ -2,16 +2,19 @@
 % Please edit documentation in R/plate.R
 \name{well_plate}
 \alias{well_plate}
-\title{Title}
+\title{Create a Tibble of Plate Information}
 \usage{
 well_plate(nrow = 8, ncol = 12)
 }
 \arguments{
-\item{ncol}{}
+\item{nrow}{Number of rows to have in the generated plate.}
+
+\item{ncol}{NUmber of columns to have in the generated plate.}
 }
 \value{
-
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
-Title
+Generates a \link[tibble:tibble-package]{tibble} that contains row, col, and well
+ID for the size of the plate specified in nrow and ncol. If vectors of length1 are supplied to either nrow or ncol, the contents of the vectors are usedinstead of their numeric value.
 }
