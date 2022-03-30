@@ -1,0 +1,53 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# wellr
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr)
+<!-- badges: end -->
+
+`{wellr}` provides a consitent and reliable interface for dealing with
+plate-based data and calculations. It provides functions for indexing
+through microtitre plates, converting between well IDs (“C05”) and their
+respective rows, columns and index. This is a utilitiy package, intended
+for use in other packages that deal with plate-based data.
+
+## Installation
+
+<!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
+
+You can install the development version from github as below:
+
+``` r
+#install.packages("remotes")
+remotes::install_github("rforbiochemists/wellr")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(wellr)
+
+well_to_colnum("G8")
+#> [1] 8
+well_to_rownum("G8")
+#> [1] 7
+well_to_index("H1")
+#> [1] 85
+well_to_index("H1", colwise = TRUE)
+#> [1] 8
+well_from_index(37)
+#> [1] "D01"
+well_join(3, 8)
+#> [1] "C08"
+well_join("E", 10)
+#> [1] "E"
+#> [1] "E10"
+```

@@ -31,20 +31,50 @@ well_plate <- function(nrow = 8, ncol = 12) {
 
 #' Title
 #'
-#' @param df A dattaframe containing at least a column called "well" that
+#' @param data Data frame to reorder, than contains a row column and a col column.
+#'
+#' @return
+#'
+#' @examples
+well_reorder_df <- function(data) {
+  wells <- well_join(data$row, data$col)
+  data$col <- well_to_colnum(wells)
+  data$row <- well_to_rownum(wells)
+  data <- data[order(data$col), ]
+  data <- data[order(data$row), ]
+  data
+}
+
+#' Convert a data.frame to a Matrix in Plate Format
+#'
+#' @param df A dataframe containing at least a column called "well" that
 #'   contains well IDs.
 #' @param plate Size of the plate, to override the auto-detected plate size.
+#' @param values_from  Column that contains values to populate matrix.
 #'
 #' @return
 #' @export
 #'
 #' @examples
-well_df_to_matrix <- function(df, data, plate = NULL) {
+#' library(wellr)
+#'
+#' # pivot a long data frame into a matrix based on the row and col columns,
+#' # with values from a given column
+#' plate <- well_plate(8, 12)
+#' plate$value <- seq(nrow(plate))
+#' well_df_to_matrix(plate, values_from = "value")
+#'
+#' # the function also handles missing values from a plate, filling with with NA
+#' # if certain wells are missing
+#' plate <- well_plate(7, 11)
+#' plate$value <- seq(nrow(plate))
+#' well_df_to_matrix(plate, values_from = "value", plate = 384)
+well_df_to_matrix <- function(df, values_from, plate = NULL) {
   # if (!is.null(plate)) {}
   stopifnot(
     "well" %in% colnames(df)
   )
-
+  df <- as.data.frame(df)
   df$row <- well_to_rownum(df$well)
   df$col <- well_to_rownum(df$well)
 
@@ -80,12 +110,24 @@ well_df_to_matrix <- function(df, data, plate = NULL) {
       )
     )
   }
+  if (!is.null(plate)) {
+    plate <- plate
+    ncols <- n_cols_from_wells(plate)
+    nrows <- n_rows_from_wells(plate)
+  }
 
-  empty_plate <- well_plate(nrow = ncows, ncol = ncols)
+  empty_plate <- well_plate(nrow = nrows, ncol = ncols)
 
-  missing_wells <- empty_plate[!(df$well %in% empty_plate$well)]
+  missing_wells <- sapply(empty_plate$well, function(x) !(x %in% df$well))
 
+  missing_wells <- empty_plate[missing_wells, ]
+  missing_wells[, values_from] <- NA
 
+  df_only_relevant <- df[, c("well", "row", "col", values_from)]
 
-  matrix(NA, nrow = nrows, ncol = ncols)
+  df_combined <- rbind(df_only_relevant, missing_wells)
+  df_combined <- well_reorder_df(df_combined)
+
+  matrix(as.numeric(df_combined[, values_from]), nrow = nrows, ncol = ncols, byrow = TRUE)
 }
+

@@ -6,12 +6,13 @@
 well_check <- function(x) {
   lapply(x, function(x) {
      if (is.na(stringr::str_extract(as.character(x), "^[:alpha:](?=\\d)"))) {
-      stop(paste0("Well ID '", x, "' is missing required row letter."))
+      stop(paste0("Well ID '", x, "' has a misformed row letter."))
      }
      if (is.na(stringr::str_extract(as.character(x), "\\d{1,3}$"))) {
-       stop(paste0("Well ID '", x, "' is missing required column number."))
+       stop(paste0("Well ID '", x, "' has a misformed col number."))
      }
   })
+  return(TRUE)
 
 }
 
@@ -166,18 +167,32 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #' @param x numeric index to convert to a well ID
 #' @param plate number of wells in the plate. One of c(6, 12, 24, 96, 384)
 #' @param num_width number of zeros to pad the column number with to the left.
+#' @param colwise if TRUE, index instead down the columns, so H01 is index 8,
+#'   A12 is index 89 and B01 is index 2 for a 96 well plate.
 #'
 #' @return a column ID as a vector of strings.
 #' @export
 #'
 #' @examples
-well_from_index <- function(x, plate = 96, num_width = 2) {
+well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
   stopifnot(is.numeric(x))
-  n_cols <- n_cols_from_wells(plate)
-  colnum <- x %% n_cols
-  rownum <- x %/% n_cols + 1
 
-  well <- well_join(rownum, colnum, num_width = num_width)
+  if (colwise) {
+    plate <- expand.grid(
+      row = seq(n_rows_from_wells(plate)),
+      col = seq(n_cols_from_wells(plate))
+      )
+    plate$well <- well_join(plate$row, plate$col)
+  } else {
+    plate <- wellr::well_plate(
+      n_rows_from_wells(plate),
+      n_cols_from_wells(plate)
+    )
+  }
+
+
+
+  well <- plate$well[x]
   well_check(well)
   well
 }
