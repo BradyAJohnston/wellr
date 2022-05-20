@@ -28,9 +28,7 @@ You can install the development version from github as below:
 remotes::install_github("rforbiochemists/wellr")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Basic Examples
 
 ``` r
 library(wellr)
