@@ -203,11 +203,10 @@ well_df_to_mat <-
 #' )
 #'
 #' head(mat[, 1:14])
-
 well_df_to_mat_frames <- function(data,
-                                     values_col,
-                                     time_col,
-                                     well_col = "well") {
+                                  values_col,
+                                  time_col,
+                                  well_col = "well") {
   data <- as.data.frame(data)
   # order first by time
   data <- data[order(data[, time_col]), ]
@@ -225,7 +224,6 @@ well_df_to_mat_frames <- function(data,
   rownames(mat) <- frames
   colnames(mat) <- wellr::well_from_index(seq(n_wells))
   mat
-
 }
 
 #' Turn a Multi-Frame Matrix into a DataFrame
@@ -280,7 +278,6 @@ well_mat_frames_to_df <- function(matrix, value_col = "value") {
   }
 
   tibble::as_tibble(combined)
-
 }
 
 #' Convert a Plate Matrix to a DataFrame
