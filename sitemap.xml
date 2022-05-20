@@ -31,7 +31,10 @@
     <loc>/reference/well_check.html</loc>
   </url>
   <url>
-    <loc>/reference/well_df_to_matrix.html</loc>
+    <loc>/reference/well_df_to_mat.html</loc>
+  </url>
+  <url>
+    <loc>/reference/well_df_to_mat_frames.html</loc>
   </url>
   <url>
     <loc>/reference/well_format.html</loc>
@@ -41,6 +44,12 @@
   </url>
   <url>
     <loc>/reference/well_join.html</loc>
+  </url>
+  <url>
+    <loc>/reference/well_mat_frames_to_df.html</loc>
+  </url>
+  <url>
+    <loc>/reference/well_mat_to_df.html</loc>
   </url>
   <url>
     <loc>/reference/well_plate.html</loc>
@@ -59,5 +68,8 @@
   </url>
   <url>
     <loc>/reference/well_to_rownum.html</loc>
+  </url>
+  <url>
+    <loc>/reference/wellr-package.html</loc>
   </url>
 </urlset>
