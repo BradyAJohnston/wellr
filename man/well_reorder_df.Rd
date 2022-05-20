@@ -22,3 +22,11 @@ columns.
 \description{
 Reorder a Plate-Based DataFrame
 }
+\examples{
+df <- well_plate(nrow = 8, ncol = 12)
+df <- df[sample(1:96, 96), ]
+head(df)
+
+df <- well_reorder_df(df)
+head(df)
+}

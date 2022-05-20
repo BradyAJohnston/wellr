@@ -2,12 +2,12 @@
 % Please edit documentation in R/plate.R
 \name{well_df_to_mat_frames}
 \alias{well_df_to_mat_frames}
-\title{Convert a DatFrame to a Multi-Frame Matrix}
+\title{Convert a DataFrame to a Multi-Frame Matrix}
 \usage{
 well_df_to_mat_frames(data, values_col, time_col, well_col = "well")
 }
 \arguments{
-\item{data}{A DatFrame to be converted.}
+\item{data}{A DataFrame to be converted.}
 
 \item{values_col}{The name of the column containing the values.}
 

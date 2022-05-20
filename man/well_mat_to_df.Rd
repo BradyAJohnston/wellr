@@ -19,3 +19,7 @@ Takes a matrix that is formatted as a plate, and converts it to a long-format
 'tidy' data frame with a column for the well ID, the row, the column and the
 values that were in the matrix.
 }
+\examples{
+mat <- matrix(rnorm(96), ncol = 12)
+well_mat_to_df(mat, "random_values")
+}

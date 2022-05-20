@@ -12,6 +12,8 @@
 #' @export
 #'
 #' @examples
+#' well_plate(nrow = 8, ncol = 12)
+#' well_plate(nrow = 4, ncol = 6)
 well_plate <- function(nrow = 8, ncol = 12) {
   # nrow or ncol are of length 1, generate a sequence of numbers equal to their
   # values instead
@@ -23,10 +25,8 @@ well_plate <- function(nrow = 8, ncol = 12) {
   }
 
   # generate the rows base of rows and columns
-  plate <- expand.grid(
-    col = ncol,
-    row = nrow
-  )[, c("row", "col")]
+  plate <- expand.grid(col = ncol,
+                       row = nrow)[, c("row", "col")]
   plate$well <- well_join(plate$row, plate$col)
 
   # return the plate as a tibble
@@ -42,28 +42,33 @@ well_plate <- function(nrow = 8, ncol = 12) {
 #'
 #' @return A data.frame that has been reordered according to the `row` & `col`
 #'   columns.
+#' @export
 #'
 #' @examples
-well_reorder_df <-
-  function(data,
-           well_col = "well",
-           row_col = NULL,
-           col_col = NULL) {
-    if (well_col %in% colnames(data)) {
-      wells <- data[, well_col]
-    } else {
-      wells <- well_join(
-        row = data[, row_col],
-        col = data[, col_col]
-      )
-    }
+#' df <- well_plate(nrow = 8, ncol = 12)
+#' df <- df[sample(1:96, 96), ]
+#' head(df)
+#'
+#' df <- well_reorder_df(df)
+#' head(df)
 
-    data$col <- well_to_colnum(wells)
-    data$row <- well_to_rownum(wells)
-    data <- data[order(data$col), ]
-    data <- data[order(data$row), ]
-    data
+well_reorder_df <- function(data,
+                            well_col = "well",
+                            row_col = NULL,
+                            col_col = NULL) {
+  if (well_col %in% colnames(data)) {
+    wells <- data[, well_col]
+  } else {
+    wells <- well_join(row = data[, row_col],
+                       col = data[, col_col])
   }
+
+  data$col <- well_to_colnum(wells)
+  data$row <- well_to_rownum(wells)
+  data <- data[order(data$col),]
+  data <- data[order(data$row),]
+  data
+}
 
 #' Convert a data.frame to a Matrix in Plate Format
 #'
@@ -152,7 +157,7 @@ well_df_to_mat <-
         !(x %in% df[, well_col])
       })
 
-    missing_wells <- empty_plate[missing_wells, ]
+    missing_wells <- empty_plate[missing_wells,]
     missing_wells[, values_from] <- NA
 
     df_only_relevant <- df[, c("well", "row", "col", values_from)]
@@ -169,13 +174,13 @@ well_df_to_mat <-
   }
 
 
-#' Convert a DatFrame to a Multi-Frame Matrix
+#' Convert a DataFrame to a Multi-Frame Matrix
 #'
 #' Converts a DataFrame to a matrix where each row is a single time point, and
 #' each column is a single well. The wells are in index order, indexing across
 #' the rows so the first values are all from row A.
 #'
-#' @param data A DatFrame to be converted.
+#' @param data A DataFrame to be converted.
 #' @param values_col The name of the column containing the values.
 #' @param time_col The name of the column containing the time values.
 #' @param well_col The name of the column with the well IDs.
@@ -209,7 +214,7 @@ well_df_to_mat_frames <- function(data,
                                   well_col = "well") {
   data <- as.data.frame(data)
   # order first by time
-  data <- data[order(data[, time_col]), ]
+  data <- data[order(data[, time_col]),]
   # then order by the rows and columns
   data <- well_reorder_df(data, well_col = well_col)
 
@@ -264,9 +269,10 @@ well_df_to_mat_frames <- function(data,
 #' well_mat_frames_to_df(mat)
 well_mat_frames_to_df <- function(matrix, value_col = "value") {
   df_list <- lapply(seq(nrow(matrix)), function(x) {
-    row <- unlist(matrix[x, ])
+    row <- unlist(matrix[x,])
     plate_mat <- matrix(row, ncol = n_cols_from_wells(length(row)))
-    plate_df <- wellr::well_mat_to_df(plate_mat, value_col = value_col)
+    plate_df <-
+      wellr::well_mat_to_df(plate_mat, value_col = value_col)
     plate_df$frames <- x
     plate_df
   })
@@ -294,6 +300,8 @@ well_mat_frames_to_df <- function(matrix, value_col = "value") {
 #' @export
 #'
 #' @examples
+#' mat <- matrix(rnorm(96), ncol = 12)
+#' well_mat_to_df(mat, "random_values")
 well_mat_to_df <- function(matrix, value_col = "value") {
   values <- c(matrix)
   index <- seq_along(values)
