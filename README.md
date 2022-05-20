@@ -9,6 +9,9 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr)
+[![R-CMD-check](https://github.com/rforbiochemists/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/rforbiochemists/wellr/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/rforbiochemists/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rforbiochemists/wellr?branch=master)
 <!-- badges: end -->
 
 `{wellr}` provides a consitent and reliable interface for dealing with
