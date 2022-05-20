@@ -81,7 +81,7 @@ well_join <- function(row, col, num_width = 2) {
 #'
 #' @param x Well ID as string in format "A10"
 #'
-#' @return
+#' @return Numeric verctor of column numbers extracted from well ID.
 #' @export
 #'
 #' @examples
@@ -221,10 +221,10 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 
 #' Format a Well to Uppercase and Padded Numbers
 #'
-#' @param x Well
-#' @param num_width
+#' @param x Vector of well IDs to be formatted.
+#' @param num_width Width to pad out number component with 0's.
 #'
-#' @return
+#' @return Vector of strings as formatted well IDs.
 #' @export
 #'
 #' @examples

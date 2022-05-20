@@ -7,12 +7,12 @@
 well_format(x, num_width = 2)
 }
 \arguments{
-\item{x}{Well}
+\item{x}{Vector of well IDs to be formatted.}
 
-\item{num_width}{}
+\item{num_width}{Width to pad out number component with 0's.}
 }
 \value{
-
+Vector of strings as formatted well IDs.
 }
 \description{
 Format a Well to Uppercase and Padded Numbers

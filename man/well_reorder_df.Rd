@@ -2,16 +2,23 @@
 % Please edit documentation in R/plate.R
 \name{well_reorder_df}
 \alias{well_reorder_df}
-\title{Title}
+\title{Reorder a Plate-Based DataFrame}
 \usage{
-well_reorder_df(data)
+well_reorder_df(data, well_col = "well", row_col = NULL, col_col = NULL)
 }
 \arguments{
 \item{data}{Data frame to reorder, than contains a row column and a col column.}
+
+\item{well_col}{Column containing the well IDs.}
+
+\item{row_col}{Column containing the row letters or numbers.}
+
+\item{col_col}{Column containing the column numbers.}
 }
 \value{
-
+A data.frame that has been reordered according to the \code{row} & \code{col}
+columns.
 }
 \description{
-Title
+Reorder a Plate-Based DataFrame
 }

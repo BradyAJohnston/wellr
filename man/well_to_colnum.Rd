@@ -10,7 +10,7 @@ well_to_colnum(x)
 \item{x}{Well ID as string in format "A10"}
 }
 \value{
-
+Numeric verctor of column numbers extracted from well ID.
 }
 \description{
 Extract number from well ID.

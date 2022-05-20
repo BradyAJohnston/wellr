@@ -4,7 +4,7 @@
 \alias{well_df_to_matrix}
 \title{Convert a data.frame to a Matrix in Plate Format}
 \usage{
-well_df_to_matrix(df, values_from, plate = NULL)
+well_df_to_matrix(df, values_from, well_col = "well", plate = NULL)
 }
 \arguments{
 \item{df}{A dataframe containing at least a column called "well" that
@@ -12,13 +12,19 @@ contains well IDs.}
 
 \item{values_from}{Column that contains values to populate matrix.}
 
+\item{well_col}{Column containing the well IDs to extract row and column
+information from.}
+
 \item{plate}{Size of the plate, to override the auto-detected plate size.}
 }
 \value{
-
+A matrix containing the values that were present in the data frame in
+the \code{values_from} column
 }
 \description{
-Convert a data.frame to a Matrix in Plate Format
+Extracts row and column information from the column specified by \code{well_col}
+(defaults to 'well') and uses this to create a matrix that contains values
+from the \code{values_from} column.
 }
 \examples{
 library(wellr)
