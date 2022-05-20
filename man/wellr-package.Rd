@@ -4,9 +4,9 @@
 \name{wellr-package}
 \alias{wellr}
 \alias{wellr-package}
-\title{wellr: Utilities for Working Plate Based Data}
+\title{wellr: Utilities for Working With Plate Based Data}
 \description{
-{wellr} provides a range of utility functions for working with plate-based data from microtitre plates. Working with column IDs, row numbers and letters and transforming between a matrix and a data frame are all made simpler by {wellr}.
+Provides a range of utility functions for working with plate-based data from microtitre plates such as enzyme assays, bacterial growth assays and protein binding experiments. Working with column IDs, row numbers and letters and transforming between a matrix and a data frame are all made simpler.
 }
 \seealso{
 Useful links:

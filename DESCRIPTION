@@ -1,18 +1,20 @@
 Package: wellr
-Title: Utilities for Working Plate Based Data
-Version: 0.0.1.0000
+Title: Utilities for Working With Plate Based Data
+Version: 0.1.0
 Authors@R: 
     person(given = "Brady",
            family = "Johnston",
            role = c("aut", "cre"),
            email = "brady.johnston@me.com",
            comment = c(ORCID = "0000-0001-6301-2269"))
-Description: {wellr} provides a range of utility functions for working with 
-    plate-based data from microtitre plates. Working with column IDs, row 
+Description: Provides a range of utility functions for working with 
+    plate-based data from microtitre plates such as enzyme assays, bacterial 
+    growth assays and protein binding experiments. Working with column IDs, row 
     numbers and letters and transforming between a matrix and a data frame are 
-    all made simpler by {wellr}.
+    all made simpler.
 License: MIT + file LICENSE
 Suggests: 
+    covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
