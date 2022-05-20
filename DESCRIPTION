@@ -1,13 +1,16 @@
 Package: wellr
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Utilities for Working Plate Based Data
+Version: 0.0.1.0000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Brady",
+           family = "Johnston",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "brady.johnston@me.com",
+           comment = c(ORCID = "0000-0001-6301-2269"))
+Description: {wellr} provides a range of utility functions for working with 
+    plate-based data from microtitre plates. Working with column IDs, row 
+    numbers and letters and transforming between a matrix and a data frame are 
+    all made simpler by {wellr}.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
@@ -19,6 +22,7 @@ RoxygenNote: 7.1.2
 Imports: 
     stringr,
     magrittr,
-    tibble
+    tibble,
+    rlang
 URL: https://github.com/rforbiochemists/wellr
 BugReports: https://github.com/rforbiochemists/wellr/issues
