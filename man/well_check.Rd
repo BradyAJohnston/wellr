@@ -10,7 +10,8 @@ well_check(x)
 \item{x}{well ID to check for proper structure.}
 }
 \value{
-
+A vector the same length as x with a TRUE of FALSE for a a well that
+can be read by wellr
 }
 \description{
 Checks if a well ID contains a letter and a number in the correct format.

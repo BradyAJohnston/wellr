@@ -2,17 +2,21 @@
 #'
 #' @param x well ID to check for proper structure.
 #'
-#' @return
+#' @return A vector the same length as x with a TRUE of FALSE for a a well that
+#'   can be read by wellr
 well_check <- function(x) {
-  lapply(x, function(x) {
-     if (is.na(stringr::str_extract(as.character(x), "^[:alpha:](?=\\d)"))) {
-      stop(paste0("Well ID '", x, "' has a misformed row letter."))
-     }
-     if (is.na(stringr::str_extract(as.character(x), "\\d{1,3}$"))) {
-       stop(paste0("Well ID '", x, "' has a misformed col number."))
-     }
-  })
-  return(TRUE)
+
+  row_letter <- stringr::str_detect(
+    as.character(x),
+    '^[:alpha:](?=\\d)'
+  )
+
+  col_numer <- stringr::str_detect(
+    as.character(x),
+    "\\d{1,3}$"
+  )
+
+  row_letter & col_numer
 
 }
 
@@ -69,7 +73,6 @@ well_join <- function(row, col, num_width = 2) {
   # join the final well
   well <- as.character(paste0(rowlet, colnum))
   # quality control the well
-  well_check(well)
 
   well
 }
@@ -87,7 +90,7 @@ well_join <- function(row, col, num_width = 2) {
 #' well_to_colnum("h8")
 well_to_colnum <- function(x) {
   x <- stringr::str_trim(x)
-  well_check(x)
+
   stringr::str_extract(x, "\\d+$") %>%
     as.numeric()
 }
@@ -106,8 +109,10 @@ well_to_colnum <- function(x) {
 #' well_to_colnum("C20")
 well_to_rowlet <- function(x) {
   x <- stringr::str_trim(x)
-  well_check(x)
-  stringr::str_extract(x, "^\\w")
+
+  stringr::str_to_upper(
+    stringr::str_extract(x, "^\\w")
+  )
 }
 
 #' Convert Well ID to Row Number
@@ -147,7 +152,8 @@ well_to_rownum <- function(x) {
 #' @examples
 well_to_index <- function(x, plate = 96, colwise = FALSE) {
   stopifnot(is.character(x))
-  well_check(x)
+
+
   colnum <- well_to_colnum(x)
   rownum <- well_to_rownum(x)
 
@@ -193,7 +199,6 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 
 
   well <- plate$well[x]
-  well_check(well)
   well
 }
 
