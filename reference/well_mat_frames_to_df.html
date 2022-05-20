@@ -88,14 +88,46 @@ values.</p>
 <span class="r-in">  values_col <span class="op">=</span> <span class="st">"value"</span>,</span>
 <span class="r-in">  time_col <span class="op">=</span> <span class="st">"frame"</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in well_df_to_mat_frames(data = df_frames, values_col = "value",     time_col = "frame"):</span> could not find function "well_df_to_mat_frames"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in head(mat[, 1:14]):</span> object 'mat' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           A01        A02       A03        A04        A05         A06        A07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -1.98188022  0.4010191 1.0936252  0.2016572 -2.6870403  0.07634781 -1.3636182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.09233083  0.4987733 1.1310378 -0.6648330  0.2721987  0.20251025  0.9519429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -1.46397394  0.4742682 0.8487191  0.7509885  1.8411537  0.93142382  0.4503291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.57701871  0.3994673 0.4656361  0.6753026 -0.3797288 -0.27077757 -0.6399890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.03902588  0.4882045 1.6852477  0.4957293 -0.4055078 -0.02288954 -1.2252467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.11924825 -1.0073503 0.9000788 -0.2954812 -0.9769861 -0.61410334  0.3342462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          A08        A09        A10          A11        A12         B01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.3350963  0.1518215 -0.6743018 -1.082997089 -0.7179322  2.31497489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.3019698  1.1912543  0.7432629  0.075006605  1.9174315  1.04120346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.7506550 -0.5764367  0.9149543  1.127922702 -0.4132626  0.77274415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.0375879  1.4993233  1.1675064  0.631233749 -0.2616410  1.13206484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.3151919  0.8242082 -0.9171479  0.009110162  1.1363410 -0.89433451</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.9441064  0.2442029 -0.7324802 -0.026581758  0.9603215 -0.07447516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          B02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9435254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.2784969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.5568875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.3667878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.3956234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -2.0295057</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># convert the matrix back to a dataframe</span></span>
 <span class="r-in"><span class="fu">well_mat_frames_to_df</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in well_mat_frames_to_df(mat):</span> could not find function "well_mat_frames_to_df"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 960 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    well    row   col   value frames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> A01       1     1 -<span style="color: #BB0000;">1.98</span>   1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> A02       1     2  0.401  1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> A03       1     3  1.09   1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> A04       1     4  0.202  1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> A05       1     5 -<span style="color: #BB0000;">2.69</span>   1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> A06       1     6  0.076<span style="text-decoration: underline;">3</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A07       1     7 -<span style="color: #BB0000;">1.36</span>   1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> A08       1     8  1.34   1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A09       1     9  0.152  1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A10       1    10 -<span style="color: #BB0000;">0.674</span>  1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 950 more rows</span></span>
 </code></pre></div>
     </div>
   </div>
