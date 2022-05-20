@@ -10,7 +10,7 @@ n_cols_from_wells(x)
 \item{x}{Number of wells in plate, e.g. 96 or 384}
 }
 \value{
-
+integer
 }
 \description{
 Calculate number of columns from given number of wells.

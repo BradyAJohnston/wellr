@@ -16,8 +16,8 @@ Numeric row number.
 Calculates the row, but returns it as a number.
 }
 \examples{
-well_to_colnum("A10")
-well_to_colnum("H08")
-well_to_colnum("h8")
-well_to_colnum("C20")
+well_to_rownum(c("A10", "c3", "h12"))
+well_to_rownum("H08")
+well_to_rownum("h8")
+well_to_rownum("C20")
 }

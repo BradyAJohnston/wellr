@@ -16,8 +16,8 @@ a string which is the letter extracted from a well ID.
 Extracts letter from well ID.
 }
 \examples{
-well_to_colnum("A10")
-well_to_colnum("H08")
-well_to_colnum("h8")
-well_to_colnum("C20")
+well_to_rowlet(c("A10", "c3", "h12"))
+well_to_rowlet("H08")
+well_to_rowlet("h8")
+well_to_rowlet("C20")
 }

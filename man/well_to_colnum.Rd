@@ -16,7 +16,7 @@ well_to_colnum(x)
 Extract number from well ID.
 }
 \examples{
-well_to_colnum("A10")
+well_to_colnum(c("A10", "c3", "h12"))
 well_to_colnum("H08")
 well_to_colnum("h8")
 }

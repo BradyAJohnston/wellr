@@ -22,3 +22,10 @@ a column ID as a vector of strings.
 \description{
 Convert Numeric Index to Well ID.
 }
+\examples{
+# indexing first along the rows
+well_from_index(1:20)
+
+# indexing first down the columns
+well_from_index(1:20, colwise = TRUE)
+}

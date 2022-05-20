@@ -10,7 +10,7 @@ n_rows_from_wells(x)
 \item{x}{Number of wells in plate, e.g. 384 or 96.}
 }
 \value{
-
+integer
 }
 \description{
 Calculate number of rows from given number of wells.

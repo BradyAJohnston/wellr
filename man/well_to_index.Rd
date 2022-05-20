@@ -21,3 +21,17 @@ numeric well index.
 Indexes along rows first, so A12 is index 12 and B01 is index
 13 for a 96 well plate.
 }
+\examples{
+
+# indexing along the row first
+well_to_index(c("A10", "c3", "h12"))
+well_to_index("H08")
+well_to_index("h8")
+well_to_index("C20")
+
+# indexing instead down the column first
+well_to_index(c("A10", "c3", "h12"), colwise = TRUE)
+well_to_index("H08", colwise = TRUE)
+well_to_index("h8", colwise = TRUE)
+well_to_index("C20", colwise = TRUE)
+}

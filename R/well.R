@@ -85,7 +85,7 @@ well_join <- function(row, col, num_width = 2) {
 #' @export
 #'
 #' @examples
-#' well_to_colnum("A10")
+#' well_to_colnum(c("A10", "c3", "h12"))
 #' well_to_colnum("H08")
 #' well_to_colnum("h8")
 well_to_colnum <- function(x) {
@@ -103,10 +103,10 @@ well_to_colnum <- function(x) {
 #' @export
 #'
 #' @examples
-#' well_to_colnum("A10")
-#' well_to_colnum("H08")
-#' well_to_colnum("h8")
-#' well_to_colnum("C20")
+#' well_to_rowlet(c("A10", "c3", "h12"))
+#' well_to_rowlet("H08")
+#' well_to_rowlet("h8")
+#' well_to_rowlet("C20")
 well_to_rowlet <- function(x) {
   x <- stringr::str_trim(x)
 
@@ -125,10 +125,10 @@ well_to_rowlet <- function(x) {
 #' @export
 #'
 #' @examples
-#' well_to_colnum("A10")
-#' well_to_colnum("H08")
-#' well_to_colnum("h8")
-#' well_to_colnum("C20")
+#' well_to_rownum(c("A10", "c3", "h12"))
+#' well_to_rownum("H08")
+#' well_to_rownum("h8")
+#' well_to_rownum("C20")
 well_to_rownum <- function(x) {
   x <- stringr::str_to_upper(x)
   let <- well_to_rowlet(x)
@@ -150,6 +150,18 @@ well_to_rownum <- function(x) {
 #' @export
 #'
 #' @examples
+#'
+#' # indexing along the row first
+#' well_to_index(c("A10", "c3", "h12"))
+#' well_to_index("H08")
+#' well_to_index("h8")
+#' well_to_index("C20")
+#'
+#' # indexing instead down the column first
+#' well_to_index(c("A10", "c3", "h12"), colwise = TRUE)
+#' well_to_index("H08", colwise = TRUE)
+#' well_to_index("h8", colwise = TRUE)
+#' well_to_index("C20", colwise = TRUE)
 well_to_index <- function(x, plate = 96, colwise = FALSE) {
   stopifnot(is.character(x))
 
@@ -180,6 +192,11 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #' @export
 #'
 #' @examples
+#' # indexing first along the rows
+#' well_from_index(1:20)
+#'
+#' # indexing first down the columns
+#' well_from_index(1:20, colwise = TRUE)
 well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
   stopifnot(is.numeric(x))
 
@@ -202,11 +219,29 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
   well
 }
 
+#' Format a Well to Uppercase and Padded Numbers
+#'
+#' @param x Well
+#' @param num_width
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' well_format(c("A9", "c3", "h12"))
+well_format <- function(x, num_width = 2) {
+  wellr::well_join(
+    row = wellr::well_to_rownum(x),
+    col = wellr::well_to_colnum(x),
+    num_width = num_width
+  )
+}
+
 #' Calculate number of columns from given number of wells.
 #'
 #' @param x Number of wells in plate, e.g. 96 or 384
 #'
-#' @return
+#' @return integer
 n_cols_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
@@ -221,7 +256,7 @@ n_cols_from_wells <- function(x) {
 #'
 #' @param x Number of wells in plate, e.g. 384 or 96.
 #'
-#' @return
+#' @return integer
 n_rows_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
