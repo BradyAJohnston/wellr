@@ -5,10 +5,9 @@
 #' @return A vector the same length as x with a TRUE of FALSE for a a well that
 #'   can be read by wellr
 well_check <- function(x) {
-
   row_letter <- stringr::str_detect(
     as.character(x),
-    '^[:alpha:](?=\\d)'
+    "^[:alpha:](?=\\d)"
   )
 
   col_numer <- stringr::str_detect(
@@ -17,7 +16,6 @@ well_check <- function(x) {
   )
 
   row_letter & col_numer
-
 }
 
 # given a column number and a row (either number or letter) return the
@@ -44,7 +42,7 @@ well_join <- function(row, col, num_width = 2) {
 
   # if row is character, coerce first to a numeric. Stop if unsuccessful
   rowlet <- sapply(row, function(x) {
-    if(is.character(x)) {
+    if (is.character(x)) {
       if (stringr::str_detect(x, "\\d+")) {
         y <- as.numeric(x)
 
@@ -204,7 +202,7 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
     plate <- expand.grid(
       row = seq(n_rows_from_wells(plate)),
       col = seq(n_cols_from_wells(plate))
-      )
+    )
     plate$well <- well_join(plate$row, plate$col)
   } else {
     plate <- wellr::well_plate(
@@ -245,11 +243,12 @@ well_format <- function(x, num_width = 2) {
 n_cols_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
-         "6" = 3,
-         "12" = 4,
-         "24" = 6,
-         "96" = 12,
-         "384" = 24)
+    "6" = 3,
+    "12" = 4,
+    "24" = 6,
+    "96" = 12,
+    "384" = 24
+  )
 }
 
 #' Calculate number of rows from given number of wells.
@@ -260,9 +259,10 @@ n_cols_from_wells <- function(x) {
 n_rows_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
-         "6" = 2,
-         "12" = 3,
-         "24" = 4,
-         "96" = 8,
-         "384" = 16)
+    "6" = 2,
+    "12" = 3,
+    "24" = 4,
+    "96" = 8,
+    "384" = 16
+  )
 }

@@ -15,14 +15,18 @@
 well_plate <- function(nrow = 8, ncol = 12) {
   # nrow or ncol are of length 1, generate a sequence of numbers equal to their
   # values instead
-  if (length(nrow) == 1)
+  if (length(nrow) == 1) {
     nrow <- seq(nrow)
-  if (length(ncol) == 1)
+  }
+  if (length(ncol) == 1) {
     ncol <- seq(ncol)
+  }
 
   # generate the rows base of rows and columns
-  plate <- expand.grid(col = ncol,
-                       row = nrow)[, c("row", "col")]
+  plate <- expand.grid(
+    col = ncol,
+    row = nrow
+  )[, c("row", "col")]
   plate$well <- well_join(plate$row, plate$col)
 
   # return the plate as a tibble
@@ -48,14 +52,16 @@ well_reorder_df <-
     if (well_col %in% colnames(data)) {
       wells <- data[, well_col]
     } else {
-      wells <- well_join(row = data[, row_col],
-                         col = data[, col_col])
+      wells <- well_join(
+        row = data[, row_col],
+        col = data[, col_col]
+      )
     }
 
     data$col <- well_to_colnum(wells)
     data$row <- well_to_rownum(wells)
-    data <- data[order(data$col),]
-    data <- data[order(data$row),]
+    data <- data[order(data$col), ]
+    data <- data[order(data$row), ]
     data
   }
 
@@ -142,10 +148,11 @@ well_df_to_matrix <-
     empty_plate <- well_plate(nrow = nrows, ncol = ncols)
 
     missing_wells <-
-      sapply(empty_plate$well, function(x)
-        ! (x %in% df[, well_col]))
+      sapply(empty_plate$well, function(x) {
+        !(x %in% df[, well_col])
+      })
 
-    missing_wells <- empty_plate[missing_wells,]
+    missing_wells <- empty_plate[missing_wells, ]
     missing_wells[, values_from] <- NA
 
     df_only_relevant <- df[, c("well", "row", "col", values_from)]
