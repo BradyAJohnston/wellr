@@ -329,8 +329,8 @@ well_mat_to_df <- function(matrix, value_col = "value") {
 #' @export
 #'
 #' @examples
-#' well_dis(1:8, 1:12, row_row = 5, row_col = 5)
-#' well_dis(1:8, 1:12, row_row = well_to_rownum("C4"), row_col = well_to_colnum("C4"))
+#' well_dis(3, 4, ref_row = 5, ref_col = 5)
+#' well_dis(1:8, 1:8, ref_row = well_to_rownum("C4"), ref_col = well_to_colnum("C4"))
 well_dis <- function(row, col, ref_row, ref_col) {
   sqrt((row - ref_row) ^ 2 + (col - ref_col) ^ 2)
 }
@@ -347,13 +347,15 @@ well_dis <- function(row, col, ref_row, ref_col) {
 #' @examples
 #'
 #' well_dis_plate(5, 5)
+#'
+#' image(well_dis_plate(5, 5))
 well_dis_plate <- function(ref_row, ref_col, plate = 96) {
   n_cols <- n_cols_from_wells(plate)
   n_rows <- n_rows_from_wells(plate)
 
   outer(
-    X = seq(n_cols),
-    Y = seq(n_rows),
+    X = seq(n_rows),
+    Y = seq(n_cols),
     FUN = well_dis,
     ref_row = ref_row,
     ref_col = ref_col

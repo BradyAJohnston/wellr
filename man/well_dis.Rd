@@ -22,6 +22,6 @@ a numeric vector.
 Relative Distance Between Given Well and a Reference Row
 }
 \examples{
-well_dis(1:8, 1:12, row_row = 5, row_col = 5)
-well_dis(1:8, 1:12, row_row = well_to_rownum("C4"), row_col = well_to_colnum("C4"))
+well_dis(3, 4, ref_row = 5, ref_col = 5)
+well_dis(1:8, 1:8, ref_row = well_to_rownum("C4"), ref_col = well_to_colnum("C4"))
 }

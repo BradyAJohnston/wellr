@@ -22,4 +22,6 @@ Relative Distance for an Entire Plate
 \examples{
 
 well_dis_plate(5, 5)
+
+image(well_dis_plate(5, 5))
 }
