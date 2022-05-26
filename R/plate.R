@@ -227,7 +227,7 @@ well_df_to_mat_frames <- function(data,
 
   mat <- matrix(values, ncol = n_wells, nrow = n_frames)
   rownames(mat) <- frames
-  colnames(mat) <- wellr::well_from_index(seq(n_wells))
+  colnames(mat) <- wellr::well_from_index(seq(n_wells), plate = n_wells)
   mat
 }
 
