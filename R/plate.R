@@ -316,3 +316,46 @@ well_mat_to_df <- function(matrix, value_col = "value") {
   colnames(df)[4] <- value_col
   df
 }
+
+
+#' Relative Distance Between Given Well and a Reference Row
+#'
+#' @param row Numeric vector of row numbers. Must be equal in length to col.
+#' @param col Numeric vector of col numbers. Must be equal in length to row.
+#' @param ref_row Single reference row number.
+#' @param ref_col Single reference column number.
+#'
+#' @return a numeric vector.
+#' @export
+#'
+#' @examples
+#' well_dis(1:8, 1:12, row_row = 5, row_col = 5)
+#' well_dis(1:8, 1:12, row_row = well_to_rownum("C4"), row_col = well_to_colnum("C4"))
+well_dis <- function(row, col, ref_row, ref_col) {
+  sqrt((row - ref_row) ^ 2 + (col - ref_col) ^ 2)
+}
+
+#' Relative Distance for an Entire Plate
+#'
+#' @param ref_row Row number to calculate distance from.
+#' @param ref_col Column number to calculate distance from.
+#' @param plate Plate size to calculate distances for.
+#'
+#' @return a matrix of relative distances.
+#' @export
+#'
+#' @examples
+#'
+#' well_dis_plate(5, 5)
+well_dis_plate <- function(ref_row, ref_col, plate = 96) {
+  n_cols <- n_cols_from_wells(plate)
+  n_rows <- n_rows_from_wells(plate)
+
+  outer(
+    X = seq(n_cols),
+    Y = seq(n_rows),
+    FUN = well_dis,
+    ref_row = ref_row,
+    ref_col = ref_col
+  )
+}
