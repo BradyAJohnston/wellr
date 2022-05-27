@@ -303,7 +303,7 @@ well_mat_frames_to_df <- function(matrix, value_col = "value") {
 #' mat <- matrix(rnorm(96), ncol = 12)
 #' well_mat_to_df(mat, "random_values")
 well_mat_to_df <- function(matrix, value_col = "value") {
-  values <- c(matrix)
+  values <- c(t(matrix))
   index <- seq_along(values)
 
   df <- tibble::tibble(
