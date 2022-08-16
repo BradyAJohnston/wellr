@@ -95,46 +95,27 @@ values.</p>
 <span class="r-in"><span>  values_col <span class="op">=</span> <span class="st">"value"</span>,</span></span>
 <span class="r-in"><span>  time_col <span class="op">=</span> <span class="st">"frame"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>data length differs from size of matrix: [960 != 10 x 12]</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           A01          A02         A03        A04        A05         A06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.02525477  0.365154332 -0.39493461 -0.9726913 -0.1604071 -0.38998063</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.68438480  0.323409345 -0.48928406  1.5340153  0.6935123 -1.31469080</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.09436175 -0.324983807  1.49994277  1.3869427  1.0065113 -0.40399589</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.13144314 -0.219870366 -2.00402721  0.2677315  0.0310022 -1.67271949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.96847158 -0.004747716 -0.03225539  0.1018452  0.9917947  0.26571725</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.53427502 -0.445898624  0.25940160  1.0466972 -2.4776244 -0.05189281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            A07        A08        A09          A10        A11       A12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.977491181 -1.1360993  0.2074829  1.555616497  0.1249009 1.8349096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.009280774  0.4116865 -0.1452014 -1.055209521  0.6108620 0.8856640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.630823264 -1.6017256  0.7270045  1.055128604 -0.3629384 0.8661829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.379810325  1.5263013 -1.0615457  2.512219227 -1.1951640 0.1090534</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.556553223  1.8118550  0.8805879  1.700605524 -0.1919098 0.4365835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.387328557 -0.3688707 -0.1591716  0.005762722 -0.4485610 1.0861358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           B01         B02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.63613276 -0.09901044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.94569426 -0.32922323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.69389619  0.85924892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.64684055  0.32697019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.02150693  0.65695011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.25645154  0.86050652</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mat[, 1:14]:</span> subscript out of bounds</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert the matrix back to a dataframe</span></span></span>
 <span class="r-in"><span><span class="fu">well_mat_frames_to_df</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 960 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 120 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    well    row   col  value frames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> A01       1     1  1.03  1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> A02       1     2  0.207 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> A03       1     3 -<span style="color: #BB0000;">1.25</span>  1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> A04       1     4  0.504 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> A05       1     5  0.133 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> A06       1     6 -<span style="color: #BB0000;">0.834</span> 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A07       1     7 -<span style="color: #BB0000;">0.421</span> 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> A08       1     8 -<span style="color: #BB0000;">0.939</span> 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A09       1     9  1.86  1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A10       1    10 -<span style="color: #BB0000;">0.172</span> 1     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 950 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> A01       1     1  0.185 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> A02       1     2  0.571 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> A03       1     3 -<span style="color: #BB0000;">0.655</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> A04       1     4 -<span style="color: #BB0000;">0.580</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> A05       1     5 -<span style="color: #BB0000;">0.276</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> A06       1     6  0.250 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A07       1     7 -<span style="color: #BB0000;">0.816</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> A08       1     8  0.767 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A09       1     9 -<span style="color: #BB0000;">1.36</span>  1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A10       1    10 -<span style="color: #BB0000;">0.919</span> 1     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 110 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
 </code></pre></div>
     </div>
