@@ -12,6 +12,7 @@ status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/
 [![R-CMD-check](https://github.com/rforbiochemists/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/rforbiochemists/wellr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/rforbiochemists/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rforbiochemists/wellr?branch=master)
+[![R-CMD-check](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{wellr}` provides a consitent and reliable interface for dealing with
@@ -49,6 +50,5 @@ well_from_index(37)
 well_join(3, 8)
 #> [1] "C08"
 well_join("E", 10)
-#> [1] "E"
 #> [1] "E10"
 ```

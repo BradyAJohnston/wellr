@@ -40,29 +40,35 @@ well_check <- function(x) {
 #' well_join("C", 1:10)
 well_join <- function(row, col, num_width = 2) {
 
-  # if row is character, coerce first to a numeric. Stop if unsuccessful
-  rowlet <- sapply(row, function(x) {
-    if (is.character(x)) {
-      if (stringr::str_detect(x, "\\d+")) {
-        y <- as.numeric(x)
+  rowlet <- ifelse(
+    is.numeric(row),
+    LETTERS[row],
+    stringr::str_trim(row)
+    )
 
-        if (is.na(x)) {
-          stop(paste("Cannot coerce supplied row:", x))
-        }
-
-        if (y > 26 | y < 1) {
-          stop(paste("Row number", y, "cannot exceed the number of available letters (1:26)."))
-        }
-        # return corresponding capital letter
-        LETTERS[y]
-      } else {
-        print(x)
-        x
-      }
-    } else {
-      LETTERS[x]
-    }
-  })
+  # # if row is character, coerce first to a numeric. Stop if unsuccessful
+  # rowlet <- sapply(row, function(x) {
+  #   if (is.character(x)) {
+  #     if (stringr::str_detect(x, "\\d+")) {
+  #       y <- as.numeric(x)
+  #
+  #       if (is.na(x)) {
+  #         stop(paste("Cannot coerce supplied row:", x))
+  #       }
+  #
+  #       if (y > 26 | y < 1) {
+  #         stop(paste("Row number", y, "cannot exceed the number of available letters (1:26)."))
+  #       }
+  #       # return corresponding capital letter
+  #       LETTERS[y]
+  #     } else {
+  #       print(x)
+  #       x
+  #     }
+  #   } else {
+  #     LETTERS[x]
+  #   }
+  # })
 
 
   # pad out the column number for format "A01" properly.
@@ -197,23 +203,20 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #' well_from_index(1:20, colwise = TRUE)
 well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
   stopifnot(is.numeric(x))
+    n_rows <- n_rows_from_wells(plate)
+    n_cols <- n_cols_from_wells(plate)
 
   if (colwise) {
-    plate <- expand.grid(
-      row = seq(n_rows_from_wells(plate)),
-      col = seq(n_cols_from_wells(plate))
-    )
-    plate$well <- well_join(plate$row, plate$col)
+    id_row <- .count_row_down(x, n_rows)
+    id_col <- .count_col_down(x, n_rows)
+
   } else {
-    plate <- wellr::well_plate(
-      n_rows_from_wells(plate),
-      n_cols_from_wells(plate)
-    )
+    id_row <- .count_row_across(x, n_cols)
+    id_col <- .count_col_across(x, n_cols)
   }
 
+  well <- well_join(id_row, id_col)
 
-
-  well <- plate$well[x]
   well
 }
 

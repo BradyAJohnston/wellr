@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr)
 [![R-CMD-check](https://github.com/rforbiochemists/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/rforbiochemists/wellr/actions)
 [![Codecov test coverage](https://codecov.io/gh/rforbiochemists/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rforbiochemists/wellr?branch=master)
+[![R-CMD-check](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{wellr}` provides a consitent and reliable interface for dealing with plate-based data and calculations. It provides functions for indexing through microtitre plates, converting between well IDs ("C05") and their respective rows, columns and index. This is a utilitiy package, intended for use in other packages that deal with plate-based data.
