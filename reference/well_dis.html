@@ -50,30 +50,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">well_dis</span><span class="op">(</span><span class="va">row</span>, <span class="va">col</span>, <span class="va">ref_row</span>, <span class="va">ref_col</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">well_dis</span><span class="op">(</span><span class="va">row</span>, <span class="va">col</span>, <span class="va">ref_row</span>, <span class="va">ref_col</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>row</dt>
 <dd><p>Numeric vector of row numbers. Must be equal in length to col.</p></dd>
+
+
 <dt>col</dt>
 <dd><p>Numeric vector of col numbers. Must be equal in length to row.</p></dd>
+
+
 <dt>ref_row</dt>
 <dd><p>Single reference row number.</p></dd>
+
+
 <dt>ref_col</dt>
 <dd><p>Single reference column number.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a numeric vector.</p>
+    
+
+<p>a numeric vector.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">well_dis</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, ref_row <span class="op">=</span> <span class="fl">5</span>, ref_col <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">well_dis</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, ref_row <span class="op">=</span> <span class="fl">5</span>, ref_col <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.236068</span>
-<span class="r-in"><span class="fu">well_dis</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, ref_row <span class="op">=</span> <span class="fu"><a href="well_to_rownum.html">well_to_rownum</a></span><span class="op">(</span><span class="st">"C4"</span><span class="op">)</span>, ref_col <span class="op">=</span> <span class="fu"><a href="well_to_colnum.html">well_to_colnum</a></span><span class="op">(</span><span class="st">"C4"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">well_dis</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, ref_row <span class="op">=</span> <span class="fu"><a href="well_to_rownum.html">well_to_rownum</a></span><span class="op">(</span><span class="st">"C4"</span><span class="op">)</span>, ref_col <span class="op">=</span> <span class="fu"><a href="well_to_colnum.html">well_to_colnum</a></span><span class="op">(</span><span class="st">"C4"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.605551 2.236068 1.000000 1.000000 2.236068 3.605551 5.000000 6.403124</span>
 </code></pre></div>
     </div>
@@ -89,7 +98,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

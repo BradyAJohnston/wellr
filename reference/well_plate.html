@@ -52,24 +52,31 @@ ID for the size of the plate specified in nrow and ncol. If vectors of length1 a
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">8</span>, ncol <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">8</span>, ncol <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>nrow</dt>
 <dd><p>Number of rows to have in the generated plate.</p></dd>
+
+
 <dt>ncol</dt>
 <dd><p>NUmber of columns to have in the generated plate.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a <a href="https://tibble.tidyverse.org/reference/tibble-package.html" class="external-link">tibble</a></p>
+    
+
+<p>a <a href="https://tibble.tidyverse.org/reference/tibble-package.html" class="external-link">tibble</a></p>
+
+
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">8</span>, ncol <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">8</span>, ncol <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 96 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      row   col well </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -84,7 +91,8 @@ ID for the size of the plate specified in nrow and ncol. If vectors of length1 a
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     1     9 A09  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     1    10 A10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 86 more rows</span></span>
-<span class="r-in"><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">4</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
+<span class="r-in"><span><span class="fu">well_plate</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">4</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      row   col well </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -99,6 +107,7 @@ ID for the size of the plate specified in nrow and ncol. If vectors of length1 a
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     2     3 B03  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     2     4 B04  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 14 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -113,7 +122,7 @@ ID for the size of the plate specified in nrow and ncol. If vectors of length1 a
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -54,65 +54,74 @@ the rows so the first values are all from row A.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">well_df_to_mat_frames</span><span class="op">(</span><span class="va">data</span>, <span class="va">values_col</span>, <span class="va">time_col</span>, well_col <span class="op">=</span> <span class="st">"well"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">well_df_to_mat_frames</span><span class="op">(</span><span class="va">data</span>, <span class="va">values_col</span>, <span class="va">time_col</span>, well_col <span class="op">=</span> <span class="st">"well"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>A DataFrame to be converted.</p></dd>
+
+
 <dt>values_col</dt>
 <dd><p>The name of the column containing the values.</p></dd>
+
+
 <dt>time_col</dt>
 <dd><p>The name of the column containing the time values.</p></dd>
+
+
 <dt>well_col</dt>
 <dd><p>The name of the column with the well IDs.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a matrix</p>
+    
+
+<p>a matrix</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">df_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">wellr</span><span class="fu">::</span><span class="fu"><a href="well_plate.html">well_plate</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">df</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">96</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">df</span><span class="op">$</span><span class="va">frame</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
-<span class="r-in">  <span class="va">df</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">df_frames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">df_list</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert the data frame to multi-frame matrix</span></span>
-<span class="r-in"><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">well_df_to_mat_frames</span><span class="op">(</span></span>
-<span class="r-in">  data <span class="op">=</span> <span class="va">df_frames</span>,</span>
-<span class="r-in">  values_col <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span class="r-in">  time_col <span class="op">=</span> <span class="st">"frame"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          A01         A02        A03        A04        A05        A06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9355021  0.02765721  0.9063963  0.9789476 -0.2099090  1.7249723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.8033157 -1.79876395  0.1267061 -1.2078974  0.9128000  0.2576928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.1584031  0.66718465  0.7644382  1.9282962  0.2163124  1.1159240</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.2459807  0.27864986 -0.4277557  0.6035153 -0.8017078  0.4874981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.6652338  0.93764343  0.2168217 -1.9891465  0.3661007 -0.2260044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.4846585  0.92110324 -0.3743180 -0.8436642  1.5785394  0.8723851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           A07        A08          A09        A10         A11         A12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -1.40300958  1.8464633 -0.926368849  0.2459750 -1.11260805 -1.29681537</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.78068092  0.7280691 -1.320916420  0.8674247 -1.06139674  0.16587728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.79717602 -0.2227121 -0.557577164 -0.8736790 -0.60758833 -0.41687401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.67618146 -0.3969969  1.773192541 -1.0316212 -0.01913135  0.50197110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.05222836 -0.8846907  0.650317955 -2.4339549  0.29878470 -0.08318484</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.13452731  0.8680041  0.002628019  0.4057660 -0.01916830 -1.08967418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           B01        B02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.43390688 -0.7805454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.08595339 -0.5720296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.27518879  1.1251805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.29383563  0.6404424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.52837713 -1.2311715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.45716149  1.1065305</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">wellr</span><span class="fu">::</span><span class="fu"><a href="well_plate.html">well_plate</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">df</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">96</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">df</span><span class="op">$</span><span class="va">frame</span> <span class="op">&lt;-</span> <span class="va">x</span></span></span>
+<span class="r-in"><span>  <span class="va">df</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">df_frames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">df_list</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convert the data frame to multi-frame matrix</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">well_df_to_mat_frames</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">df_frames</span>,</span></span>
+<span class="r-in"><span>  values_col <span class="op">=</span> <span class="st">"value"</span>,</span></span>
+<span class="r-in"><span>  time_col <span class="op">=</span> <span class="st">"frame"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           A01          A02         A03        A04         A05         A06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.06533309 -0.137954607 -0.73277536  0.4171280  0.19136816 -0.08737974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.24957528 -0.282965583 -0.12161361 -1.2906878  0.07673215 -0.41539753</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -1.01676775  0.008327514  0.46246224  0.9040311  0.44824201  0.14559387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.34111991  1.063079278 -2.03135394 -0.4969214  2.00022760  0.04564662</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -1.13768827  0.676420416 -0.07766754  0.2926566  0.16052123  1.59074662</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.30287426 -0.597955913 -0.93716363 -1.9709389 -0.81012483 -0.81537891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           A07        A08         A09        A10        A11        A12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.28911276  1.0340079  0.78490057 -0.1660030 -1.6473956 -0.4915235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.06001251  0.3209598  0.95904724 -1.1860443  1.2552197 -0.8211074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.55290436 -0.2948304 -0.68438054 -0.3376243 -0.4671413  1.4725803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.56524992 -1.7978994 -0.09729239 -0.3406456  1.5086451  0.9476612</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -1.76287295  1.5194596 -1.70743824  0.5456251  0.5943481 -0.5587214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.36938974 -0.1527224 -1.68695056  0.5816300 -0.2217180 -0.3753555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          B01         B02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.2255200  0.23789421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.9705887  1.10304905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.6258206  0.22486129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6204181  0.83084207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -1.1227747 -0.09998736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.3387417 -1.02361703</span>
 </code></pre></div>
     </div>
   </div>
@@ -127,7 +136,7 @@ the rows so the first values are all from row A.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
