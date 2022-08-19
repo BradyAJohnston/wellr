@@ -10,6 +10,12 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>/articles/plates.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -64,16 +70,16 @@
     <loc>/reference/well_reorder_df.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_colnum.html</loc>
+    <loc>/reference/well_to_col_num.html</loc>
   </url>
   <url>
     <loc>/reference/well_to_index.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_rowlet.html</loc>
+    <loc>/reference/well_to_row_let.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_rownum.html</loc>
+    <loc>/reference/well_to_row_num.html</loc>
   </url>
   <url>
     <loc>/reference/wellr-package.html</loc>
