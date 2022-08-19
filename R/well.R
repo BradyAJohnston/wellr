@@ -203,13 +203,12 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #' well_from_index(1:20, colwise = TRUE)
 well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
   stopifnot(is.numeric(x))
-    n_rows <- n_rows_from_wells(plate)
-    n_cols <- n_cols_from_wells(plate)
+  n_rows <- n_rows_from_wells(plate)
+  n_cols <- n_cols_from_wells(plate)
 
   if (colwise) {
     id_row <- .count_row_down(x, n_rows)
     id_col <- .count_col_down(x, n_rows)
-
   } else {
     id_row <- .count_row_across(x, n_cols)
     id_col <- .count_col_across(x, n_cols)

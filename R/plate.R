@@ -25,8 +25,10 @@ well_plate <- function(nrow = 8, ncol = 12) {
   }
 
   # generate the rows base of rows and columns
-  plate <- expand.grid(col = ncol,
-                       row = nrow)[, c("row", "col")]
+  plate <- expand.grid(
+    col = ncol,
+    row = nrow
+  )[, c("row", "col")]
 
   plate$well <- well_join(plate$row, plate$col)
 
@@ -53,7 +55,7 @@ well_plate <- function(nrow = 8, ncol = 12) {
 #'
 #' df <- well_reorder_df(df)
 #' head(df)
-
+#'
 well_reorder_df <- function(data,
                             well_col = "well",
                             row_col = NULL,
@@ -61,14 +63,16 @@ well_reorder_df <- function(data,
   if (well_col %in% colnames(data)) {
     wells <- data[, well_col]
   } else {
-    wells <- well_join(row = data[, row_col],
-                       col = data[, col_col])
+    wells <- well_join(
+      row = data[, row_col],
+      col = data[, col_col]
+    )
   }
 
   data$col <- well_to_col_num(wells)
   data$row <- well_to_row_num(wells)
-  data <- data[order(data$col),]
-  data <- data[order(data$row),]
+  data <- data[order(data$col), ]
+  data <- data[order(data$row), ]
   data
 }
 
@@ -158,7 +162,7 @@ well_df_to_mat <-
         !(x %in% df[, well_col])
       })
 
-    missing_wells <- empty_plate[missing_wells,]
+    missing_wells <- empty_plate[missing_wells, ]
     missing_wells[, values_from] <- NA
 
     # df_only_relevant <- df[, c("well", "row", "col", values_from)]
@@ -220,17 +224,24 @@ well_df_to_mat_frames <- function(data,
                                   well_col = "well") {
   data <- as.data.frame(data)
   # order first by time
-  data <- data[order(data[, time_col]),]
+
+  data <- data[order(as.numeric(data[, time_col])), ]
   # then order by the rows and columns
-  data <- well_reorder_df(data, well_col = well_col)
+
+  data <- well_reorder_df(data, well_col = "well")
+
+  # data <- data[order(as.numeric(data$row)),]
+  # data <- data[order(as.numeric(data$col)),]
+  data <- data[order(as.numeric(data$time_s)),]
+
 
   values <- unlist(data[, values_col])
-  n_rows <- max(wellr::well_to_row_num(unlist(data[, well_col])))
-  n_cols <- max(wellr::well_to_col_num(unlist(data[, well_col])))
+  n_rows <- max(wellr::well_to_row_num(unlist(data[, "well"])), na.rm = TRUE)
+  n_cols <- max(wellr::well_to_col_num(unlist(data[, "well"])), na.rm = TRUE)
   n_wells <- n_rows * n_cols
   frames <- unique(unlist(data[, time_col]))
   n_frames <- length(frames)
-
+  length(values) / 96
   mat <- matrix(values, ncol = n_wells, nrow = n_frames)
   rownames(mat) <- frames
   colnames(mat) <- wellr::well_from_index(seq(n_wells), plate = n_wells)
@@ -275,7 +286,7 @@ well_df_to_mat_frames <- function(data,
 #' well_mat_frames_to_df(mat)
 well_mat_frames_to_df <- function(matrix, value_col = "value") {
   df_list <- lapply(seq(nrow(matrix)), function(x) {
-    row <- unlist(matrix[x,])
+    row <- unlist(matrix[x, ])
     plate_mat <- matrix(row, ncol = n_cols_from_wells(length(row)))
     plate_df <-
       wellr::well_mat_to_df(plate_mat, value_col = value_col)
@@ -338,7 +349,7 @@ well_mat_to_df <- function(matrix, value_col = "value") {
 #' well_dis(3, 4, ref_row = 5, ref_col = 5)
 #' well_dis(1:8, 1:8, ref_row = well_to_row_num("C4"), ref_col = well_to_col_num("C4"))
 well_dis <- function(row, col, ref_row, ref_col) {
-  sqrt((row - ref_row) ^ 2 + (col - ref_col) ^ 2)
+  sqrt((row - ref_row)^2 + (col - ref_col)^2)
 }
 
 #' Relative Distance for an Entire Plate
