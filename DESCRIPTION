@@ -15,6 +15,7 @@ Description: Provides a range of utility functions for working with
 License: MIT + file LICENSE
 Suggests: 
     covr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8

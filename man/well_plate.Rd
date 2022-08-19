@@ -16,7 +16,9 @@ a \link[tibble:tibble-package]{tibble}
 }
 \description{
 Generates a \link[tibble:tibble-package]{tibble} that contains row, col, and well
-ID for the size of the plate specified in nrow and ncol. If vectors of length1 are supplied to either nrow or ncol, the contents of the vectors are usedinstead of their numeric value.
+ID for the size of the plate specified in nrow and ncol. If vectors of length
+\verb{> 1} are supplied to either nrow or ncol, the contents of the vectors are used
+instead of their numeric value.
 }
 \examples{
 well_plate(nrow = 8, ncol = 12)

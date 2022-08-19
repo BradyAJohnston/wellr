@@ -2,7 +2,7 @@
 #'
 #' Generates a [tibble][tibble::tibble-package] that contains row, col, and well
 #' ID for the size of the plate specified in nrow and ncol. If vectors of length
-#' > 1 are supplied to either nrow or ncol, the contents of the vectors are used
+#' `> 1` are supplied to either nrow or ncol, the contents of the vectors are used
 #' instead of their numeric value.
 #'
 #' @param nrow Number of rows to have in the generated plate.
@@ -27,7 +27,9 @@ well_plate <- function(nrow = 8, ncol = 12) {
   # generate the rows base of rows and columns
   plate <- expand.grid(col = ncol,
                        row = nrow)[, c("row", "col")]
+
   plate$well <- well_join(plate$row, plate$col)
+
 
   # return the plate as a tibble
   tibble::as_tibble(plate)
@@ -63,8 +65,8 @@ well_reorder_df <- function(data,
                        col = data[, col_col])
   }
 
-  data$col <- well_to_colnum(wells)
-  data$row <- well_to_rownum(wells)
+  data$col <- well_to_col_num(wells)
+  data$row <- well_to_row_num(wells)
   data <- data[order(data$col),]
   data <- data[order(data$row),]
   data
@@ -109,8 +111,8 @@ well_df_to_mat <-
     # if (!is.null(plate)) {}
     stopifnot(well_col %in% colnames(df))
     df <- as.data.frame(df)
-    df$row <- well_to_rownum(df[, well_col])
-    df$col <- well_to_rownum(df[, well_col])
+    df$row <- well_to_row_num(df[, well_col])
+    df$col <- well_to_col_num(df[, well_col])
 
     max_cols <- max(df$col)
     max_rows <- max(df$row)
@@ -145,7 +147,6 @@ well_df_to_mat <-
       )
     }
     if (!is.null(plate)) {
-      plate <- plate
       ncols <- n_cols_from_wells(plate)
       nrows <- n_rows_from_wells(plate)
     }
@@ -160,10 +161,15 @@ well_df_to_mat <-
     missing_wells <- empty_plate[missing_wells,]
     missing_wells[, values_from] <- NA
 
-    df_only_relevant <- df[, c("well", "row", "col", values_from)]
+    # df_only_relevant <- df[, c("well", "row", "col", values_from)]
 
-    df_combined <- rbind(df_only_relevant, missing_wells)
-    df_combined <- well_reorder_df(df_combined)
+    # df_combined <- rbind(df_only_relevant, missing_wells)
+    # print(df_combined)
+    # print(df_only_relevant)
+    print(df)
+    df_combined <- well_reorder_df(df)
+    print(df_combined)
+
 
     matrix(
       as.numeric(df_combined[, values_from]),
@@ -219,8 +225,8 @@ well_df_to_mat_frames <- function(data,
   data <- well_reorder_df(data, well_col = well_col)
 
   values <- unlist(data[, values_col])
-  n_rows <- max(wellr::well_to_rownum(unlist(data[, well_col])))
-  n_cols <- max(wellr::well_to_colnum(unlist(data[, well_col])))
+  n_rows <- max(wellr::well_to_row_num(unlist(data[, well_col])))
+  n_cols <- max(wellr::well_to_col_num(unlist(data[, well_col])))
   n_wells <- n_rows * n_cols
   frames <- unique(unlist(data[, time_col]))
   n_frames <- length(frames)
@@ -308,8 +314,8 @@ well_mat_to_df <- function(matrix, value_col = "value") {
 
   df <- tibble::tibble(
     well = wellr::well_from_index(index),
-    row = wellr::well_to_rownum(.data$well),
-    col = wellr::well_to_colnum(.data$well),
+    row = wellr::well_to_row_num(.data$well),
+    col = wellr::well_to_col_num(.data$well),
     value = values
   )
 
@@ -330,7 +336,7 @@ well_mat_to_df <- function(matrix, value_col = "value") {
 #'
 #' @examples
 #' well_dis(3, 4, ref_row = 5, ref_col = 5)
-#' well_dis(1:8, 1:8, ref_row = well_to_rownum("C4"), ref_col = well_to_colnum("C4"))
+#' well_dis(1:8, 1:8, ref_row = well_to_row_num("C4"), ref_col = well_to_col_num("C4"))
 well_dis <- function(row, col, ref_row, ref_col) {
   sqrt((row - ref_row) ^ 2 + (col - ref_col) ^ 2)
 }

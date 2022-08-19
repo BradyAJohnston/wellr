@@ -23,5 +23,5 @@ Relative Distance Between Given Well and a Reference Row
 }
 \examples{
 well_dis(3, 4, ref_row = 5, ref_col = 5)
-well_dis(1:8, 1:8, ref_row = well_to_rownum("C4"), ref_col = well_to_colnum("C4"))
+well_dis(1:8, 1:8, ref_row = well_to_row_num("C4"), ref_col = well_to_col_num("C4"))
 }

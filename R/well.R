@@ -40,35 +40,35 @@ well_check <- function(x) {
 #' well_join("C", 1:10)
 well_join <- function(row, col, num_width = 2) {
 
-  rowlet <- ifelse(
-    is.numeric(row),
-    LETTERS[row],
-    stringr::str_trim(row)
-    )
+  # rowlet <- ifelse(
+  #   is.numeric(row),
+  #   LETTERS[as.numeric(row)],
+  #   stringr::str_trim(row)
+  #   )
 
-  # # if row is character, coerce first to a numeric. Stop if unsuccessful
-  # rowlet <- sapply(row, function(x) {
-  #   if (is.character(x)) {
-  #     if (stringr::str_detect(x, "\\d+")) {
-  #       y <- as.numeric(x)
-  #
-  #       if (is.na(x)) {
-  #         stop(paste("Cannot coerce supplied row:", x))
-  #       }
-  #
-  #       if (y > 26 | y < 1) {
-  #         stop(paste("Row number", y, "cannot exceed the number of available letters (1:26)."))
-  #       }
-  #       # return corresponding capital letter
-  #       LETTERS[y]
-  #     } else {
-  #       print(x)
-  #       x
-  #     }
-  #   } else {
-  #     LETTERS[x]
-  #   }
-  # })
+  # if row is character, coerce first to a numeric. Stop if unsuccessful
+  rowlet <- sapply(row, function(x) {
+    if (is.character(x)) {
+      if (stringr::str_detect(x, "\\d+")) {
+        y <- as.numeric(x)
+
+        if (is.na(x)) {
+          stop(paste("Cannot coerce supplied row:", x))
+        }
+
+        if (y > 26 | y < 1) {
+          stop(paste("Row number", y, "cannot exceed the number of available letters (1:26)."))
+        }
+        # return corresponding capital letter
+        LETTERS[y]
+      } else {
+        # print(x)
+        x
+      }
+    } else {
+      LETTERS[x]
+    }
+  })
 
 
   # pad out the column number for format "A01" properly.
@@ -89,10 +89,10 @@ well_join <- function(row, col, num_width = 2) {
 #' @export
 #'
 #' @examples
-#' well_to_colnum(c("A10", "c3", "h12"))
-#' well_to_colnum("H08")
-#' well_to_colnum("h8")
-well_to_colnum <- function(x) {
+#' well_to_col_num(c("A10", "c3", "h12"))
+#' well_to_col_num("H08")
+#' well_to_col_num("h8")
+well_to_col_num <- function(x) {
   x <- stringr::str_trim(x)
 
   stringr::str_extract(x, "\\d+$") %>%
@@ -107,16 +107,16 @@ well_to_colnum <- function(x) {
 #' @export
 #'
 #' @examples
-#' well_to_rowlet(c("A10", "c3", "h12"))
-#' well_to_rowlet("H08")
-#' well_to_rowlet("h8")
-#' well_to_rowlet("C20")
-well_to_rowlet <- function(x) {
+#' well_to_row_let(c("A10", "c3", "h12"))
+#' well_to_row_let("H08")
+#' well_to_row_let("h8")
+#' well_to_row_let("C20")
+well_to_row_let <- function(x) {
   x <- stringr::str_trim(x)
 
-  stringr::str_to_upper(
-    stringr::str_extract(x, "^\\w")
-  )
+  x <- stringr::str_to_upper(x)
+  let <- stringr::str_extract(x, "^[^\\d]+")
+  let
 }
 
 #' Convert Well ID to Row Number
@@ -129,15 +129,15 @@ well_to_rowlet <- function(x) {
 #' @export
 #'
 #' @examples
-#' well_to_rownum(c("A10", "c3", "h12"))
-#' well_to_rownum("H08")
-#' well_to_rownum("h8")
-#' well_to_rownum("C20")
-well_to_rownum <- function(x) {
+#' well_to_row_num(c("A10", "c3", "h12"))
+#' well_to_row_num("H08")
+#' well_to_row_num("h8")
+#' well_to_row_num("C20")
+well_to_row_num <- function(x) {
   x <- stringr::str_to_upper(x)
-  let <- well_to_rowlet(x)
-  rownum <- as.numeric(factor(let, levels = LETTERS))
-  rownum
+  let <- well_to_row_let(x)
+  row_num <- as.numeric(factor(let, levels = LETTERS))
+  row_num
 }
 
 #' Converts Well ID to a Numeric Index
@@ -170,8 +170,8 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
   stopifnot(is.character(x))
 
 
-  colnum <- well_to_colnum(x)
-  rownum <- well_to_rownum(x)
+  colnum <- well_to_col_num(x)
+  rownum <- well_to_row_num(x)
 
   if (colwise) {
     n_rows <- n_rows_from_wells(plate)
@@ -232,8 +232,8 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 #' well_format(c("A9", "c3", "h12"))
 well_format <- function(x, num_width = 2) {
   wellr::well_join(
-    row = wellr::well_to_rownum(x),
-    col = wellr::well_to_colnum(x),
+    row = wellr::well_to_row_num(x),
+    col = wellr::well_to_col_num(x),
     num_width = num_width
   )
 }

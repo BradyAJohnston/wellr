@@ -40,11 +40,13 @@ remotes::install_github("rforbiochemists/wellr")
 ```{r example}
 library(wellr)
 
-well_to_colnum("G8")
-well_to_rownum("G8")
+well_format("G8")
+well_to_col_num("G8")
+well_to_row_num("G8")
 well_to_index("H1")
 well_to_index("H1", colwise = TRUE)
 well_from_index(37)
+well_from_index(37, colwise = TRUE)
 well_join(3, 8)
 well_join("E", 10)
 

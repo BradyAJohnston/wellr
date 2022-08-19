@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^wellr\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
@@ -6,3 +8,4 @@
 ^\.github$
 ^CRAN-SUBMISSION$
 ^codecov\.yml$
+^vignettes/articles$

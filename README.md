@@ -37,9 +37,11 @@ remotes::install_github("rforbiochemists/wellr")
 ``` r
 library(wellr)
 
-well_to_colnum("G8")
+well_format("G8")
+#> [1] "G08"
+well_to_col_num("G8")
 #> [1] 8
-well_to_rownum("G8")
+well_to_row_num("G8")
 #> [1] 7
 well_to_index("H1")
 #> [1] 85
