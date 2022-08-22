@@ -64,32 +64,32 @@ the rows so the first values are all from row A.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">well_df_to_mat_frames</span><span class="op">(</span><span class="va">data</span>, <span class="va">values_col</span>, <span class="va">time_col</span>, well_col <span class="op">=</span> <span class="st">"well"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">well_df_to_mat_frames</span><span class="op">(</span><span class="va">data</span>, <span class="va">value</span>, <span class="va">frame</span>, <span class="va">well</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
-<dd><p>A DataFrame to be converted.</p></dd>
+<dd><p>Data frame or tibble to convert to a multi-frame matrix.</p></dd>
 
 
-<dt>values_col</dt>
-<dd><p>The name of the column containing the values.</p></dd>
+<dt>value</dt>
+<dd><p>Column with value data that will be used to populate the matrix.</p></dd>
 
 
-<dt>time_col</dt>
-<dd><p>The name of the column containing the time values.</p></dd>
+<dt>frame</dt>
+<dd><p>Column with the frame or time data that will be used to create the rows of the matrix.</p></dd>
 
 
-<dt>well_col</dt>
-<dd><p>The name of the column with the well IDs.</p></dd>
+<dt>well</dt>
+<dd><p>Column with the well IDs which will be used to create the columns of the matrix.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>a matrix</p>
+<p>a matrix where each column is a well and each row is a time point.</p>
     </div>
 
     <div id="ref-examples">
@@ -106,16 +106,34 @@ the rows so the first values are all from row A.</p>
 <span class="r-in"><span><span class="co"># convert the data frame to multi-frame matrix</span></span></span>
 <span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">well_df_to_mat_frames</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">df_frames</span>,</span></span>
-<span class="r-in"><span>  values_col <span class="op">=</span> <span class="st">"value"</span>,</span></span>
-<span class="r-in"><span>  time_col <span class="op">=</span> <span class="st">"frame"</span></span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="va">value</span>,</span></span>
+<span class="r-in"><span>  frame <span class="op">=</span> <span class="va">frame</span>,</span></span>
+<span class="r-in"><span>  well <span class="op">=</span> <span class="va">well</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to max; returning -Inf</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion to integer range</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in matrix(values, ncol = n_wells, nrow = n_frames):</span> invalid 'ncol' value (too large or NA)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in head(mat[, 1:14]):</span> object 'mat' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          A01          A02          A03        A04         A05         A06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.5143147 -1.624747802  1.828948643  0.6112118  0.88307026  0.07029921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.2194178  0.766433045 -0.182130044 -1.0392868  0.08589142 -1.31747847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -2.9265418  0.444467195  1.130632245  0.5722491 -2.07375183 -2.33313692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.1631157  2.809742639 -0.300645133  0.1036251  1.36985946 -1.80538217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.1284451 -0.001207788  0.455431891 -0.1163741  0.12797541  1.53121909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.4606090  0.351512312  0.008704119  1.1832622 -2.04385376 -0.23431138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          A07         A08        A09        A10         A11         A12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.2753049  1.58101557 -1.1390644  0.4278417 -1.54665364 -0.71785892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5290439 -0.16226771  0.1519531  0.2254625  0.81884394 -0.09566958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.9829343  0.14538363  2.1174706 -1.7172686  2.33515613  0.27653243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6636578 -0.14108317 -0.6811881 -0.2922772  0.22419612  0.76026011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.2147592  0.07046783 -1.2001015  0.8062699  0.80151669 -1.60705090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.1132199 -1.27091430 -1.4864581  0.2681574 -0.03960648  0.29807528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          B01        B02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.2845914  0.3235928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.7793582  0.1857844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.3708792 -0.1342719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -2.1757490  0.6189341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.3892651 -1.0631894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.6582515  1.1680613</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
