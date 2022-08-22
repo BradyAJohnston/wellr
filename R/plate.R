@@ -170,9 +170,8 @@ well_df_to_mat <-
     # df_combined <- rbind(df_only_relevant, missing_wells)
     # print(df_combined)
     # print(df_only_relevant)
-    print(df)
+
     df_combined <- well_reorder_df(df)
-    print(df_combined)
 
 
     matrix(
@@ -190,16 +189,17 @@ well_df_to_mat <-
 #' each column is a single well. The wells are in index order, indexing across
 #' the rows so the first values are all from row A.
 #'
-#' @param data A DataFrame to be converted.
-#' @param values_col The name of the column containing the values.
-#' @param time_col The name of the column containing the time values.
-#' @param well_col The name of the column with the well IDs.
+#' @param data Data frame or tibble to convert to a multi-frame matrix.
+#' @param value Column with value data that will be used to populate the matrix.
+#' @param frame Column with the frame or time data that will be used to create the rows of the matrix.
+#' @param well Column with the well IDs which will be used to create the columns of the matrix.
 #'
-#' @return a matrix
+#' @importFrom rlang .data
+#' @return a matrix where each column is a well and each row is a time point.
 #' @export
 #'
 #' @examples
-# Create a data frame with multple complete sets of plate data from multiple
+# Create a data frame with multiple complete sets of plate data from multiple
 # time points.
 #' df_list <- lapply(1:10, function(x) {
 #'   df <- wellr::well_plate()
@@ -213,38 +213,39 @@ well_df_to_mat <-
 #' # convert the data frame to multi-frame matrix
 #' mat <- well_df_to_mat_frames(
 #'   data = df_frames,
-#'   values_col = "value",
-#'   time_col = "frame"
+#'   value = value,
+#'   frame = frame,
+#'   well = well
 #' )
 #'
 #' head(mat[, 1:14])
+#'
+
 well_df_to_mat_frames <- function(data,
-                                  values_col,
-                                  time_col,
-                                  well_col = "well") {
-  data <- as.data.frame(data)
-  # order first by time
+                                  value,
+                                  frame,
+                                  well) {
+  df_frames <- dplyr::arrange(
+    .data = data,
+    {{ frame }},
+    well_to_row_num({{ well }}),
+    well_to_col_num({{ well }})
+    )
 
-  data <- data[order(as.numeric(data[, time_col])), ]
-  # then order by the rows and columns
+  n_row <- max(well_to_row_num(dplyr::pull(df_frames, {{ well }})))
+  n_col <- max(well_to_col_num(dplyr::pull(df_frames, {{ well }})))
+  frames <- unique(dplyr::pull(data, {{ frame }}))
+  n_wells <- n_row * n_col
 
-  data <- well_reorder_df(data, well_col = "well")
+  mat <- matrix(
+    data = dplyr::pull(data, {{ value }}),
+    ncol = n_wells,
+    nrow = length(frames)
+  )
 
-  # data <- data[order(as.numeric(data$row)),]
-  # data <- data[order(as.numeric(data$col)),]
-  data <- data[order(as.numeric(data$time_s)),]
-
-
-  values <- unlist(data[, values_col])
-  n_rows <- max(wellr::well_to_row_num(unlist(data[, "well"])), na.rm = TRUE)
-  n_cols <- max(wellr::well_to_col_num(unlist(data[, "well"])), na.rm = TRUE)
-  n_wells <- n_rows * n_cols
-  frames <- unique(unlist(data[, time_col]))
-  n_frames <- length(frames)
-  length(values) / 96
-  mat <- matrix(values, ncol = n_wells, nrow = n_frames)
   rownames(mat) <- frames
-  colnames(mat) <- wellr::well_from_index(seq(n_wells), plate = n_wells)
+  colnames(mat) <- well_from_index(seq(n_wells))
+
   mat
 }
 
@@ -255,9 +256,12 @@ well_df_to_mat_frames <- function(data,
 #' row, a column for the column, a column for the time and a column for the
 #' values.
 #'
-#' @param matrix multi-frame matrix to be converted.
-#' @param value_col Name to be assigned to the values column.
+#' @param mat A matrix where each column is a well and each row is a frame
+#'   from a multi time point experiment.
+#' @param value Name for the column containing the values in the resulting data
+#'   frame.
 #'
+#' @importFrom rlang .data
 #' @return a [tibble][tibble::tibble-package]
 #' @export
 #'
@@ -276,31 +280,35 @@ well_df_to_mat_frames <- function(data,
 #' # convert the data frame to multi-frame matrix
 #' mat <- well_df_to_mat_frames(
 #'   data = df_frames,
-#'   values_col = "value",
-#'   time_col = "frame"
+#'   value = value,
+#'   frame = frame,
+#'   well = well
 #' )
 #'
 #' head(mat[, 1:14])
 #'
 #' # convert the matrix back to a dataframe
 #' well_mat_frames_to_df(mat)
-well_mat_frames_to_df <- function(matrix, value_col = "value") {
-  df_list <- lapply(seq(nrow(matrix)), function(x) {
-    row <- unlist(matrix[x, ])
-    plate_mat <- matrix(row, ncol = n_cols_from_wells(length(row)))
-    plate_df <-
-      wellr::well_mat_to_df(plate_mat, value_col = value_col)
-    plate_df$frames <- x
-    plate_df
-  })
+#'
+well_mat_frames_to_df <- function(mat, value = "value") {
+  dat <- dplyr::as_tibble(mat)
 
-  combined <- do.call(rbind, df_list)
-  rownames <- rownames(matrix)
-  if (!is.null(rownames)) {
-    combined$frames <- rownames[combined$frames]
-  }
+  dat <- dplyr::mutate(dat, frame = rownames(mat))
 
-  tibble::as_tibble(combined)
+  dat <- tidyr::pivot_longer(
+    data = dat,
+    cols = -c(.data$frame),
+    names_to = "well",
+    values_to = value
+    )
+
+  dat <- dplyr::mutate(
+    .data = dat,
+    row = well_to_row_num(.data$well),
+    col = well_to_col_num(.data$well)
+  )
+
+  dat
 }
 
 #' Convert a Plate Matrix to a DataFrame
@@ -324,9 +332,9 @@ well_mat_to_df <- function(matrix, value_col = "value") {
   index <- seq_along(values)
 
   df <- tibble::tibble(
-    well = wellr::well_from_index(index),
-    row = wellr::well_to_row_num(.data$well),
-    col = wellr::well_to_col_num(.data$well),
+    well = well_from_index(index),
+    row = well_to_row_num(.data$well),
+    col = well_to_col_num(.data$well),
     value = values
   )
 

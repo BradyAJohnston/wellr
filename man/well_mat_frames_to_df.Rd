@@ -4,12 +4,14 @@
 \alias{well_mat_frames_to_df}
 \title{Turn a Multi-Frame Matrix into a DataFrame}
 \usage{
-well_mat_frames_to_df(matrix, value_col = "value")
+well_mat_frames_to_df(mat, value = "value")
 }
 \arguments{
-\item{matrix}{multi-frame matrix to be converted.}
+\item{mat}{A matrix where each column is a well and each row is a frame
+from a multi time point experiment.}
 
-\item{value_col}{Name to be assigned to the values column.}
+\item{value}{Name for the column containing the values in the resulting data
+frame.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble}
@@ -33,12 +35,14 @@ df_frames <- do.call(rbind, df_list)
 # convert the data frame to multi-frame matrix
 mat <- well_df_to_mat_frames(
   data = df_frames,
-  values_col = "value",
-  time_col = "frame"
+  value = value,
+  frame = frame,
+  well = well
 )
 
 head(mat[, 1:14])
 
 # convert the matrix back to a dataframe
 well_mat_frames_to_df(mat)
+
 }

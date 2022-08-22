@@ -26,6 +26,8 @@ Imports:
     stringr,
     magrittr,
     tibble,
-    rlang
+    rlang,
+    tidyr,
+    dplyr
 URL: https://github.com/rforbiochemists/wellr
 BugReports: https://github.com/rforbiochemists/wellr/issues

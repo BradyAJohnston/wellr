@@ -95,8 +95,9 @@ well_join <- function(row, col, num_width = 2) {
 well_to_col_num <- function(x) {
   x <- stringr::str_trim(x)
 
-  stringr::str_extract(x, "\\d+$") %>%
-    as.numeric()
+  x <- stringr::str_extract(x, "\\d+$")
+
+  as.numeric(x)
 }
 
 #' Extracts letter from well ID.
@@ -135,9 +136,9 @@ well_to_row_let <- function(x) {
 #' well_to_row_num("C20")
 well_to_row_num <- function(x) {
   x <- stringr::str_to_upper(x)
-  let <- well_to_row_let(x)
-  row_num <- as.numeric(factor(let, levels = LETTERS))
-  row_num
+  row_let <- well_to_row_let(x)
+  row_num <- factor(row_let, levels = LETTERS)
+  as.numeric(row_num)
 }
 
 #' Converts Well ID to a Numeric Index

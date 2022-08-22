@@ -4,19 +4,19 @@
 \alias{well_df_to_mat_frames}
 \title{Convert a DataFrame to a Multi-Frame Matrix}
 \usage{
-well_df_to_mat_frames(data, values_col, time_col, well_col = "well")
+well_df_to_mat_frames(data, value, frame, well)
 }
 \arguments{
-\item{data}{A DataFrame to be converted.}
+\item{data}{Data frame or tibble to convert to a multi-frame matrix.}
 
-\item{values_col}{The name of the column containing the values.}
+\item{value}{Column with value data that will be used to populate the matrix.}
 
-\item{time_col}{The name of the column containing the time values.}
+\item{frame}{Column with the frame or time data that will be used to create the rows of the matrix.}
 
-\item{well_col}{The name of the column with the well IDs.}
+\item{well}{Column with the well IDs which will be used to create the columns of the matrix.}
 }
 \value{
-a matrix
+a matrix where each column is a well and each row is a time point.
 }
 \description{
 Converts a DataFrame to a matrix where each row is a single time point, and
@@ -36,9 +36,11 @@ df_frames <- do.call(rbind, df_list)
 # convert the data frame to multi-frame matrix
 mat <- well_df_to_mat_frames(
   data = df_frames,
-  values_col = "value",
-  time_col = "frame"
+  value = value,
+  frame = frame,
+  well = well
 )
 
 head(mat[, 1:14])
+
 }
