@@ -20,7 +20,7 @@ well_plot <- function(data, well, value, colour = "black") {
     data,
     row  = wellr::well_to_row_num({{ well }}),
     row  = forcats::fct_inorder(factor(.data$row)),
-    row  = forcats::fct_rev(.datda$row),
+    row  = forcats::fct_rev(.data$row),
     well = wellr::well_to_col_num({{ well }})
   )
 
