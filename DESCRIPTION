@@ -28,6 +28,7 @@ Imports:
     tibble,
     rlang,
     tidyr,
-    dplyr
+    dplyr,
+    forcats
 URL: https://github.com/rforbiochemists/wellr
 BugReports: https://github.com/rforbiochemists/wellr/issues
