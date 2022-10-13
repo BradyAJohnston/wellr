@@ -13,9 +13,8 @@
 #' dat <- wellr::well_plate()
 #' dat$value <- rnorm(96)
 #' well_plot(dat, well, value)
-
+#'
 well_plot <- function(data, well, value, colour = "black") {
-
   data <- dplyr::mutate(
     data,
     row  = wellr::well_to_row_num({{ well }}),
@@ -30,24 +29,20 @@ well_plot <- function(data, well, value, colour = "black") {
     fill = {{ value }}
   )) +
     ggplot2::geom_tile(colour = "black") +
-
     ggplot2::scale_x_continuous(
       name = NULL,
       expand = ggplot2::expansion(),
       breaks = scales::breaks_width(1),
-      labels = ~c(LETTERS, paste("A", LETTERS))[.x],
+      labels = ~ c(LETTERS, paste("A", LETTERS))[.x],
       position = "top"
-      ) +
+    ) +
     ggplot2::scale_y_discrete(
       name = NULL,
       expand = ggplot2::expansion()
-      ) +
+    ) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::theme_bw(base_size = 15) +
     ggplot2::theme(
       panel.border = ggplot2::element_rect(colour = "black", size = 1)
     )
-
 }
-
-

@@ -25,4 +25,5 @@ Plot a Plate Map
 dat <- wellr::well_plate()
 dat$value <- rnorm(96)
 well_plot(dat, well, value)
+
 }

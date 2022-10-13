@@ -220,7 +220,6 @@ well_df_to_mat <-
 #'
 #' head(mat[, 1:14])
 #'
-
 well_df_to_mat_frames <- function(data,
                                   value,
                                   frame,
@@ -230,7 +229,7 @@ well_df_to_mat_frames <- function(data,
     {{ frame }},
     well_to_row_num({{ well }}),
     well_to_col_num({{ well }})
-    )
+  )
 
   n_row <- max(well_to_row_num(dplyr::pull(df_frames, {{ well }})))
   n_col <- max(well_to_col_num(dplyr::pull(df_frames, {{ well }})))
@@ -300,7 +299,7 @@ well_mat_frames_to_df <- function(mat, value = "value") {
     cols = -c(.data$frame),
     names_to = "well",
     values_to = value
-    )
+  )
 
   dat <- dplyr::mutate(
     .data = dat,
