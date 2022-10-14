@@ -17,9 +17,8 @@
 well_plot <- function(data, well, value, colour = "black") {
   data <- dplyr::mutate(
     data,
-    row  = wellr::well_to_row_num({{ well }}),
-    row  = forcats::fct_inorder(factor(row)),
-    row  = forcats::fct_rev(row),
+    row  = wellr::well_to_row_let({{ well }}),
+    row = factor(row, levels = rev(c(LETTERS, paste0("A", LETTERS)))),
     col = wellr::well_to_col_num({{ well }})
   )
 
@@ -37,8 +36,7 @@ well_plot <- function(data, well, value, colour = "black") {
     ) +
     ggplot2::scale_y_discrete(
       name = NULL,
-      expand = ggplot2::expansion(),
-      labels = ~ c(LETTERS, paste("A", LETTERS))[.x]
+      expand = ggplot2::expansion()
     ) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::theme_bw(base_size = 15) +
