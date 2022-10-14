@@ -22,7 +22,7 @@ ggplot2 object.
 Plot a Plate Map
 }
 \examples{
-dat <- wellr::well_plate()
+dat <- wellr::well_plate()[, "well"]
 dat$value <- rnorm(96)
 well_plot(dat, well, value)
 

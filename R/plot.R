@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' dat <- wellr::well_plate()
+#' dat <- wellr::well_plate()[, "well"]
 #' dat$value <- rnorm(96)
 #' well_plot(dat, well, value)
 #'
@@ -18,9 +18,9 @@ well_plot <- function(data, well, value, colour = "black") {
   data <- dplyr::mutate(
     data,
     row  = wellr::well_to_row_num({{ well }}),
-    row  = forcats::fct_inorder(factor(.data$row)),
-    row  = forcats::fct_rev(.data$row),
-    well = wellr::well_to_col_num({{ well }})
+    row  = forcats::fct_inorder(factor(row)),
+    row  = forcats::fct_rev(row),
+    col = wellr::well_to_col_num({{ well }})
   )
 
   ggplot2::ggplot(data, ggplot2::aes(
@@ -33,12 +33,12 @@ well_plot <- function(data, well, value, colour = "black") {
       name = NULL,
       expand = ggplot2::expansion(),
       breaks = scales::breaks_width(1),
-      labels = ~ c(LETTERS, paste("A", LETTERS))[.x],
       position = "top"
     ) +
     ggplot2::scale_y_discrete(
       name = NULL,
-      expand = ggplot2::expansion()
+      expand = ggplot2::expansion(),
+      labels = ~ c(LETTERS, paste("A", LETTERS))[.x]
     ) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::theme_bw(base_size = 15) +
