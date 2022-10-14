@@ -40,6 +40,7 @@ well_plot <- function(data, well, value, colour = "black") {
     ) +
     ggplot2::scale_fill_viridis_c() +
     ggplot2::theme_bw(base_size = 15) +
+    ggplot2::coord_equal() +
     ggplot2::theme(
       panel.border = ggplot2::element_rect(colour = "black", size = 1)
     )
