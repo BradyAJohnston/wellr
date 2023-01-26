@@ -23,10 +23,17 @@ their respective rows, columns and index.
 
 <!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
 
-You can install from r-universe:
+### From R-Universe:
 
 ``` r
 install.packages("wellr", repos = "bradyajohnston.r-universe.dev")
+```
+
+### From GitHub
+
+``` r
+# install.packages("remotes")
+remotes::install_github("bradyajohnston/wellr")
 ```
 
 ## Basic Examples
@@ -136,6 +143,7 @@ well_plate(8, 12)
 ## Helpful Plotting Functions
 
 ``` r
+set.seed(3)
 plate <- well_plate(8, 12)[, "well"]
 plate$value <- rnorm(96, sd = 10)
 
