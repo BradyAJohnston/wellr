@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Utilities for Working With Plate Based Data • wellr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -89,14 +89,24 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
-<p>You can install from r-universe:</p>
+<div class="section level3">
+<h3 id="from-r-universe">From R-Universe:<a class="anchor" aria-label="anchor" href="#from-r-universe"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"wellr"</span>, repos <span class="op">=</span> <span class="st">"bradyajohnston.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="from-github">From GitHub<a class="anchor" aria-label="anchor" href="#from-github"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bradyajohnston/wellr"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="basic-examples">Basic Examples<a class="anchor" aria-label="anchor" href="#basic-examples"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bradyajohnston/wellr" class="external-link">wellr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/well_format.html">well_format</a></span><span class="op">(</span><span class="st">"G8"</span><span class="op">)</span></span>
@@ -122,7 +132,7 @@
 <h2 id="reading-biotek">Reading Biotek<a class="anchor" aria-label="anchor" href="#reading-biotek"></a>
 </h2>
 <p>Get the file paths of the demo files.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>,</span>
 <span>                         <span class="st">'20220929_1steptimer20.csv'</span>,</span>
 <span>                         package <span class="op">=</span> <span class="st">'wellr'</span><span class="op">)</span></span>
@@ -131,7 +141,7 @@
 <span>                         <span class="st">'20220929_1steptimer20_metainfo.csv'</span>,</span>
 <span>                         package <span class="op">=</span> <span class="st">'wellr'</span><span class="op">)</span></span></code></pre></div>
 <p>Read in an example plate from a Biotek plate reader.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_data</span><span class="op">)</span></span>
 <span><span class="va">plate</span></span>
 <span><span class="co">#&gt; # A tibble: 19,200 × 4</span></span>
@@ -149,7 +159,7 @@
 <span><span class="co">#&gt; 10   521 A10     103 0.093</span></span>
 <span><span class="co">#&gt; # … with 19,190 more rows</span></span>
 <span><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="reference/plate_add_meta.html">plate_add_meta</a></span><span class="op">(</span><span class="va">file_meta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 19,200 × 8</span></span>
@@ -172,7 +182,7 @@
 <h2 id="creating-dummy-plates">Creating Dummy Plates<a class="anchor" aria-label="anchor" href="#creating-dummy-plates"></a>
 </h2>
 <p>Create a data frame for plate-based data.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 96 × 3</span></span>
 <span><span class="co">#&gt;      row   col well </span></span>
@@ -193,8 +203,9 @@
 <div class="section level2">
 <h2 id="helpful-plotting-functions">Helpful Plotting Functions<a class="anchor" aria-label="anchor" href="#helpful-plotting-functions"></a>
 </h2>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span><span class="op">[</span>, <span class="st">"well"</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span><span class="op">[</span>, <span class="st">"well"</span><span class="op">]</span></span>
 <span><span class="va">plate</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">96</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/well_plot.html">well_plot</a></span><span class="op">(</span><span class="va">plate</span>, <span class="va">well</span>, <span class="va">value</span><span class="op">)</span></span></code></pre></div>
@@ -231,7 +242,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Brady Johnston <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6301-2269" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://bradyajohnston.github.io" class="external-link">Brady Johnston</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-6301-2269" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -250,7 +262,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Brady Johnston.</p>
+<p>Developed by <a href="https://bradyajohnston.github.io" class="external-link">Brady Johnston</a>.</p>
 </div>
 
 <div class="pkgdown">

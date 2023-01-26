@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/plates.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/articles/plates.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/index.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/n_cols_from_wells.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/n_cols_from_wells.html</loc>
   </url>
   <url>
-    <loc>/reference/n_rows_from_wells.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/n_rows_from_wells.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/plate_add_meta.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_add_meta.html</loc>
   </url>
   <url>
-    <loc>/reference/plate_read_biotek.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek.html</loc>
   </url>
   <url>
-    <loc>/reference/plate_read_meta.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_meta.html</loc>
   </url>
   <url>
-    <loc>/reference/well_check.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_check.html</loc>
   </url>
   <url>
-    <loc>/reference/well_df_to_mat.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_df_to_mat.html</loc>
   </url>
   <url>
-    <loc>/reference/well_df_to_mat_frames.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_df_to_mat_frames.html</loc>
   </url>
   <url>
-    <loc>/reference/well_dis.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_dis.html</loc>
   </url>
   <url>
-    <loc>/reference/well_dis_plate.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_dis_plate.html</loc>
   </url>
   <url>
-    <loc>/reference/well_format.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_format.html</loc>
   </url>
   <url>
-    <loc>/reference/well_from_index.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_from_index.html</loc>
   </url>
   <url>
-    <loc>/reference/well_join.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_join.html</loc>
   </url>
   <url>
-    <loc>/reference/well_mat_frames_to_df.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_mat_frames_to_df.html</loc>
   </url>
   <url>
-    <loc>/reference/well_mat_to_df.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_mat_to_df.html</loc>
   </url>
   <url>
-    <loc>/reference/well_plate.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_plate.html</loc>
   </url>
   <url>
-    <loc>/reference/well_plot.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/well_reorder_df.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_reorder_df.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_col_num.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_to_col_num.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_index.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_to_index.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_row_let.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_to_row_let.html</loc>
   </url>
   <url>
-    <loc>/reference/well_to_row_num.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/well_to_row_num.html</loc>
   </url>
   <url>
-    <loc>/reference/wellr-package.html</loc>
+    <loc>https://bradyajohnston.github.io/wellr/reference/wellr-package.html</loc>
   </url>
 </urlset>
