@@ -78,6 +78,20 @@
   }
 }
 
+#' @noRd
+#'
+.signal_wider <- function(data) {
+  data |>
+    dplyr::group_by(.data$time_point) |>
+    dplyr::mutate(time = mean(.data$time)) |>
+    tidyr::pivot_wider(
+      names_from = .data$signal,
+      values_from = .data$value
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-.data$time_point)
+}
+
 #' Read Biotek Output CSV Files
 #'
 #' @param file The filepath to a `.csv` file, exported from a Biotek plate
@@ -98,9 +112,13 @@ plate_read_biotek <- function(file) {
   dat <-
     readr::read_csv(file, col_types = readr::cols(), col_names = FALSE)
 
-  dat |>
+  dat <- dat |>
     .nest_data_chunks() |>
     .chunk_unnest()
+
+  dat |>
+    .signal_wider()
+
 }
 
 
