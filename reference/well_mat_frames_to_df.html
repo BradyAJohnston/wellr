@@ -20,7 +20,7 @@ values."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wellr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@ values."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/rforbiochemists/wellr/" class="external-link">
+  <a href="https://github.com/bradyajohnston/wellr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -54,7 +54,7 @@ values."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Turn a Multi-Frame Matrix into a DataFrame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/rforbiochemists/wellr/blob/HEAD/R/plate.R" class="external-link"><code>R/plate.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/bradyajohnston/wellr/blob/HEAD/R/plate.R" class="external-link"><code>R/plate.R</code></a></small>
     <div class="hidden name"><code>well_mat_frames_to_df.Rd</code></div>
     </div>
 
@@ -110,43 +110,43 @@ frame.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          A01        A02         A03        A04        A05        A06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.5313415  1.0694381  1.81993528  0.1769742 -1.0154941  2.2162348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6882756 -0.5926885  0.69380439 -0.2708133  0.4763459 -0.5856733</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.4605251  0.1286043  0.07824443 -0.5514813  1.3058429  1.0995541</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.1610424 -0.6979967 -1.24459670  1.5294669  0.1763548 -1.1895993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.2195880  1.1346967  0.33888477  0.1121448  0.8177888  0.8657870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.5876598  1.3149951 -1.00782785  0.3603267  0.3483217 -1.5544988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           A07         A08        A09        A10        A11        A12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.04740795 -0.38817589 -0.4665373  0.3309624  1.8449661  2.0641127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.47804482 -0.82766190 -0.9927934 -1.6300093  1.7294142  0.4508100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -1.60005687 -0.02576268 -1.5267914  0.3149528 -1.8035449 -0.4552074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.27782146  1.24284802 -0.5320002 -0.3245316 -1.8982954  1.4501959</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.45157674  0.01984680  1.8119472 -0.5886521  0.7647151  0.4315366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.49173802  0.32069459  1.1883934  1.2014162  1.2666640  1.5846673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          B01        B02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.5576227  1.0229720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.1781584 -1.5228613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.8247199  0.8819053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.8326547  0.5003832</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.6257982 -0.5246476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.1389630 -2.1408129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          A01        A02        A03         A04         A05        A06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.8084397 -0.2642820  0.3883343 -0.03513836 -0.08605798 -1.4575771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.3665833  0.4650803  0.2789653  1.10183960  0.43038859  2.4005091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.2803806  0.3547909 -0.3093496  0.01384254 -0.36852494 -0.8978822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.8444679 -1.2650094 -0.3834648 -1.00245346 -1.05613861 -0.8758397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.0006464  0.1724763 -0.7659607 -0.70911588 -0.05823860  0.9401716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.4552226  0.9268753  0.1589732  0.48262714 -0.89104621  0.1930124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          A07         A08        A09         A10         A11        A12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.1887011 -0.47859865 -1.2738461  0.29033830  0.03195513 -0.4356607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.0994260  0.03736182  0.3800342 -1.91356389 -0.01715112 -0.5580678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.4040254 -0.26532681 -1.0751001 -0.07895490 -0.42327527  0.5906426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.2731975  0.22830376  0.0440043 -0.04975978 -0.81774789  0.6556455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.2023073 -0.13119818 -0.5149741 -0.57181454  1.67509394  0.4037251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.9339301 -0.82732766  1.0590553 -0.77320967  0.71987093 -0.3597991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           B01        B02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -1.50784893  0.5246193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.84940572 -0.2180299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.48642887 -0.6310462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.33408147  0.8981800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.75709996  0.2224181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.08741618 -0.2194066</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert the matrix back to a dataframe</span></span></span>
 <span class="r-in"><span><span class="fu">well_mat_frames_to_df</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 960 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    frame well    value   row   col</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1     A01   -<span style="color: #BB0000;">0.531</span>      1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1     A02    1.07       1     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1     A03    1.82       1     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1     A04    0.177      1     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1     A05   -<span style="color: #BB0000;">1.02</span>       1     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1     A06    2.22       1     6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1     A07    0.047<span style="text-decoration: underline;">4</span>     1     7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1     A08   -<span style="color: #BB0000;">0.388</span>      1     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1     A09   -<span style="color: #BB0000;">0.467</span>      1     9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1     A10    0.331      1    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1     A01    0.808      1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1     A02   -<span style="color: #BB0000;">0.264</span>      1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1     A03    0.388      1     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1     A04   -<span style="color: #BB0000;">0.035</span><span style="color: #BB0000; text-decoration: underline;">1</span>     1     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1     A05   -<span style="color: #BB0000;">0.086</span><span style="color: #BB0000; text-decoration: underline;">1</span>     1     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1     A06   -<span style="color: #BB0000;">1.46</span>       1     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1     A07   -<span style="color: #BB0000;">0.189</span>      1     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1     A08   -<span style="color: #BB0000;">0.479</span>      1     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1     A09   -<span style="color: #BB0000;">1.27</span>       1     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1     A10    0.290      1    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 950 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -163,7 +163,7 @@ frame.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

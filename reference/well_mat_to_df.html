@@ -19,7 +19,7 @@ values that were in the matrix."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wellr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -38,7 +38,7 @@ values that were in the matrix."><!-- mathjax --><script src="https://cdnjs.clou
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/rforbiochemists/wellr/" class="external-link">
+  <a href="https://github.com/bradyajohnston/wellr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -53,7 +53,7 @@ values that were in the matrix."><!-- mathjax --><script src="https://cdnjs.clou
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert a Plate Matrix to a DataFrame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/rforbiochemists/wellr/blob/HEAD/R/plate.R" class="external-link"><code>R/plate.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/bradyajohnston/wellr/blob/HEAD/R/plate.R" class="external-link"><code>R/plate.R</code></a></small>
     <div class="hidden name"><code>well_mat_to_df.Rd</code></div>
     </div>
 
@@ -93,16 +93,16 @@ values that were in the matrix.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 96 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    well    row   col random_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> A01       1     1       -<span style="color: #BB0000;">0.097</span><span style="color: #BB0000; text-decoration: underline;">6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> A02       1     2        1.29  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> A03       1     3       -<span style="color: #BB0000;">0.165</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> A04       1     4        0.381 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> A05       1     5       -<span style="color: #BB0000;">2.07</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> A06       1     6       -<span style="color: #BB0000;">0.151</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A07       1     7        1.55  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> A08       1     8       -<span style="color: #BB0000;">0.364</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A09       1     9        0.301 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A10       1    10        0.124 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> A01       1     1        -<span style="color: #BB0000;">0.120</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> A02       1     2         1.23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> A03       1     3        -<span style="color: #BB0000;">0.118</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> A04       1     4        -<span style="color: #BB0000;">0.533</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> A05       1     5        -<span style="color: #BB0000;">0.519</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> A06       1     6        -<span style="color: #BB0000;">3.09</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A07       1     7         1.75 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> A08       1     8         1.16 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A09       1     9         0.861</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A10       1    10        -<span style="color: #BB0000;">0.334</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 86 more rows</span></span>
 </code></pre></div>
     </div>
@@ -118,7 +118,7 @@ values that were in the matrix.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

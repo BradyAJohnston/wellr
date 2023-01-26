@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">wellr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/rforbiochemists/wellr/" class="external-link">
+  <a href="https://github.com/bradyajohnston/wellr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,23 +82,25 @@
 <div class="page-header"><h1 id="wellr">wellr<a class="anchor" aria-label="anchor" href="#wellr"></a>
 </h1></div>
 <!-- badges: start -->
-<p><a href="https://github.com/rforbiochemists/wellr" class="external-link">wellr</a> provides a consitent and reliable interface for dealing with plate-based data and calculations. It provides functions for indexing through microtitre plates, converting between well IDs (“C05”) and their respective rows, columns and index. This is a utilitiy package, intended for use in other packages that deal with plate-based data.</p>
+
+<p><a href="https://github.com/bradyajohnston/wellr" class="external-link">wellr</a> provides a consitent and reliable interface for dealing with plate-based data and calculations. It provides functions for indexing through microtitre plates, converting between well IDs (“C05”) and their respective rows, columns and index. This is a utilitiy package, intended for use in other packages that deal with plate-based data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: --><p>You can install from r-universe:</p>
+<!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
+<p>You can install from r-universe:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"wellr"</span>, repos <span class="op">=</span> <span class="st">"bradyajohnston.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 <p>Or you can install the development version from github as below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rforbiochemists/wellr"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bradyajohnston/wellr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-examples">Basic Examples<a class="anchor" aria-label="anchor" href="#basic-examples"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rforbiochemists/wellr" class="external-link">wellr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bradyajohnston/wellr" class="external-link">wellr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/well_format.html">well_format</a></span><span class="op">(</span><span class="st">"G8"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "G08"</span></span>
@@ -157,8 +159,8 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/rforbiochemists/wellr/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/rforbiochemists/wellr/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/bradyajohnston/wellr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/bradyajohnston/wellr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -190,9 +192,9 @@
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://CRAN.R-project.org/package=wellr" class="external-link"><img src="https://www.r-pkg.org/badges/version/wellr" alt="CRAN status"></a></li>
-<li><a href="https://github.com/rforbiochemists/wellr/actions" class="external-link"><img src="https://github.com/rforbiochemists/wellr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/rforbiochemists/wellr?branch=master" class="external-link"><img src="https://codecov.io/gh/rforbiochemists/wellr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/bradyajohnston/wellr/actions" class="external-link"><img src="https://github.com/bradyajohnston/wellr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/bradyajohnston/wellr?branch=master" class="external-link"><img src="https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/bradyajohnston/wellr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/bradyajohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
@@ -207,7 +209,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
