@@ -11,8 +11,8 @@ Provides a range of utility functions for working with plate-based data from mic
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/rforbiochemists/wellr}
-  \item Report bugs at \url{https://github.com/rforbiochemists/wellr/issues}
+  \item \url{https://github.com/bradyajohnston/wellr}
+  \item Report bugs at \url{https://github.com/bradyajohnston/wellr/issues}
 }
 
 }

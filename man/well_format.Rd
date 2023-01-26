@@ -4,12 +4,14 @@
 \alias{well_format}
 \title{Format a Well to Uppercase and Padded Numbers}
 \usage{
-well_format(x, num_width = 2)
+well_format(x, num_width = 2, uppercase = TRUE)
 }
 \arguments{
 \item{x}{Vector of well IDs to be formatted.}
 
 \item{num_width}{Width to pad out number component with 0's.}
+
+\item{uppercase}{Logical, whether the letter should be upercase.}
 }
 \value{
 Vector of strings as formatted well IDs.

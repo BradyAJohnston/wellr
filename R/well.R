@@ -224,18 +224,25 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 #'
 #' @param x Vector of well IDs to be formatted.
 #' @param num_width Width to pad out number component with 0's.
+#' @param uppercase Logical, whether the letter should be upercase.
 #'
 #' @return Vector of strings as formatted well IDs.
 #' @export
 #'
 #' @examples
 #' well_format(c("A9", "c3", "h12"))
-well_format <- function(x, num_width = 2) {
-  wellr::well_join(
+well_format <- function(x, num_width = 2, uppercase = TRUE) {
+  x <- wellr::well_join(
     row = wellr::well_to_row_num(x),
     col = wellr::well_to_col_num(x),
     num_width = num_width
   )
+
+  if (!uppercase) {
+    stringr::str_to_lower(x)
+  } else {
+    x
+  }
 }
 
 #' Calculate number of columns from given number of wells.

@@ -9,10 +9,10 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr)
-[![R-CMD-check](https://github.com/rforbiochemists/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/rforbiochemists/wellr/actions)
+[![R-CMD-check](https://github.com/bradyajohnston/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/bradyajohnston/wellr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/rforbiochemists/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rforbiochemists/wellr?branch=master)
-[![R-CMD-check](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rforbiochemists/wellr/actions/workflows/R-CMD-check.yaml)
+coverage](https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/wellr?branch=master)
+[![R-CMD-check](https://github.com/bradyajohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bradyajohnston/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{wellr}` provides a consitent and reliable interface for dealing with
@@ -35,7 +35,7 @@ Or you can install the development version from github as below:
 
 ``` r
 #install.packages("remotes")
-remotes::install_github("rforbiochemists/wellr")
+remotes::install_github("bradyajohnston/wellr")
 ```
 
 ## Basic Examples
