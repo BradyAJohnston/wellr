@@ -119,23 +119,21 @@
 <span><span class="co">#&gt; [1] "E10"</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="working-with-plates">Working with Plates<a class="anchor" aria-label="anchor" href="#working-with-plates"></a>
+<h2 id="reading-biotek">Reading Biotek<a class="anchor" aria-label="anchor" href="#reading-biotek"></a>
 </h2>
+<p>Get the file paths of the demo files.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="va">file_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">'extdata'</span>,</span>
-<span>    <span class="st">'20220929_1steptimer20.csv'</span>,</span>
-<span>    package <span class="op">=</span> <span class="st">'wellr'</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">file_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>,</span>
+<span>                         <span class="st">'20220929_1steptimer20.csv'</span>,</span>
+<span>                         package <span class="op">=</span> <span class="st">'wellr'</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">file_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">'extdata'</span>,</span>
-<span>    <span class="st">'20220929_1steptimer20_metainfo.csv'</span>,</span>
-<span>    package <span class="op">=</span> <span class="st">'wellr'</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_data</span><span class="op">)</span></span>
-<span>  <span class="va">plate</span></span>
+<span><span class="va">file_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>,</span>
+<span>                         <span class="st">'20220929_1steptimer20_metainfo.csv'</span>,</span>
+<span>                         package <span class="op">=</span> <span class="st">'wellr'</span><span class="op">)</span></span></code></pre></div>
+<p>Read in an example plate from a Biotek plate reader.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_data</span><span class="op">)</span></span>
+<span><span class="va">plate</span></span>
 <span><span class="co">#&gt; # A tibble: 19,200 × 4</span></span>
 <span><span class="co">#&gt;     time well    lum od600</span></span>
 <span><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -151,7 +149,7 @@
 <span><span class="co">#&gt; 10   521 A10     103 0.093</span></span>
 <span><span class="co">#&gt; # … with 19,190 more rows</span></span>
 <span><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/plate_add_meta.html">plate_add_meta</a></span><span class="op">(</span><span class="va">file_meta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 19,200 × 8</span></span>
@@ -169,8 +167,12 @@
 <span><span class="co">#&gt; 10   521 A10     103 0.093 pRW0059             0 PJ23110  st8  </span></span>
 <span><span class="co">#&gt; # … with 19,190 more rows</span></span>
 <span><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="creating-dummy-plates">Creating Dummy Plates<a class="anchor" aria-label="anchor" href="#creating-dummy-plates"></a>
+</h2>
 <p>Create a data frame for plate-based data.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 96 × 3</span></span>
 <span><span class="co">#&gt;      row   col well </span></span>
@@ -191,12 +193,12 @@
 <div class="section level2">
 <h2 id="helpful-plotting-functions">Helpful Plotting Functions<a class="anchor" aria-label="anchor" href="#helpful-plotting-functions"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span><span class="op">[</span>, <span class="st">"well"</span><span class="op">]</span></span>
 <span><span class="va">plate</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">96</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/well_plot.html">well_plot</a></span><span class="op">(</span><span class="va">plate</span>, <span class="va">well</span>, <span class="va">value</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
 </div>
 </div>
   </div>
