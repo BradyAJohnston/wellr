@@ -75,7 +75,7 @@ plate
 ```
 
 ```{r}
-plate |> 
+plate %>% 
   plate_add_meta(file_meta)
 ```
 
@@ -95,4 +95,3 @@ plate$value <- rnorm(96, sd = 10)
 
 well_plot(plate, well, value)
 ```
-

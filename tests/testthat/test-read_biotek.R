@@ -11,7 +11,7 @@ test_that("Test the Readinf of Biotek Files", {
     package = "wellr"
   )
 
-  dat <- plate_read_biotek(file_data) |>
+  dat <- plate_read_biotek(file_data) %>%
     plate_add_meta(file_meta)
 
   expect_equal(
