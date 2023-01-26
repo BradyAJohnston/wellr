@@ -250,6 +250,7 @@ well_format <- function(x, num_width = 2, uppercase = TRUE) {
 #' @param x Number of wells in plate, e.g. 96 or 384
 #'
 #' @return integer
+#' @keywords internal
 n_cols_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
@@ -266,6 +267,7 @@ n_cols_from_wells <- function(x) {
 #' @param x Number of wells in plate, e.g. 384 or 96.
 #'
 #' @return integer
+#' @keywords internal
 n_rows_from_wells <- function(x) {
   stopifnot(is.numeric(x))
   switch(as.character(x),
