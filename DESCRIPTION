@@ -1,6 +1,6 @@
 Package: wellr
 Title: Utilities for Working With Plate Based Data
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Brady",
            family = "Johnston",
@@ -30,6 +30,12 @@ Imports:
     tidyr,
     dplyr,
     ggplot2,
-    scales
-URL: https://github.com/rforbiochemists/wellr
-BugReports: https://github.com/rforbiochemists/wellr/issues
+    scales,
+    plater,
+    janitor,
+    lubridate,
+    purrr,
+    readr,
+    vctrs
+URL: https://github.com/bradyajohnston/wellr
+BugReports: https://github.com/bradyajohnston/wellr/issues
