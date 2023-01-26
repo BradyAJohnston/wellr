@@ -1,0 +1,17 @@
+url: https://bradyajohnston.github.io/wellr
+
+authors:
+  Brady Johnston
+    href: https://bradyajohnston.github.io
+
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: 'Plate Functions'
+    desc: 'Functions for working with plates'
+      - starts_with("plate_")
+  - title: 'Well Functions'
+    desc: 'Functions for formatting and manipulating well-related properties.'
+      - starts_with("well_")
