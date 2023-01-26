@@ -11,7 +11,9 @@ template:
 reference:
   - title: 'Plate Functions'
     desc: 'Functions for working with plates'
+    contents:
       - starts_with("plate_")
   - title: 'Well Functions'
     desc: 'Functions for formatting and manipulating well-related properties.'
+    contents:
       - starts_with("well_")
