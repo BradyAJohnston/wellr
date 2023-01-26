@@ -54,23 +54,25 @@ well_join("E", 10)
 #> [1] "E10"
 ```
 
-## Working with Plates
+## Reading Biotek
+
+Get the file paths of the demo files.
 
 ``` r
-  file_data <- system.file(
-    'extdata',
-    '20220929_1steptimer20.csv',
-    package = 'wellr'
-  )
+file_data <- system.file('extdata',
+                         '20220929_1steptimer20.csv',
+                         package = 'wellr')
 
-  file_meta <- system.file(
-    'extdata',
-    '20220929_1steptimer20_metainfo.csv',
-    package = 'wellr'
-  )
+file_meta <- system.file('extdata',
+                         '20220929_1steptimer20_metainfo.csv',
+                         package = 'wellr')
+```
 
-  plate <- plate_read_biotek(file_data)
-  plate
+Read in an example plate from a Biotek plate reader.
+
+``` r
+plate <- plate_read_biotek(file_data)
+plate
 #> # A tibble: 19,200 × 4
 #>     time well    lum od600
 #>    <dbl> <chr> <dbl> <dbl>
@@ -108,6 +110,8 @@ plate |>
 #> # ℹ Use `print(n = ...)` to see more rows
 ```
 
+## Creating Dummy Plates
+
 Create a data frame for plate-based data.
 
 ``` r
@@ -138,4 +142,4 @@ plate$value <- rnorm(96, sd = 10)
 well_plot(plate, well, value)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
