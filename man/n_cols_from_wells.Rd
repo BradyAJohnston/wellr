@@ -15,3 +15,4 @@ integer
 \description{
 Calculate number of columns from given number of wells.
 }
+\keyword{internal}

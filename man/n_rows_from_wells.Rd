@@ -15,3 +15,4 @@ integer
 \description{
 Calculate number of rows from given number of wells.
 }
+\keyword{internal}
