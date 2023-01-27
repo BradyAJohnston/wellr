@@ -13,7 +13,7 @@ test_that("Test the Reading of Biotek Files", {
     first_time = c(357.5, 357.5, 357.5)
   )
 
-  purrr::map(seq_along(files$file), \(i) {
+  purrr::map(seq_along(files$file), function(i) {
     dat <- plate_read_biotek(
       system.file("extdata", files$file[i], package = "wellr")
       ) %>%
@@ -65,7 +65,7 @@ test_that("Detection of signal rows.", {
       "Plate Out/In"
     )
 
-  sapply(signals, \(x) expect_true(.is_signal(x)))
-  sapply(non_signals, \(x) expect_false(.is_signal(x)))
+  sapply(signals, function(x) expect_true(.is_signal(x)))
+  sapply(non_signals, function(x) expect_false(.is_signal(x)))
 })
 

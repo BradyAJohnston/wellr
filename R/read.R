@@ -62,7 +62,7 @@
 
   adjust_times <- data %>%
     dplyr::group_by(.data$signal, .data$signal_chunk) %>%
-    dplyr::summarise(max_time = purrr::map_dbl(data, \(x) max(x$time))) %>%
+    dplyr::summarise(max_time = purrr::map_dbl(data, function(x) max(x$time))) %>%
     dplyr::group_by(.data$signal) %>%
     unique() %>%
     dplyr::mutate(adjust = cumsum(dplyr::lag(.data$max_time, default = 0)),
