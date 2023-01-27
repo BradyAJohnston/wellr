@@ -60,22 +60,22 @@
     dplyr::mutate(data = purrr::map(.data$data, .chunk_pivot)) %>%
     dplyr::arrange(.data$signal, .data$signal_chunk)
 
-  adjust_times <- data |>
-    dplyr::group_by(.data$signal, .data$signal_chunk) |>
-    dplyr::summarise(max_time = purrr::map_dbl(data, \(x) max(x$time))) |>
-    dplyr::group_by(.data$signal) |>
-    unique() |>
+  adjust_times <- data %>%
+    dplyr::group_by(.data$signal, .data$signal_chunk) %>%
+    dplyr::summarise(max_time = purrr::map_dbl(data, \(x) max(x$time))) %>%
+    dplyr::group_by(.data$signal) %>%
+    unique() %>%
     dplyr::mutate(adjust = cumsum(dplyr::lag(.data$max_time, default = 0)),
-                  id = paste(.data$signal, .data$signal_chunk, sep = "_")) |>
+                  id = paste(.data$signal, .data$signal_chunk, sep = "_")) %>%
     dplyr::pull(.data$adjust, .data$id)
 
 
-  data <- data |>
+  data <- data %>%
     dplyr::mutate(data = purrr::map2(
       .data$data,
       paste(.data$signal, .data$signal_chunk, sep = "_"),
       \(x, y) dplyr::mutate(x, time = .data$time + adjust_times[y])
-    )) |>
+    )) %>%
     tidyr::unnest("data") %>%
     tidyr::pivot_wider(
       id_cols = c("time", "signal"),
