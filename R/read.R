@@ -1,17 +1,24 @@
 #' @noRd
 
-.nest_data_chunks <- function(dat, signals = "LUM|OD") {
+.is_signal <- function(x) {
+  reg <- "([:upper:]|[:digit:])+(?=\\_)"
+  stringr::str_detect(x, reg)
+}
+
+
+#' @noRd
+
+.nest_data_chunks <- function(dat) {
   dat %>%
     dplyr::rename("signal" = 1) %>%
     janitor::clean_names() %>%
     dplyr::mutate("signal" = vctrs::vec_fill_missing(.data$signal)) %>%
-    dplyr::filter(stringr::str_detect(.data$signal, signals)) %>%
+    dplyr::filter(.is_signal(.data$signal)) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(.data$signal,
-      chunk = cumsum(stringr::str_detect(
-        .data$x2, stringr::fixed("time", ignore_case = TRUE)
-      ))
-    ) %>%
+                    chunk = cumsum(stringr::str_detect(
+                      .data$x2, stringr::fixed("time", ignore_case = TRUE)
+                    ))) %>%
     tidyr::nest() %>%
     dplyr::group_by(.data$signal) %>%
     dplyr::mutate(
@@ -21,11 +28,11 @@
         stringr::str_to_lower()
     ) %>%
     dplyr::select(
-      .data$signal,
-      .data$chunk,
-      .data$signal_chunk,
-      .data$signal_chunk_chunk,
-      .data$data
+      "signal",
+      "chunk",
+      "signal_chunk",
+      "signal_chunk_chunk",
+      "data"
     )
 }
 
@@ -51,22 +58,37 @@
 .chunk_unnest <- function(data, time_average = TRUE) {
   data <- data %>%
     dplyr::mutate(data = purrr::map(.data$data, .chunk_pivot)) %>%
-    dplyr::arrange(.data$signal, .data$signal_chunk) %>%
-    tidyr::unnest(.data$data) %>%
+    dplyr::arrange(.data$signal, .data$signal_chunk)
+
+  adjust_times <- data |>
+    dplyr::group_by(.data$signal, .data$signal_chunk) |>
+    dplyr::summarise(max_time = purrr::map_dbl(data, \(x) max(x$time))) |>
+    dplyr::group_by(.data$signal) |>
+    unique() |>
+    dplyr::mutate(adjust = cumsum(dplyr::lag(.data$max_time, default = 0)),
+                  id = paste(.data$signal, .data$signal_chunk, sep = "_")) |>
+    dplyr::pull(.data$adjust, .data$id)
+
+
+  data <- data |>
+    dplyr::mutate(data = purrr::map2(
+      .data$data,
+      paste(.data$signal, .data$signal_chunk, sep = "_"),
+      \(x, y) dplyr::mutate(x, time = .data$time + adjust_times[y])
+    )) |>
+    tidyr::unnest("data") %>%
     tidyr::pivot_wider(
-      id_cols = c(.data$time, .data$signal),
-      names_from = .data$well,
-      values_from = .data$value
+      id_cols = c("time", "signal"),
+      names_from  = "well",
+      values_from = "value"
     ) %>%
     dplyr::group_by(.data$signal) %>%
-    dplyr::mutate(
-      time = .data$time + cumsum(ifelse(
-        .data$time < dplyr::lag(.data$time, default = 0), dplyr::lag(.data$time), 0
-      )),
-      time_point = dplyr::row_number()
-    ) %>%
+    dplyr::mutate(time_point = dplyr::row_number()) %>%
     dplyr::mutate() %>%
-    tidyr::pivot_longer(-c(.data$time, .data$signal, .data$time_point), names_to = "well")
+    tidyr::pivot_longer(
+      cols = -c("time", "signal", "time_point"),
+      names_to = "well"
+      )
 
   if (time_average) {
     data %>%
@@ -84,18 +106,17 @@
   data %>%
     dplyr::group_by(.data$time_point) %>%
     dplyr::mutate(time = mean(.data$time)) %>%
-    tidyr::pivot_wider(
-      names_from = .data$signal,
-      values_from = .data$value
-    ) %>%
+    tidyr::pivot_wider(names_from  = "signal",
+                       values_from = "value") %>%
     dplyr::ungroup() %>%
-    dplyr::select(-.data$time_point)
+    dplyr::select(-"time_point")
 }
 
 #' Read Biotek Output CSV Files
 #'
 #' @param file The filepath to a `.csv` file, exported from a Biotek plate
 #' reader.
+#' @param time_average Logical, whether to aveage the time points across different observations (LUM / OD) and pivot them mto their own columns.
 #'
 #' @return tibble::tibble()
 #' @export
@@ -108,16 +129,21 @@
 #' )
 #'
 #' plate_read_biotek(file_data)
-plate_read_biotek <- function(file) {
+plate_read_biotek <- function(file, time_average = TRUE) {
   dat <-
     readr::read_csv(file, col_types = readr::cols(), col_names = FALSE)
 
   dat <- dat %>%
     .nest_data_chunks() %>%
-    .chunk_unnest()
+    .chunk_unnest(time_average = time_average)
 
-  dat %>%
-    .signal_wider()
+  if (time_average) {
+    dat %>%
+      .signal_wider()
+  } else {
+    dat
+  }
+
 
 }
 

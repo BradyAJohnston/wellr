@@ -4,11 +4,13 @@
 \alias{plate_read_biotek}
 \title{Read Biotek Output CSV Files}
 \usage{
-plate_read_biotek(file)
+plate_read_biotek(file, time_average = TRUE)
 }
 \arguments{
 \item{file}{The filepath to a \code{.csv} file, exported from a Biotek plate
 reader.}
+
+\item{time_average}{Logical, whether to aveage the time points across different observations (LUM / OD) and pivot them mto their own columns.}
 }
 \value{
 tibble::tibble()
