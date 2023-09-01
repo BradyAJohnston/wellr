@@ -4,5 +4,6 @@ test_that("multiplication works", {
   )
 
   mat <- well_df_to_mat_frames(dat, od600, time, well)
-  expect_equal(dim(mat), c(50, 24))
+
+  expect_equal(dim(mat), c(50, 384))
 })
