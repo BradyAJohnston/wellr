@@ -17,3 +17,11 @@ reference:
     desc: 'Functions for formatting and manipulating well-related properties.'
     contents:
       - starts_with("well_")
+  - title: "Reading Files"
+    desc: "reading of different metadata and plate data files."
+    contents:
+      - starts_with("read_")
+  - title: "Utilities"
+    desc: "Utility tests for dealing with plate metadata."
+    contents:
+      - starts_with("is_")
