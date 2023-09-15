@@ -15,7 +15,7 @@
   block_ends <- which(.is_blank_line(lines))
   block_length <- block_ends[1] - 1
 
-  blocks <- purrr::map(c(1, block_ends + 1), \(x) {
+  blocks <- purrr::map(c(1, block_ends + 1), function(x) {
     i <- seq(x, length.out = block_length)
     .mask_blank_lines(lines[i])
   })
@@ -36,7 +36,7 @@
   meta_name <- col_names[1]
   col_numbers <- col_names[-1]
 
-  col_pairs <- lapply(col_numbers, \(x) {
+  col_pairs <- lapply(col_numbers, function(x) {
     dat <- plate[, c(meta_name, x)]
     colnames(dat) <- c('row', meta_name)
     dat$col <- x

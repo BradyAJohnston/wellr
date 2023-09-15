@@ -22,7 +22,7 @@ plate_read_tecan <- function(file, temp = FALSE) {
     tidyr::nest(.by = .data$chunk) |>
     dplyr::filter(.data$chunk != 0) |>
     dplyr::mutate(
-      signal = purrr::map_chr(.data$data, \(x) x[1, 1, drop = TRUE]),
+      signal = purrr::map_chr(.data$data, function(x) x[1, 1, drop = TRUE]),
       data = purrr::map(.data$data, dplyr::slice, -1),
       data = purrr::map(.data$data, janitor::row_to_names, row_number = 1)
     ) |>

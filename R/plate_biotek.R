@@ -74,7 +74,7 @@
     dplyr::mutate(data = purrr::map2(
       .data$data,
       paste(.data$signal, .data$signal_chunk, sep = "_"),
-      \(x, y) dplyr::mutate(x, time = .data$time + adjust_times[y])
+      function(x, y) dplyr::mutate(x, time = .data$time + adjust_times[y])
     )) %>%
     tidyr::unnest("data") %>%
     tidyr::pivot_wider(
