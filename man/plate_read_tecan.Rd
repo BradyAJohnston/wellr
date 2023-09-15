@@ -2,13 +2,18 @@
 % Please edit documentation in R/plate_tecan.R
 \name{plate_read_tecan}
 \alias{plate_read_tecan}
-\title{Title}
+\title{Read the output of Tecan Plate Readers}
 \usage{
 plate_read_tecan(file, temp = FALSE)
 }
 \arguments{
-\item{temp}{}
+\item{file}{File path to the \code{.xlsx} or \code{.csv} file.}
+
+\item{temp}{Logical, whether to include the temperature column.}
+}
+\value{
+a \code{tibble::tibble()} of the values from the file.
 }
 \description{
-Title
+Read the output of Tecan Plate Readers
 }

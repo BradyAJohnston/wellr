@@ -1,59 +1,86 @@
-.read_block <- function(block_lines) {
-
-  single_string <- stringr::str_c(block_lines, sep = "\n")
-
-  block <- readr::read_csv(
-    I(single_string),
-    col_types = readr::cols()
-  )
-
-  name <- colnames(block)[1]
-  block <- block |>
-    tidyr::pivot_longer(
-      cols = c(-1),
-      names_transform = as.numeric,
-      names_to = "col"
-    )
-  colnames(block)[colnames(block) == name] = "row"
-  colnames(block)[colnames(block) == "value"] = name
-
-  dplyr::mutate(block, well = well_join(row, col)) |>
-    dplyr::select(-c(row, col))
+#' @noRd
+.is_blank_line <- function(x) {
+  pattern <- "^(,|\t|NA)"
+  grepl(pattern, x)
 }
 
-.read_blocks <- function(lines, blocks) {
-  purrr::map(unique(blocks), \(x) {
-
-    line_block <- lines[blocks == x]
-    .read_block(line_block)
-
-  })
+#' @noRd
+.mask_blank_lines <- function(lines) {
+  lines[!.is_blank_line(lines)]
 }
 
-.read_meta <- function(file) {
+#' @noRd
+.lines_to_list <- function(file) {
   lines <- readr::read_lines(file)
-  # find the gaps
-  is_blank <- stringr::str_starts(lines, ",")
-  blocks <- cumsum(is_blank)
+  block_ends <- which(.is_blank_line(lines))
+  block_length <- block_ends[1] - 1
 
-  # remove lines where it is just blanks
-  blocks <- blocks[!is_blank]
-  lines <- lines[!is_blank]
-
-  # read each block of values as a list of dataframes
-  blocks_list <- .read_blocks(lines, blocks)
-  # squish down to a single tibble
-  dat <- purrr::reduce(blocks_list, dplyr::left_join, by = dplyr::join_by(well))
-
-  # return with `well` as first column
-  dplyr::select(dat, well, dplyr::everything())
+  blocks <- purrr::map(c(1, block_ends + 1), \(x) {
+    i <- seq(x, length.out = block_length)
+    .mask_blank_lines(lines[i])
+  })
+  blocks
 }
 
-read_meta <- function(file, id = "id") {
-  if (length(file) > 1) {
-    purrr::map(file, .read_meta) |>
-      dplyr::bind_rows(.id = id)
+#' @noRd
+.read_block <- function(block) {
+  block <- readr::read_csv(
+    paste0(block, collapse = "\n"),
+    col_types = readr::cols()
+    )
+}
+
+#' @noRd
+.pivot_plate <- function(plate) {
+  col_names <- colnames(plate)
+  meta_name <- col_names[1]
+  col_numbers <- col_names[-1]
+
+  col_pairs <- lapply(col_numbers, \(x) {
+    dat <- plate[, c(meta_name, x)]
+    colnames(dat) <- c('row', meta_name)
+    dat$col <- x
+    dat$well <- well_join(dat$row, dat$col)
+
+    dat[, c("well", meta_name)]
+  })
+
+  purrr::reduce(col_pairs, rbind)
+}
+
+#' @noRd
+.guess_plate_size <- function(x) {
+  if (is.numeric(x)) {
+    n_well <- x
+  } else if (is.data.frame(x)) {
+    n_well <- nrow(x)
   } else {
-    .read_meta(file)
+    stop("Must be numeric or dataframe")
   }
+  if (n_well > 1536) {
+    stop("Too many wells!")
+  }
+
+  sizes <- c(6, 24, 48, 96, 384, 1536)
+  lower <- c(0, sizes[-6])
+  sizes[n_well <= sizes & n_well > lower]
+}
+
+#' Read a `{plater}` formatted metadata file
+#'
+#' @param file to read metadata from.
+#'
+#' @return a [tibble][tibble::tibble-package]
+#' @export
+#'
+#' @examples
+#' file <- system.file("extdata", "plate_layout_96.csv", package = "wellr")
+#' read_meta(file)
+
+read_meta <- function(file) {
+  lines <- .lines_to_list(file)
+  blocks <- purrr::map(lines, .read_block)
+  cols <- purrr::map(blocks, .pivot_plate)
+  dat <- purrr::reduce(cols, dplyr::inner_join, by = "well")
+  dat
 }
