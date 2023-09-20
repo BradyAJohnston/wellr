@@ -25,6 +25,9 @@
     <loc>https://bradyajohnston.github.io/wellr/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/is_well_id.html</loc>
+  </url>
+  <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/n_cols_from_wells.html</loc>
   </url>
   <url>
@@ -41,6 +44,12 @@
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_tecan.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/read_meta.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/well_check.html</loc>
