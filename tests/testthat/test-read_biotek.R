@@ -16,10 +16,9 @@ test_that("Test the Reading of Biotek Files", {
   purrr::map(seq_along(files$file), function(i) {
     dat <- plate_read_biotek(
       system.file("extdata", files$file[i], package = "wellr")
-      ) %>%
-      plate_add_meta(
-        system.file("extdata", files$meta[i], package = "wellr")
-        )
+      )
+    dat <- plate_add_meta(data = dat,
+                          file = system.file("extdata", files$meta[i], package = "wellr"))
 
     expect_equal(files$first_lum[i],
                  dat$lum[1])

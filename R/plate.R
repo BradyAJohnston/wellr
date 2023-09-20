@@ -233,6 +233,8 @@ well_df_to_mat_frames <- function(data,
 
   n_row <- max(well_to_row_num(dplyr::pull(df_frames, {{ well }})))
   n_col <- max(well_to_col_num(dplyr::pull(df_frames, {{ well }})))
+  # n_row = 16
+  # n_col = 50
   frames <- unique(dplyr::pull(data, {{ frame }}))
   n_wells <- n_row * n_col
 
