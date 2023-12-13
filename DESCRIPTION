@@ -15,9 +15,13 @@ Description: Provides a range of utility functions for working with
 License: MIT + file LICENSE
 Suggests: 
     covr,
+    devtools,
     rmarkdown,
-    testthat (>= 3.0.0)
+    roxygen2,
+    testthat (>= 3.0.0),
+    usethis
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

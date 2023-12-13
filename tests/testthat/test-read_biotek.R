@@ -33,7 +33,7 @@ test_that("Test the Reading of Biotek Files", {
 
 test_that("Detection of signal rows.", {
 
-  signals <- c("LUM_1:Lum", "OD600_1:600", "OD600_2:600", "LUM_2:Lum")
+  signals <- c("LUM_1:Lum", "OD600_1:600", "OD600_2:600", "LUM_2:Lum", "LUM_2:")
 
   non_signals <-
     c(
