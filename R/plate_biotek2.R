@@ -8,7 +8,7 @@ is_block_start <- function(lines) {
 #' Test if a line is part of a data block
 #' @noRd
 is_block_line <- function(lines) {
-  stringr::str_detect(lines, "^,[^,]+,[^,]+,[^,]+,")
+  stringr::str_detect(lines, paste0(c("^,?", rep("[^,]+,", 10)), collapse = ""))
 }
 
 #' Test if a line is a metadata line
