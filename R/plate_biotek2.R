@@ -1,14 +1,22 @@
+#' The pre prefix onto some number of repeating .csv entris
+#'
+#' Useful for constructing regex for csv line identification
+#' @noRd
+.multi_entry <- function(pre = "^,?", reps = 8) {
+  paste0(c(pre, rep("[^,]+,", reps)), collapse = "")
+}
+
 #' Test for start of a data block.
 #'
 #' @noRd
 is_block_start <- function(lines) {
-  stringr::str_detect(lines, "^,(Time|Wavelength),[^,]+")
+  stringr::str_detect(lines, .multi_entry("^,?(Time|Wavelength),"))
 }
 
 #' Test if a line is part of a data block
 #' @noRd
 is_block_line <- function(lines) {
-  stringr::str_detect(lines, paste0(c("^,?", rep("[^,]+,", 10)), collapse = ""))
+  stringr::str_detect(lines, .multi_entry("^,?"))
 }
 
 #' Test if a line is a metadata line
