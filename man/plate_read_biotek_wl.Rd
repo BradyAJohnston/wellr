@@ -4,12 +4,12 @@
 \alias{plate_read_biotek_wl}
 \title{Read the \code{wavelength} data blocks from a \emph{biotek} \code{.csv} file.}
 \usage{
-plate_read_biotek_wl(file, format = TRUE)
+plate_read_biotek_wl(file, format_well = TRUE)
 }
 \arguments{
 \item{file}{File path to the \code{.csv} file.}
 
-\item{format}{Whether to format the \code{well} column of the returned dataframes.}
+\item{format_well}{Whether to format the \code{well} column of the returned dataframes.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble}

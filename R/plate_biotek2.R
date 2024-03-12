@@ -70,7 +70,7 @@ read_data_block <- function(lines, temp = FALSE, format_well = TRUE, rownum = FA
 #'
 #' @param lines Vector of strings that are lines from a .csv file.
 #' @param temp Whether to include the temp column of a file.
-#' @param format Whether to format the well ID column of a file.
+#' @param format_well Whether to format the well ID column of a file.
 #'
 #' @noRd
 get_all_blocks <- function(lines, temp = FALSE, format_well = TRUE, include_id = FALSE, rownum = FALSE) {
@@ -143,47 +143,30 @@ get_blocks_wl <- function(blocks) {
   wl
 }
 
-#' Title
-#'
-#' @param time
-#' @param idx
-#' @param interval
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#' @noRd
 accumulate_time <- function(time, idx, interval = 0) {
   is_new <- c(FALSE, diff(idx) > 0)
   offset <- cumsum(ifelse(is_new, dplyr::lag(time) + interval, 0))
   time + offset
 }
 
+#' @noRd
 get_blocks <- function(blocks, colname) {
   purrr::keep(blocks, \(x) colname %in% colnames(x))
 }
 
-#' Title
-#'
-#' @param blocks
-#' @param interval
-#' @param average_time
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#' @noRd
 get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
   dat <- get_blocks(blocks, "time") |>
     dplyr::bind_rows()
 
   average_time = TRUE
   if (average_time) {
-    dat <- dplyr::mutate(dat, time = mean(time), .by = dplyr::matches("rownum|well"))
+    dat <- dplyr::mutate(dat, time = mean(.data$time), .by = dplyr::matches("rownum|well"))
   }
 
   if (accumulate_time) {
-    dat <- dplyr::mutate(dat, time = accumulate_time(time, idx, interval = interval), .by = c("well", "type")) |>
+    dat <- dplyr::mutate(dat, time = accumulate_time(.data$time, .data$idx, interval = interval), .by = c("well", "type")) |>
       dplyr::select(-dplyr::matches("^rownum$"))
   }
 
@@ -191,6 +174,8 @@ get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
     dplyr::select(-dplyr::matches("^idx$"))
 }
 
+#' drop-in replacement for plate_read_biotek
+#' @noRd
 plate_read_biotek2 <- function(
     file,
     average_time = TRUE,
@@ -241,7 +226,7 @@ plate_read_biotek2 <- function(
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
 #'
 #' @param file File path to the `.csv` file.
-#' @param format Whether to format the `well` column of the returned dataframes.
+#' @param format_well Whether to format the `well` column of the returned dataframes.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #' @export
@@ -255,12 +240,12 @@ plate_read_biotek2 <- function(
 #'
 #' plate_read_biotek_wl(file_data)
 #' plate_read_biotek_wl(file_data, format = FALSE)
-plate_read_biotek_wl <- function(file, format = TRUE) {
+plate_read_biotek_wl <- function(file, format_well = TRUE) {
   # get the lines and drop irrelevant ones
   lines <- readr::read_lines(file) |>
     drop_results()
 
-  blocks <- get_all_blocks(lines, temp = FALSE, format = format)
+  blocks <- get_all_blocks(lines, temp = FALSE, format_well = format_well)
 
   blocks_wl <- get_blocks_wl(blocks)
 
