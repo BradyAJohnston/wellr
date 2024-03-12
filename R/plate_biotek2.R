@@ -224,11 +224,18 @@ plate_read_biotek2 <- function(
     new_col_names <- new_col_names[new_col_names %in% colnames(dat_wide)]
 
     if (length(new_col_names) > 0) {
-      dat_wide <- dplyr::rename(dat_wide, new_col_names)
+
+      for (i in seq_along(new_col_names)) {
+        old_name <- new_col_names[i]
+        new_name <- names(new_col_names)[i]
+        colnames(dat_wide)[colnames(dat_wide) == old_name] = new_name
+      }
+
+      # dat_wide <- dplyr::rename(dat_wide, new_col_names)
     }
   }
 
-  dplyr::arrange(dat_wide, .data$time, .dadta$well)
+  dplyr::arrange(dat_wide, .data$time, .data$well)
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
