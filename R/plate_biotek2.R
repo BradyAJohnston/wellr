@@ -45,9 +45,7 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
     values_transform = as.numeric,
     names_to = "well"
   ) |>
-
     janitor::clean_names() |>
-
     # change any time formatted columns into seconds / numeric
     dplyr::mutate(dplyr::across(dplyr::matches("time"), as.numeric))
 
@@ -56,7 +54,7 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
   }
 
   if (temp) {
-    dat <- dplyr::select(dat, -dplyr::starts_with('t_'))
+    dat <- dplyr::select(dat, -dplyr::starts_with("t_"))
   }
 
   dat
@@ -75,9 +73,9 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE) {
 
   purrr::map2(data_block_starts, intervals, \(start, interval) {
     if (is.na(interval)) {
-      end = length(lines)
+      end <- length(lines)
     } else {
-      end = start + interval - 4
+      end <- start + interval - 4
     }
 
     read_data_block(lines[start:end], temp = temp, format = format)
@@ -87,7 +85,7 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE) {
 #' Drop the lines that are "results" from a biotek file
 #' @noRd
 drop_results <- function(lines) {
-  is_results <- cumsum(stringr::str_detect(lines, '^Results')) > 0
+  is_results <- cumsum(stringr::str_detect(lines, "^Results")) > 0
   lines[!is_results]
 }
 
@@ -107,7 +105,7 @@ get_blocks_wl <- function(blocks) {
     block <- blocks[[i]]
     if ("wavelength" %in% colnames(block)) {
       wl[[counter]] <- block
-      counter = counter + 1
+      counter <- counter + 1
     }
   }
 
@@ -140,8 +138,5 @@ plate_read_biotek_wl <- function(file, format = TRUE) {
 
   blocks_wl <- get_blocks_wl(blocks)
 
-  dplyr::bind_rows(blocks_wl, .id = 'id')
+  dplyr::bind_rows(blocks_wl, .id = "id")
 }
-
-
-

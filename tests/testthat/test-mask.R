@@ -1,5 +1,4 @@
 test_that("masking lines", {
-
   file <- system.file("extdata", "plate_layout_96.csv", package = "wellr")
   lines <- readLines(file, warn = FALSE)
 
@@ -13,7 +12,6 @@ test_that("masking lines", {
   expect_equal(length(lines), 71)
   expect_equal(which(.is_blank_line(lines)), c(18, 36, 54))
   expect_equal(length(.mask_blank_lines(lines)), 68)
-
 })
 
 

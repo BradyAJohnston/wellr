@@ -1,8 +1,10 @@
 test_that("Test the Reading of Biotek Files", {
   files <- tibble::tibble(
-    file = c("20220929_1steptimer20.csv",
-             "20221004_1steptimer20.csv",
-             "20221012_1steptimer20.csv"),
+    file = c(
+      "20220929_1steptimer20.csv",
+      "20221004_1steptimer20.csv",
+      "20221012_1steptimer20.csv"
+    ),
     meta = c(
       "20220929_1steptimer20_metainfo.csv",
       "20221004_1steptimer20_metainfo.csv",
@@ -16,23 +18,28 @@ test_that("Test the Reading of Biotek Files", {
   purrr::map(seq_along(files$file), function(i) {
     dat <- plate_read_biotek(
       system.file("extdata", files$file[i], package = "wellr")
-      )
-    dat <- plate_add_meta(data = dat,
-                          file = system.file("extdata", files$meta[i], package = "wellr"))
+    )
+    dat <- plate_add_meta(
+      data = dat,
+      file = system.file("extdata", files$meta[i], package = "wellr")
+    )
 
-    expect_equal(files$first_lum[i],
-                 dat$lum[1])
-    expect_equal(files$first_od[i],
-                 dat$od600[1])
-    expect_equal(files$first_time[i],
-                 dat$time[1])
-
-
+    expect_equal(
+      files$first_lum[i],
+      dat$lum[1]
+    )
+    expect_equal(
+      files$first_od[i],
+      dat$od600[1]
+    )
+    expect_equal(
+      files$first_time[i],
+      dat$time[1]
+    )
   })
 })
 
 test_that("Detection of signal rows.", {
-
   signals <- c("LUM_1:Lum", "OD600_1:600", "OD600_2:600", "LUM_2:Lum", "LUM_2:")
 
   non_signals <-
@@ -67,4 +74,3 @@ test_that("Detection of signal rows.", {
   sapply(signals, function(x) expect_true(.is_signal(x)))
   sapply(non_signals, function(x) expect_false(.is_signal(x)))
 })
-

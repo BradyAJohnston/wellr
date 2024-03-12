@@ -27,7 +27,7 @@
   block <- readr::read_csv(
     paste0(block, collapse = "\n"),
     col_types = readr::cols()
-    )
+  )
 }
 
 #' @noRd
@@ -38,7 +38,7 @@
 
   col_pairs <- lapply(col_numbers, function(x) {
     dat <- plate[, c(meta_name, x)]
-    colnames(dat) <- c('row', meta_name)
+    colnames(dat) <- c("row", meta_name)
     dat$col <- x
     dat$well <- well_join(dat$row, dat$col)
 
@@ -76,7 +76,6 @@
 #' @examples
 #' file <- system.file("extdata", "plate_layout_96.csv", package = "wellr")
 #' read_meta(file)
-
 read_meta <- function(file) {
   lines <- .lines_to_list(file)
   blocks <- purrr::map(lines, .read_block)

@@ -98,7 +98,7 @@ plate
 ```
 
 ``` r
-plate %>% 
+plate |> 
   plate_add_meta(file_meta)
 #> # A tibble: 19,200 × 8
 #>     time well    lum od600 strain  concentration promoter rbs  

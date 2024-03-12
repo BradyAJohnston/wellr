@@ -7,7 +7,9 @@
 #' @export
 #'
 plate_read_tecan <- function(file, temp = FALSE) {
-  dat <- suppressMessages({readxl::read_excel(file, col_names = FALSE, .name_repair = "unique")})
+  dat <- suppressMessages({
+    readxl::read_excel(file, col_names = FALSE, .name_repair = "unique")
+  })
   dat <- janitor::clean_names(dat)
 
   vec <- stringr::str_detect(dplyr::pull(dat, .data$x1), "Cycle Nr")
@@ -53,8 +55,4 @@ plate_read_tecan <- function(file, temp = FALSE) {
     dat <- dplyr::select(dat, -dplyr::matches("temp"))
     dat
   }
-
 }
-
-
-

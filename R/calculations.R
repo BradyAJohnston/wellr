@@ -1,4 +1,3 @@
-
 v1 <- function(c1, c2, v2) {
   c2 * v2 / c1
 }
