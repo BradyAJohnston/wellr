@@ -17,7 +17,7 @@
 well_plot <- function(data, well, value, colour = "black") {
   data <- dplyr::mutate(
     data,
-    row  = wellr::well_to_row_let({{ well }}),
+    row = wellr::well_to_row_let({{ well }}),
     row = factor(row, levels = rev(c(LETTERS, paste0("A", LETTERS)))),
     col = wellr::well_to_col_num({{ well }})
   )

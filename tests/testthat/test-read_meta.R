@@ -10,4 +10,3 @@ test_that("read a meta plate", {
   meta <- read_meta(fl)
   expect_equal(dim(meta), c(384, 5))
 })
-

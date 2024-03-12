@@ -42,9 +42,9 @@ plate_read_meta <- function(file, sep = ",") {
 #'   package = "wellr"
 #' )
 #'
-#' plate_read_biotek(file_data) %>%
+#' plate_read_biotek(file_data) |>
 #'   plate_add_meta(file_meta)
 plate_add_meta <- function(data, file) {
-  data %>%
+  data |>
     dplyr::left_join(plate_read_meta(file), by = "well")
 }

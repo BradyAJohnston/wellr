@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![CRAN status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr) [![R-CMD-check](https://github.com/bradyajohnston/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/bradyajohnston/wellr/actions) [![Codecov test coverage](https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/wellr?branch=master)
-
+[![R-CMD-check](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `{wellr}` provides a consistent and reliable interface for dealing with plate-based data and related calculations.
@@ -29,6 +29,7 @@ It provides functions for reading the output of various plate readers, indexing 
 <!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
 
 ### From R-Universe:
+This is the recommended way to install the package - as it requires no additional dependencies. It is currently not available on CRAN.
 ``` r
 install.packages("wellr", repos = "bradyajohnston.r-universe.dev")
 ```
@@ -54,7 +55,6 @@ well_from_index(37)
 well_from_index(37, colwise = TRUE)
 well_join(3, 8)
 well_join("E", 10)
-
 ```
 
 ## Reading Biotek
@@ -62,14 +62,15 @@ well_join("E", 10)
 Get the file paths of the demo files.
 
 ```{r}
-file_data <- system.file('extdata',
-                         '20220929_1steptimer20.csv',
-                         package = 'wellr')
+file_data <- system.file("extdata",
+  "20220929_1steptimer20.csv",
+  package = "wellr"
+)
 
-file_meta <- system.file('extdata',
-                         '20220929_1steptimer20_metainfo.csv',
-                         package = 'wellr')
-
+file_meta <- system.file("extdata",
+  "20220929_1steptimer20_metainfo.csv",
+  package = "wellr"
+)
 ```
 
 Read in an example plate from a Biotek plate reader.
@@ -77,13 +78,31 @@ Read in an example plate from a Biotek plate reader.
 ```{r}
 plate <- plate_read_biotek(file_data)
 plate
-
 ```
 
 ```{r}
-plate %>% 
+plate |>
   plate_add_meta(file_meta)
 ```
+
+### Read Biotek Wavelength Data
+
+If the biotek `.csv` file includes spectral readings from different wavelengths, these won't be included in the regular `plate_read_biotek()` function's output - as they don't have associated time information. 
+
+The `plate_read_biotek_wl()` function extracts these readings, and the resulting data frame includes a `id` column, specifying which wavelength reading they come from.
+
+```{r}
+file_including_wavelength <- system.file(
+  "extdata", "2024-02-29_vio_GFP_main.csv", package = "wellr"
+)
+
+timepoint_values <- plate_read_biotek(file_including_wavelength)
+timepoint_values
+
+wl <- plate_read_biotek_wl(file_including_wavelength)
+wl
+```
+
 
 ## Creating Dummy Plates
 

@@ -57,7 +57,6 @@ is_well_id <- function(x) {
 #' well_join(c("A", "B", "H"), 9)
 #' well_join("C", 1:10)
 well_join <- function(row, col, num_width = 2) {
-
   # rowlet <- ifelse(
   #   is.numeric(row),
   #   LETTERS[as.numeric(row)],

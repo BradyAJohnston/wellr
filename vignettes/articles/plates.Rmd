@@ -18,7 +18,6 @@ library(wellr)
 Some of the functions that might be useful.
 
 ```{r}
-
 plate <- well_plate(8, 12)
 
 
@@ -26,6 +25,5 @@ plate$value <- seq(nrow(plate))
 
 
 well_df_to_mat(plate, "value")
-
 ```
 
