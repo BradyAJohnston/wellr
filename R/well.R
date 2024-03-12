@@ -28,7 +28,7 @@ well_check <- function(x) {
 #' @examples
 #' is_well_id(c("a12", "a2", "a02", "foo1"))
 is_well_id <- function(x) {
-  well_id_regex <- "[:alpha:]{1,2}\\d{1,3}"
+  well_id_regex <- "^(A|a)?[:alpha:]\\d{1,3}"
 
   stringr::str_detect(
     stringr::str_trim(x),

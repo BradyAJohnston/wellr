@@ -135,17 +135,5 @@
 #'
 #' plate_read_biotek(file_data)
 plate_read_biotek <- function(file, time_average = TRUE) {
-  dat <-
-    readr::read_csv(file, col_types = readr::cols(), col_names = FALSE)
-
-  dat <- dat |>
-    .nest_data_chunks() |>
-    .chunk_unnest(time_average = time_average)
-
-  if (time_average) {
-    dat |>
-      .signal_wider()
-  } else {
-    dat
-  }
+  plate_read_biotek2(file, average_time = time_average)
 }

@@ -93,7 +93,8 @@ The `plate_read_biotek_wl()` function extracts these readings, and the resulting
 
 ```{r}
 file_including_wavelength <- system.file(
-  "extdata", "2024-02-29_vio_GFP_main.csv", package = "wellr"
+  "extdata", "2024-02-29_vio_GFP_main.csv",
+  package = "wellr"
 )
 
 timepoint_values <- plate_read_biotek(file_including_wavelength)

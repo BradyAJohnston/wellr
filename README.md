@@ -133,32 +133,26 @@ reading they come from.
 
 ``` r
 file_including_wavelength <- system.file(
-  "extdata", "2024-02-29_vio_GFP_main.csv", package = "wellr"
+  "extdata", "2024-02-29_vio_GFP_main.csv",
+  package = "wellr"
 )
 
 timepoint_values <- plate_read_biotek(file_including_wavelength)
-#> Warning: There were 250 warnings in `dplyr::mutate()`.
-#> The first warning was:
-#> ℹ In argument: `data = purrr::map(.data$data, .chunk_pivot)`.
-#> ℹ In group 1: `signal = "gfp"`.
-#> Caused by warning in `grepl()`:
-#> ! input string 2 is invalid UTF-8
-#> ℹ Run `dplyr::last_dplyr_warnings()` to see the 249 remaining warnings.
 timepoint_values
-#> # A tibble: 42,912 × 5
-#>     time well    gfp od600   vio
-#>    <dbl> <chr> <dbl> <dbl> <dbl>
-#>  1  424. A01     260 0.041 0.042
-#>  2  424. A02     258 0.043 0.044
-#>  3  424. A03     258 0.043 0.044
-#>  4  424. A04     254 0.044 0.044
-#>  5  424. A05     256 0.044 0.044
-#>  6  424. A06     255 0.043 0.044
-#>  7  424. A07     244 0.043 0.044
-#>  8  424. A08     252 0.045 0.045
-#>  9  424. A09     251 0.045 0.045
-#> 10  424. A10     247 0.045 0.045
-#> # ℹ 42,902 more rows
+#> # A tibble: 14,304 × 7
+#>     time well  od600 gfp_485 vio_575 vio_585 vio_595
+#>    <dbl> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1  469. A01   0.041     260   0.042   0.041   0.041
+#>  2  469. A02   0.043     258   0.044   0.044   0.043
+#>  3  469. A03   0.043     258   0.044   0.044   0.044
+#>  4  469. A04   0.044     254   0.044   0.044   0.044
+#>  5  469. A05   0.044     256   0.044   0.044   0.044
+#>  6  469. A06   0.043     255   0.044   0.044   0.044
+#>  7  469. A07   0.043     244   0.044   0.044   0.044
+#>  8  469. A08   0.045     252   0.045   0.045   0.045
+#>  9  469. A09   0.045     251   0.045   0.045   0.045
+#> 10  469. A10   0.045     247   0.045   0.046   0.045
+#> # ℹ 14,294 more rows
 
 wl <- plate_read_biotek_wl(file_including_wavelength)
 wl
