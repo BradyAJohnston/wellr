@@ -31,7 +31,7 @@ is_data_lines <- function(lines) {
 #'
 #'
 #' @noRd
-read_data_block <- function(lines, temp = FALSE, format = TRUE, rownum = FALSE) {
+read_data_block <- function(lines, temp = FALSE, format_well = TRUE, rownum = FALSE) {
   lines |>
     stringr::str_remove("^,") |>
     stringr::str_remove(",$") |>
@@ -49,13 +49,12 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE, rownum = FALSE) 
     cols = which(is_well_id(colnames(dat))),
     values_transform = as.numeric,
     names_to = "well"
-
   ) |>
     janitor::clean_names() |>
     # change any time formatted columns into seconds / numeric
     dplyr::mutate(dplyr::across(dplyr::matches("time"), as.numeric))
 
-  if (format) {
+  if (format_well) {
     dat <- dplyr::mutate(dat, well = well_format(.data$well))
   }
 
@@ -74,7 +73,7 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE, rownum = FALSE) 
 #' @param format Whether to format the well ID column of a file.
 #'
 #' @noRd
-get_all_blocks <- function(lines, temp = FALSE, format = TRUE, include_id = FALSE, rownum = FALSE) {
+get_all_blocks <- function(lines, temp = FALSE, format_well = TRUE, include_id = FALSE, rownum = FALSE) {
   data_block_starts <- which(is_block_start(lines))
   intervals <- c(diff(data_block_starts), NA)
 
@@ -85,7 +84,7 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE, include_id = FALS
       end <- start + interval - 4
     }
 
-    id <- 'value'
+    id <- "value"
     if (include_id) {
       id <- stringr::str_split(lines[start - 2], ",")[[1]][1]
     }
@@ -93,7 +92,7 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE, include_id = FALS
     dat <- read_data_block(
       lines = lines[start:end],
       temp = temp,
-      format = format,
+      format_well = format_well,
       rownum = rownum
     )
 
@@ -107,9 +106,9 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE, include_id = FALS
         dplyr::mutate(
           idx = as.integer(id_int),
           type = id_name
-          )
-
+        )
     }
+
     dat
   })
 }
@@ -154,10 +153,14 @@ get_blocks_wl <- function(blocks) {
 #' @export
 #'
 #' @examples
-accumulate_time <- function(time, idx, interval = 60 * 20) {
+accumulate_time <- function(time, idx, interval = 0) {
   is_new <- c(FALSE, diff(idx) > 0)
   offset <- cumsum(ifelse(is_new, dplyr::lag(time) + interval, 0))
   time + offset
+}
+
+get_blocks <- function(blocks, colname) {
+  purrr::keep(blocks, \(x) colname %in% colnames(x))
 }
 
 #' Title
@@ -170,20 +173,62 @@ accumulate_time <- function(time, idx, interval = 60 * 20) {
 #' @export
 #'
 #' @examples
-get_blocks_time <- function(blocks, interval = 60 * 20, average_time = TRUE) {
-  dat <- purrr::keep(blocks, \(x) "time" %in% colnames(x)) |>
+get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
+  dat <- get_blocks(blocks, "time") |>
     dplyr::bind_rows()
 
+  average_time = TRUE
   if (average_time) {
-    dat <- dplyr::mutate(dat, time = mean(time), .by = c(.data$rownum, .data$well))
+    dat <- dplyr::mutate(dat, time = mean(time), .by = dplyr::matches("rownum|well"))
+  }
+
+  if (accumulate_time) {
+    dat <- dplyr::mutate(dat, time = accumulate_time(time, idx, interval = interval), .by = c("well", "type")) |>
+      dplyr::select(-dplyr::matches("^rownum$"))
   }
 
   dat |>
-    dplyr::mutate(
-      time = accumulate_time(time, idx),
-      .by = c(well, type)
+    dplyr::select(-dplyr::matches("^idx$"))
+}
+
+plate_read_biotek2 <- function(
+    file,
+    average_time = TRUE,
+    accumulate_time = TRUE,
+    interval = 0,
+    rename = TRUE
+    ) {
+  lines <- readr::read_lines(file) |>
+    drop_results()
+
+  blocks <- get_all_blocks(lines, temp = FALSE, include_id = TRUE, rownum = TRUE)
+
+  blocks_time <- get_blocks_time(
+    blocks,
+    interval = interval,
+    accumulate_time = accumulate_time
     )
 
+  dat_wide <- tidyr::pivot_wider(
+    dplyr::bind_rows(blocks_time),
+    names_from = "type",
+    values_from = "value"
+  )
+
+
+  if (rename) {
+    new_col_names <- c(
+      "od600" = "od600_600",
+      "lum" = "lum_lum"
+      )
+    new_col_names <- new_col_names[new_col_names %in% colnames(dat_wide)]
+
+    if (length(new_col_names) > 0) {
+      dat_wide <- dplyr::rename(dat_wide, new_col_names)
+    }
+  }
+
+  dplyr::arrange(dat_wide, .data$time, .dadta$well)
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
