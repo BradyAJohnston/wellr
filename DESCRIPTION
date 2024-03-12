@@ -1,6 +1,6 @@
 Package: wellr
 Title: Utilities for Working With Plate Based Data
-Version: 0.2.3
+Version: 0.3.0
 Authors@R: 
     person(given = "Brady",
            family = "Johnston",
