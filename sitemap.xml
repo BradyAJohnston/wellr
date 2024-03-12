@@ -34,13 +34,13 @@
     <loc>https://bradyajohnston.github.io/wellr/reference/n_rows_from_wells.html</loc>
   </url>
   <url>
-    <loc>https://bradyajohnston.github.io/wellr/reference/pipe.html</loc>
-  </url>
-  <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_add_meta.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek_wl.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_meta.html</loc>
