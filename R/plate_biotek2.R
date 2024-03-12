@@ -31,7 +31,7 @@ is_data_lines <- function(lines) {
 #'
 #'
 #' @noRd
-read_data_block <- function(lines, temp = FALSE, format = TRUE) {
+read_data_block <- function(lines, temp = FALSE, format = TRUE, rownum = FALSE) {
   lines |>
     stringr::str_remove("^,") |>
     stringr::str_remove(",$") |>
@@ -39,12 +39,17 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
     stringr::str_c(collapse = "\n") |>
     readr::read_csv(col_types = readr::cols()) -> dat
 
+  if (rownum) {
+    dat <- dplyr::mutate(dat, rownum = dplyr::row_number())
+  }
+
 
   dat <- tidyr::pivot_longer(
     dat,
     cols = which(is_well_id(colnames(dat))),
     values_transform = as.numeric,
     names_to = "well"
+
   ) |>
     janitor::clean_names() |>
     # change any time formatted columns into seconds / numeric
@@ -54,7 +59,8 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
     dat <- dplyr::mutate(dat, well = well_format(.data$well))
   }
 
-  if (temp) {
+  # remove temp column if not wanted
+  if (!temp) {
     dat <- dplyr::select(dat, -dplyr::starts_with("t_"))
   }
 
@@ -68,7 +74,7 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
 #' @param format Whether to format the well ID column of a file.
 #'
 #' @noRd
-get_all_blocks <- function(lines, temp = FALSE, format = TRUE) {
+get_all_blocks <- function(lines, temp = FALSE, format = TRUE, include_id = FALSE, rownum = FALSE) {
   data_block_starts <- which(is_block_start(lines))
   intervals <- c(diff(data_block_starts), NA)
 
@@ -79,7 +85,32 @@ get_all_blocks <- function(lines, temp = FALSE, format = TRUE) {
       end <- start + interval - 4
     }
 
-    read_data_block(lines[start:end], temp = temp, format = format)
+    id <- 'value'
+    if (include_id) {
+      id <- stringr::str_split(lines[start - 2], ",")[[1]][1]
+    }
+
+    dat <- read_data_block(
+      lines = lines[start:end],
+      temp = temp,
+      format = format,
+      rownum = rownum
+    )
+
+    if (include_id) {
+      id_clean <- janitor::make_clean_names(id)
+      id_split <- stringr::str_split(id_clean, "_")[[1]]
+      id_name <- paste0(id_split[c(1, 3)], collapse = "_")
+      id_int <- id_split[2]
+
+      dat <- dat |>
+        dplyr::mutate(
+          idx = as.integer(id_int),
+          type = id_name
+          )
+
+    }
+    dat
   })
 }
 
@@ -111,6 +142,48 @@ get_blocks_wl <- function(blocks) {
   }
 
   wl
+}
+
+#' Title
+#'
+#' @param time
+#' @param idx
+#' @param interval
+#'
+#' @return
+#' @export
+#'
+#' @examples
+accumulate_time <- function(time, idx, interval = 60 * 20) {
+  is_new <- c(FALSE, diff(idx) > 0)
+  offset <- cumsum(ifelse(is_new, dplyr::lag(time) + interval, 0))
+  time + offset
+}
+
+#' Title
+#'
+#' @param blocks
+#' @param interval
+#' @param average_time
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_blocks_time <- function(blocks, interval = 60 * 20, average_time = TRUE) {
+  dat <- purrr::keep(blocks, \(x) "time" %in% colnames(x)) |>
+    dplyr::bind_rows()
+
+  if (average_time) {
+    dat <- dplyr::mutate(dat, time = mean(time), .by = c(.data$rownum, .data$well))
+  }
+
+  dat |>
+    dplyr::mutate(
+      time = accumulate_time(time, idx),
+      .by = c(well, type)
+    )
+
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
