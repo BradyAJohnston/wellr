@@ -35,6 +35,7 @@ read_data_block <- function(lines, temp = FALSE, format = TRUE) {
   lines |>
     stringr::str_remove("^,") |>
     stringr::str_remove(",$") |>
+    stringr::str_subset("^[,]+,[,]+,[,]+", negate = TRUE) |>
     stringr::str_c(collapse = "\n") |>
     readr::read_csv(col_types = readr::cols()) -> dat
 

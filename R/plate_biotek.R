@@ -129,7 +129,7 @@
 #' @examples
 #' file_data <- system.file(
 #'   "extdata",
-#'   "20220929_1steptimer20.csv",
+#'   "2024-02-29_vio_GFP_main.csv",
 #'   package = "wellr"
 #' )
 #'
