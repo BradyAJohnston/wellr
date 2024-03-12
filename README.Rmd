@@ -29,6 +29,7 @@ It provides functions for reading the output of various plate readers, indexing 
 <!-- You can install the released version of wellr from [CRAN](https://CRAN.R-project.org) with: -->
 
 ### From R-Universe:
+This is the recommended way to install the package - as it requires no additional dependencies. It is currently not available on CRAN.
 ``` r
 install.packages("wellr", repos = "bradyajohnston.r-universe.dev")
 ```
@@ -83,6 +84,25 @@ plate
 plate |>
   plate_add_meta(file_meta)
 ```
+
+### Read Biotek Wavelength Data
+
+If the biotek `.csv` file includes spectral readings from different wavelengths, these won't be included in the regular `plate_read_biotek()` function's output - as they don't have associated time information. 
+
+The `plate_read_biotek_wl()` function extracts these readings, and the resulting data frame includes a `id` column, specifying which wavelength reading they come from.
+
+```{r}
+file_including_wavelength <- system.file(
+  "extdata", "2024-02-29_vio_GFP_main.csv", package = "wellr"
+)
+
+timepoint_values <- plate_read_biotek(file_including_wavelength)
+timepoint_values
+
+wl <- plate_read_biotek_wl(file_including_wavelength)
+wl
+```
+
 
 ## Creating Dummy Plates
 
