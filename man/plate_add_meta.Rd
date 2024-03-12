@@ -31,6 +31,6 @@ file_meta <- system.file(
   package = "wellr"
 )
 
-plate_read_biotek(file_data) \%>\%
+plate_read_biotek(file_data) |>
   plate_add_meta(file_meta)
 }
