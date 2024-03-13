@@ -182,6 +182,12 @@ get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
     dplyr::select(-dplyr::matches("^idx$"))
 }
 
+#' @noRd
+.plate_read_lines <- function(file) {
+  readr::read_lines(file) |>
+    drop_results()
+}
+
 #' drop-in replacement for plate_read_biotek
 #' @noRd
 plate_read_biotek2 <- function(
@@ -191,8 +197,7 @@ plate_read_biotek2 <- function(
     interval = 0,
     rename = TRUE
     ) {
-  lines <- readr::read_lines(file) |>
-    drop_results()
+  lines <- .plate_read_lines(file)
 
   blocks <- get_all_blocks(lines, temp = FALSE, include_id = TRUE, rownum = TRUE)
 
@@ -271,8 +276,7 @@ plate_read_biotek <- function(file, time_average = TRUE) {
 #' plate_read_biotek_wl(file_data, format = FALSE)
 plate_read_biotek_wl <- function(file, format_well = TRUE) {
   # get the lines and drop irrelevant ones
-  lines <- readr::read_lines(file) |>
-    drop_results()
+  lines <- .plate_read_lines(file)
 
   blocks <- get_all_blocks(lines, temp = FALSE, format_well = format_well)
 
