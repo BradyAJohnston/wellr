@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   plates: plates.html
-last_built: 2024-03-12T11:51Z
+last_built: 2024-03-14T07:06Z
 urls:
   reference: https://bradyajohnston.github.io/wellr/reference
   article: https://bradyajohnston.github.io/wellr/articles
