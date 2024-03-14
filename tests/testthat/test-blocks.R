@@ -9,7 +9,7 @@ test_that("test reading of lines", {
 })
 
 test_that("reading of blocks", {
-  lines <- readLines(fl)[seq(44) + 163]
+  lines <- readr::read_lines(fl)[seq(44) + 163]
   expect_snapshot(read_data_block(lines))
   expect_equal(dim(read_data_block(lines)), c(3936, 3))
 
@@ -21,7 +21,7 @@ test_that("reading of blocks", {
 test_that("test detection of lines", {
 
   # takes some subset of lines for some quick testing of detecting the lines
-  lines <- readLines(fl)[sequence(10) + 160]
+  lines <- readr::read_lines(fl)[sequence(10) + 160]
   expect_equal(which(is_block_start(lines)), 5)
   expect_equal(which(is_data_lines(lines)), c(5:10))
   expect_equal(which(!is_data_lines(lines)), c(1:4))
