@@ -41,6 +41,7 @@ Imports:
     purrr,
     readr,
     vctrs,
-    readxl
+    readxl,
+    lifecycle
 URL: https://github.com/bradyajohnston/wellr
 BugReports: https://github.com/bradyajohnston/wellr/issues
