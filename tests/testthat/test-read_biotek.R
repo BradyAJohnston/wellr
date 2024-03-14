@@ -10,39 +10,3 @@ test_that("Test the Reading of Biotek Files", {
 
     expect_snapshot(head(dat))
 })
-
-test_that("Detection of signal rows.", {
-  signals <- c("LUM_1:Lum", "OD600_1:600", "OD600_2:600", "LUM_2:Lum", "LUM_2:")
-
-  non_signals <-
-    c(
-      "Software Version",
-      "Experiment File Path:",
-      "Protocol File Path:",
-      "Plate Number",
-      "Date",
-      "Time",
-      "Reader Type:",
-      "Reader Serial Number:",
-      "Reading Type",
-      "Procedure Details",
-      "Plate Type",
-      "Eject plate on completion",
-      "Set Temperature",
-      "Start Kinetic",
-      "Shake",
-      "Read",
-      "Read",
-      "End Kinetic",
-      "Plate Out/In",
-      "Start Kinetic",
-      "Shake",
-      "Read",
-      "Read",
-      "End Kinetic",
-      "Plate Out/In"
-    )
-
-  sapply(signals, function(x) expect_true(.is_signal(x)))
-  sapply(non_signals, function(x) expect_false(.is_signal(x)))
-})

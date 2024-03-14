@@ -1,120 +1,247 @@
-#' @noRd
-
-.is_signal <- function(x) {
-  reg <- "([:upper:]|[:digit:])+(?=\\_)"
-  stringr::str_detect(x, reg)
-}
-
-
-#' @noRd
-
-.nest_data_chunks <- function(dat) {
-  dat |>
-    dplyr::rename("signal" = 1) |>
-    janitor::clean_names() |>
-    dplyr::mutate("signal" = vctrs::vec_fill_missing(.data$signal)) |>
-    dplyr::filter(.is_signal(.data$signal)) |>
-    tidyr::drop_na() |>
-    dplyr::group_by(.data$signal,
-      chunk = cumsum(stringr::str_detect(
-        .data$x2, stringr::fixed("time", ignore_case = TRUE)
-      ))
-    ) |>
-    tidyr::nest() |>
-    dplyr::group_by(.data$signal) |>
-    dplyr::mutate(
-      signal_chunk = as.numeric(stringr::str_extract(.data$signal, "(?<=\\_)(\\d)")),
-      signal_chunk_chunk = dplyr::row_number(),
-      signal = stringr::str_extract(.data$signal, ".+(?=\\_)") |>
-        stringr::str_to_lower()
-    ) |>
-    dplyr::select(
-      "signal",
-      "chunk",
-      "signal_chunk",
-      "signal_chunk_chunk",
-      "data"
-    )
-}
-
-#' @noRd
+#' The pre prefix onto some number of repeating .csv entris
 #'
-.chunk_pivot <- function(chunk) {
-  chunk |>
-    janitor::row_to_names(1) |>
-    janitor::clean_names() |>
-    tidyr::pivot_longer(
-      -c(1, 2),
-      names_to = "well",
-      names_transform = wellr::well_format,
-      values_to = "value",
-      values_transform = as.numeric
-    ) |>
-    dplyr::select(-dplyr::starts_with("t_")) |>
-    dplyr::mutate(time = as.numeric(lubridate::hms(.data$time)))
+#' Useful for constructing regex for csv line identification
+#' @noRd
+.multi_entry <- function(pre = "^,?", reps = 8) {
+  paste0(c(pre, rep("[^,]+,", reps)), collapse = "")
 }
 
-#' @noRd
+#' Test for start of a data block.
 #'
-.chunk_unnest <- function(data, time_average = TRUE) {
-  data <- data |>
-    dplyr::mutate(data = purrr::map(.data$data, .chunk_pivot)) |>
-    dplyr::arrange(.data$signal, .data$signal_chunk)
+#' @noRd
+is_block_start <- function(lines) {
+  stringr::str_detect(lines, .multi_entry("^,?(Time|Wavelength),"))
+}
 
-  adjust_times <- data |>
-    dplyr::group_by(.data$signal, .data$signal_chunk) |>
-    dplyr::reframe(max_time = purrr::map_dbl(data, function(x) max(x$time))) |>
-    dplyr::group_by(.data$signal) |>
-    unique() |>
-    dplyr::mutate(
-      adjust = cumsum(dplyr::lag(.data$max_time, default = 0)),
-      id = paste(.data$signal, .data$signal_chunk, sep = "_")
-    ) |>
-    dplyr::pull(.data$adjust, .data$id)
+#' Test if a line is part of a data block
+#' @noRd
+is_block_line <- function(lines) {
+  stringr::str_detect(lines, .multi_entry("^,?"))
+}
+
+#' Test if a line is a metadata line
+#' @noRd
+is_meta_lines <- function(lines) {
+  cumsum(is_block_start(lines)) == 0
+}
+
+#' Test if a line is part of a data block
+#' @noRd
+is_data_lines <- function(lines) {
+  !is_meta_lines(lines)
+}
+
+#' Remove blank read lines
+#' @noRd
+.drop_empty_reads <- function(lines) {
+  stringr::str_subset(lines, "0:00:00,,,", negate = TRUE)
+}
 
 
-  data <- data |>
-    dplyr::mutate(data = purrr::map2(
-      .data$data,
-      paste(.data$signal, .data$signal_chunk, sep = "_"),
-      function(x, y) dplyr::mutate(x, time = .data$time + adjust_times[y])
-    )) |>
-    tidyr::unnest("data") |>
-    tidyr::pivot_wider(
-      id_cols = c("time", "signal"),
-      names_from = "well",
-      values_from = "value"
-    ) |>
-    dplyr::group_by(.data$signal) |>
-    dplyr::mutate(time_point = dplyr::row_number()) |>
-    dplyr::mutate() |>
-    tidyr::pivot_longer(
-      cols = -c("time", "signal", "time_point"),
-      names_to = "well"
-    )
+#' Read a data block from a vector of strings that are the lines of a .csv
+#'
+#' @param lines The vector of lines for the csv
+#' @param temp Whether to include the temp column or not.
+#' @param format Whether to format the well column names.
+#'
+#'
+#' @noRd
+read_data_block <- function(lines, temp = FALSE, format_well = TRUE, rownum = FALSE) {
+  lines |>
+    stringr::str_remove("^,") |>
+    stringr::str_remove(",$") |>
+    stringr::str_subset("^[,]+,[,]+,[,]+", negate = TRUE) |>
+    stringr::str_c(collapse = "\n") |>
+    readr::read_csv(col_types = readr::cols()) -> dat
 
-  if (time_average) {
-    data |>
-      dplyr::group_by(.data$time_point) |>
-      dplyr::mutate(time = mean(.data$time))
-  } else {
-    data |>
-      dplyr::ungroup()
+  if (rownum) {
+    dat <- dplyr::mutate(dat, rownum = dplyr::row_number())
   }
+
+
+  dat <- tidyr::pivot_longer(
+    dat,
+    cols = which(is_well_id(colnames(dat))),
+    values_transform = as.numeric,
+    names_to = "well"
+  ) |>
+    janitor::clean_names() |>
+    # change any time formatted columns into seconds / numeric
+    dplyr::mutate(dplyr::across(dplyr::matches("time"), as.numeric))
+
+  if (format_well) {
+    dat <- dplyr::mutate(dat, well = well_format(.data$well))
+  }
+
+  # remove temp column if not wanted
+  if (!temp) {
+    dat <- dplyr::select(dat, -dplyr::starts_with("t_"))
+  }
+
+  dat
+}
+
+#' Read all data blocks from a file, with each dataframe being an entry in a list
+#'
+#' @param lines Vector of strings that are lines from a .csv file.
+#' @param temp Whether to include the temp column of a file.
+#' @param format_well Whether to format the well ID column of a file.
+#'
+#' @noRd
+get_all_blocks <- function(lines, temp = FALSE, format_well = TRUE, include_id = FALSE, rownum = FALSE) {
+  data_block_starts <- which(is_block_start(lines))
+  intervals <- c(diff(data_block_starts), NA)
+
+  purrr::map2(data_block_starts, intervals, \(start, interval) {
+    if (is.na(interval)) {
+      end <- length(lines)
+    } else {
+      end <- start + interval - 4
+    }
+
+    id <- "value"
+    if (include_id) {
+      id <- stringr::str_split(lines[start - 2], ",")[[1]][1]
+    }
+
+    dat <- read_data_block(
+      lines = lines[start:end],
+      temp = temp,
+      format_well = format_well,
+      rownum = rownum
+    )
+
+    if (include_id) {
+      id_clean <- janitor::make_clean_names(id)
+      id_split <- stringr::str_split(id_clean, "_")[[1]]
+      id_name <- paste0(id_split[c(1, 3)], collapse = "_")
+      id_int <- id_split[2]
+
+      dat <- dat |>
+        dplyr::mutate(
+          idx = as.integer(id_int),
+          type = id_name
+        )
+    }
+
+    dat
+  })
+}
+
+#' Drop the lines that are "results" from a biotek file
+#' @noRd
+drop_results <- function(lines) {
+  is_results <- cumsum(stringr::str_detect(lines, "^Results")) > 0
+  lines[!is_results]
+}
+
+#' Get 'wavelength' dataframes
+#'
+#' Get all of the datafromes from a list of datablocks that include 'wavelength'
+#' as a column name.
+#'
+#' @param blocks List of blocks from `get_all_blocks()`
+#'
+#' @noRd
+get_blocks_wl <- function(blocks) {
+  wl <- list()
+  counter <- 1
+
+  for (i in seq_along(blocks)) {
+    block <- blocks[[i]]
+    if ("wavelength" %in% colnames(block)) {
+      wl[[counter]] <- block
+      counter <- counter + 1
+    }
+  }
+
+  wl
 }
 
 #' @noRd
-#'
-.signal_wider <- function(data) {
-  data |>
-    dplyr::group_by(.data$time_point) |>
-    dplyr::mutate(time = mean(.data$time)) |>
-    tidyr::pivot_wider(
-      names_from = "signal",
-      values_from = "value"
-    ) |>
-    dplyr::ungroup() |>
-    dplyr::select(-"time_point")
+accumulate_time <- function(time, idx, interval = 0) {
+  is_new <- c(FALSE, diff(idx) > 0)
+  offset <- cumsum(ifelse(is_new, dplyr::lag(time) + interval, 0))
+  time + offset
+}
+
+#' @noRd
+get_blocks <- function(blocks, colname) {
+  purrr::keep(blocks, \(x) colname %in% colnames(x))
+}
+
+#' @noRd
+get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
+  dat <- get_blocks(blocks, "time") |>
+    dplyr::bind_rows()
+
+  average_time = TRUE
+  if (average_time) {
+    dat <- dplyr::mutate(dat, time = mean(.data$time), .by = dplyr::matches("rownum|well"))
+  }
+
+  if (accumulate_time) {
+    dat <- dplyr::mutate(dat, time = accumulate_time(.data$time, .data$idx, interval = interval), .by = c("well", "type")) |>
+      dplyr::select(-dplyr::matches("^rownum$"))
+  }
+
+  dat |>
+    dplyr::select(-dplyr::matches("^idx$"))
+}
+
+#' @noRd
+.plate_read_lines <- function(file) {
+  readr::read_lines(file) |>
+    drop_results() |>
+    .drop_empty_reads()
+}
+
+#' drop-in replacement for plate_read_biotek
+#' @noRd
+plate_read_biotek2 <- function(
+    file,
+    average_time = TRUE,
+    accumulate_time = TRUE,
+    interval = 0,
+    rename = TRUE
+    ) {
+  lines <- .plate_read_lines(file)
+
+  blocks <- get_all_blocks(lines, temp = FALSE, include_id = TRUE, rownum = TRUE)
+
+  blocks_time <- get_blocks_time(
+    blocks,
+    interval = interval,
+    accumulate_time = accumulate_time
+    )
+
+  dat_wide <- tidyr::pivot_wider(
+    dplyr::bind_rows(blocks_time),
+    names_from = "type",
+    values_from = "value"
+  )
+
+
+  if (rename) {
+    new_col_names <- c(
+      "od600" = "od600_600",
+      "lum" = "lum_lum"
+      )
+    new_col_names <- new_col_names[new_col_names %in% colnames(dat_wide)]
+
+    if (length(new_col_names) > 0) {
+
+      for (i in seq_along(new_col_names)) {
+        old_name <- new_col_names[i]
+        new_name <- names(new_col_names)[i]
+        colnames(dat_wide)[colnames(dat_wide) == old_name] = new_name
+      }
+
+      # dat_wide <- dplyr::rename(dat_wide, new_col_names)
+    }
+  }
+
+  dplyr::arrange(dat_wide, .data$time, .data$well)
 }
 
 #' Read Biotek Output CSV Files
@@ -136,4 +263,32 @@
 #' plate_read_biotek(file_data)
 plate_read_biotek <- function(file, time_average = TRUE) {
   plate_read_biotek2(file, average_time = time_average)
+}
+
+#' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
+#'
+#' @param file File path to the `.csv` file.
+#' @param format_well Whether to format the `well` column of the returned dataframes.
+#'
+#' @return a [tibble][tibble::tibble-package]
+#' @export
+#'
+#' @examples
+#' file_data <- system.file(
+#'   "extdata",
+#'   "2024-02-29_vio_GFP_main.csv",
+#'   package = "wellr"
+#' )
+#'
+#' plate_read_biotek_wl(file_data)
+#' plate_read_biotek_wl(file_data, format = FALSE)
+plate_read_biotek_wl <- function(file, format_well = TRUE) {
+  # get the lines and drop irrelevant ones
+  lines <- .plate_read_lines(file)
+
+  blocks <- get_all_blocks(lines, temp = FALSE, format_well = format_well)
+
+  blocks_wl <- get_blocks_wl(blocks)
+
+  dplyr::bind_rows(blocks_wl, .id = "id")
 }
