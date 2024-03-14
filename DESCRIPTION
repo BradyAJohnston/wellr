@@ -37,10 +37,8 @@ Imports:
     scales,
     plater,
     janitor,
-    lubridate,
     purrr,
     readr,
-    vctrs,
     readxl,
     lifecycle
 URL: https://github.com/bradyajohnston/wellr
