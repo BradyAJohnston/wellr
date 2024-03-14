@@ -31,6 +31,13 @@ is_data_lines <- function(lines) {
   !is_meta_lines(lines)
 }
 
+#' Remove blank read lines
+#' @noRd
+.drop_empty_reads <- function(lines) {
+  stringr::str_subset(lines, "0:00:00,,,", negate = TRUE)
+}
+
+
 #' Read a data block from a vector of strings that are the lines of a .csv
 #'
 #' @param lines The vector of lines for the csv
@@ -185,7 +192,8 @@ get_blocks_time <- function(blocks, interval = 0, accumulate_time = TRUE) {
 #' @noRd
 .plate_read_lines <- function(file) {
   readr::read_lines(file) |>
-    drop_results()
+    drop_results() |>
+    .drop_empty_reads()
 }
 
 #' drop-in replacement for plate_read_biotek
