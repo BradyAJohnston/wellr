@@ -97,11 +97,19 @@ file_including_wavelength <- system.file(
   package = "wellr"
 )
 
-timepoint_values <- plate_read_biotek(file_including_wavelength)
-timepoint_values
+plate_read_biotek(file_including_wavelength)
 
-wl <- plate_read_biotek_wl(file_including_wavelength)
-wl
+```
+If reading in fluorescent data, there will sometimes be two wavelengths reported in the `.csv`. By default just the first wavelength will be used for the column names, but you can ensure that both wavelengths are included by useing `second_wl = TRUE`. The `gfp` column now includes the second wavelength that the fluorescence was measured at.
+```{r}
+plate_read_biotek(file_including_wavelength, second_wl = TRUE)
+```
+
+When reading the spectral data from the file, the readings do not include time data.
+
+The resulting data frame will however include a `id` column with `id = 1` being the first reading, `id = 2` being the second reading etc.
+```{r}
+plate_read_biotek_wl(file_including_wavelength)
 ```
 
 

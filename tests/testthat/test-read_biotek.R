@@ -10,3 +10,16 @@ test_that("Test the Reading of Biotek Files", {
 
     expect_snapshot(head(dat))
 })
+
+file = "2024-02-29_vio_GFP_main.csv"
+
+test_that("Read single wavelength", {
+  dat <- plate_read_biotek(system.file("extdata", file, package = "wellr"))
+  expect_snapshot(head(dat))
+})
+
+test_that("Read second wavelength", {
+  dat <- plate_read_biotek(system.file("extdata", file, package = "wellr"), second_wl = TRUE)
+  expect_snapshot(head(dat))
+
+})
