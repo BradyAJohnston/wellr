@@ -4,13 +4,17 @@
 \alias{plate_read_biotek}
 \title{Read Biotek Output CSV Files}
 \usage{
-plate_read_biotek(file, time_average = TRUE)
+plate_read_biotek(file, time_average = TRUE, second_wl = FALSE)
 }
 \arguments{
 \item{file}{The filepath to a \code{.csv} file, exported from a Biotek plate
 reader.}
 
-\item{time_average}{Logical, whether to aveage the time points across different observations (LUM / OD) and pivot them mto their own columns.}
+\item{time_average}{Logical, whether to average the time points across
+different observations (LUM / OD) and pivot them to their own columns.}
+
+\item{second_wl}{Whether to include the second wavelength when reading in
+data blocks, or to keep just the label and the first wavelength.}
 }
 \value{
 tibble::tibble()
@@ -26,4 +30,5 @@ file_data <- system.file(
 )
 
 plate_read_biotek(file_data)
+plate_read_biotek(file_data, second_wl = TRUE)
 }
