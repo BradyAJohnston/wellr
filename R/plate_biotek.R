@@ -105,14 +105,19 @@ read_data_block <-
 #' @param lines Vector of strings that are lines from a .csv file.
 #' @param temp Whether to include the temp column of a file.
 #' @param format_well Whether to format the well ID column of a file.
+#' @param include_id Whether to include the label / ID information for the data
+#'  block as a column in the resulting data frame.
+#' @param second_wl Whether to include the second possible wavelength in column
+#'  names when reading in.
+#' @param rownum Whether to include row numbers from pre-pivoted blocks when
+#'  reading in.
 #'
-#' @noRd
 get_all_blocks <-
   function(lines,
            temp = FALSE,
            format_well = TRUE,
            include_id = FALSE,
-           second_wl = FALSE,
+           second_wl = TRUE,
            rownum = FALSE) {
     data_block_starts <- which(is_block_start(lines))
     intervals <- c(diff(data_block_starts), NA)
@@ -142,7 +147,8 @@ get_all_blocks <-
         name <- stringr::str_split(split_label[1], '_')[[1]][1]
         id_int <- as.integer(stringr::str_split(split_label[1], '_')[[1]][2])
         extra_info <- split_label[2]
-        if (second_wl) {
+
+        if (!second_wl) {
           extra_info <- stringr::str_remove_all(extra_info, '_\\d+')
         }
 
@@ -156,7 +162,9 @@ get_all_blocks <-
   }
 
 #' Drop the lines that are "results" from a biotek file
-#' @noRd
+#'
+#' @param lines Character vector of lines. Drops all lines after the 'Results'
+#'  headings in biotek .csv files
 drop_results <- function(lines) {
   is_results <- cumsum(stringr::str_detect(lines, "^Results")) > 0
   lines[!is_results]

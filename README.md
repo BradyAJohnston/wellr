@@ -137,8 +137,7 @@ file_including_wavelength <- system.file(
   package = "wellr"
 )
 
-timepoint_values <- plate_read_biotek(file_including_wavelength)
-timepoint_values
+plate_read_biotek(file_including_wavelength)
 #> # A tibble: 14,304 × 7
 #>     time well  od600 gfp_485 vio_575 vio_585 vio_595
 #>    <dbl> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
@@ -153,9 +152,40 @@ timepoint_values
 #>  9  469. A09   0.045     251   0.045   0.045   0.045
 #> 10  469. A10   0.045     247   0.045   0.046   0.045
 #> # ℹ 14,294 more rows
+```
 
-wl <- plate_read_biotek_wl(file_including_wavelength)
-wl
+If reading in fluorescent data, there will sometimes be two wavelengths
+reported in the `.csv`. By default just the first wavelength will be
+used for the column names, but you can ensure that both wavelengths are
+included by useing `second_wl = TRUE`. The `gfp` column now includes the
+second wavelength that the fluorescence was measured at.
+
+``` r
+plate_read_biotek(file_including_wavelength, second_wl = TRUE)
+#> # A tibble: 14,304 × 7
+#>     time well  od600 gfp_485_530 vio_575 vio_585 vio_595
+#>    <dbl> <chr> <dbl>       <dbl>   <dbl>   <dbl>   <dbl>
+#>  1  469. A01   0.041         260   0.042   0.041   0.041
+#>  2  469. A02   0.043         258   0.044   0.044   0.043
+#>  3  469. A03   0.043         258   0.044   0.044   0.044
+#>  4  469. A04   0.044         254   0.044   0.044   0.044
+#>  5  469. A05   0.044         256   0.044   0.044   0.044
+#>  6  469. A06   0.043         255   0.044   0.044   0.044
+#>  7  469. A07   0.043         244   0.044   0.044   0.044
+#>  8  469. A08   0.045         252   0.045   0.045   0.045
+#>  9  469. A09   0.045         251   0.045   0.045   0.045
+#> 10  469. A10   0.045         247   0.045   0.046   0.045
+#> # ℹ 14,294 more rows
+```
+
+When reading the spectral data from the file, the readings do not
+include time data.
+
+The resulting data frame will however include a `id` column with
+`id = 1` being the first reading, `id = 2` being the second reading etc.
+
+``` r
+plate_read_biotek_wl(file_including_wavelength)
 #> # A tibble: 23,616 × 4
 #>    id    wavelength well  value
 #>    <chr>      <dbl> <chr> <dbl>
@@ -204,4 +234,4 @@ plate$value <- rnorm(96, sd = 10)
 well_plot(plate, well, value)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
