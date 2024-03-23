@@ -169,7 +169,7 @@ plate_read_tecan <- function(file, temp = FALSE) {
   } else if (ext == "xlsx") {
     read_func <- .plate_read_tecan_xslx
   } else {
-    cli::cli_abort("Unable to read: {.file {file}}")
+    cli::cli_abort("Unable to format of file: {.file {file}}")
   }
 
   read_func(file = file, temp = temp)
