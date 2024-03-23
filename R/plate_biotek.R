@@ -313,13 +313,15 @@ plate_read_biotek2 <- function(file,
 #' plate_read_biotek(file_data)
 #' plate_read_biotek(file_data, second_wl = TRUE)
 plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
+  .check_file_exists(file)
   plate_read_biotek2(file, average_time = time_average, second_wl = second_wl)
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
 #'
 #' @param file File path to the `.csv` file.
-#' @param format_well Whether to format the `well` column of the returned dataframes.
+#' @param format_well Whether to format the `well` column of the returned
+#'  dataframes.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #' @export

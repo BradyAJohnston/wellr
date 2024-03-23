@@ -31,5 +31,7 @@ names when reading in.}
 reading in.}
 }
 \description{
-Read all data blocks from a file, with each dataframe being an entry in a list
+Read all data blocks from a file, with each dataframe being an entry in a
+list
 }
+\keyword{internal}
