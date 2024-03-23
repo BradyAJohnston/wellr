@@ -21,8 +21,8 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-`{wellr}` provides a consistent and reliable interface for dealing with plate-based data and related calculations.
-It provides functions for reading the output of various plate readers, indexing through and reformatting microtitre plates, converting between well IDs ("C05") and their respective rows, columns and index.
+A set of _tidy_ utilities for working with plate based data. Wet-lab experiments are often carried out in microplates of varying sizes. `{wellr}` aims to provide a cleaner interface to working with data from plate readers that works well within the `{tidyverse}` [design principles](https://design.tidyverse.org/unifying.html).
+
 
 ## Installation
 

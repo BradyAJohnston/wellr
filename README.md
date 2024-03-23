@@ -13,6 +13,12 @@ coverage](https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.s
 [![R-CMD-check](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
+A suite of *tidy* utilities for working with plate based data. Wet-lab
+experiments are often carried out in in microplates of varying sizes.
+`{wellr}` aims to provide a cleaner interface to working with data from
+plate readers that works well within the `{tidyverse}`
+[principles](https://design.tidyverse.org/unifying.html).
+
 `{wellr}` provides a consistent and reliable interface for dealing with
 plate-based data and related calculations. It provides functions for
 reading the output of various plate readers, indexing through and

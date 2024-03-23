@@ -2,7 +2,8 @@
 % Please edit documentation in R/plate_biotek.R
 \name{get_all_blocks}
 \alias{get_all_blocks}
-\title{Read all data blocks from a file, with each dataframe being an entry in a list}
+\title{Read all data blocks from a file, with each dataframe being an entry in a
+list}
 \usage{
 get_all_blocks(
   lines,
