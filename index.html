@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">wellr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -83,6 +83,7 @@
 </h1></div>
 <!-- badges: start -->
 
+<p>A suite of <em>tidy</em> utilities for working with plate based data. Wet-lab experiments are often carried out in in microplates of varying sizes. <a href="https://github.com/bradyajohnston/wellr" class="external-link">wellr</a> aims to provide a cleaner interface to working with data from plate readers that works well within the <a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a> <a href="https://design.tidyverse.org/unifying.html" class="external-link">principles</a>.</p>
 <p><a href="https://github.com/bradyajohnston/wellr" class="external-link">wellr</a> provides a consistent and reliable interface for dealing with plate-based data and related calculations. It provides functions for reading the output of various plate readers, indexing through and reformatting microtitre plates, converting between well IDs (“C05”) and their respective rows, columns and index.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -188,8 +189,7 @@
 <span>  package <span class="op">=</span> <span class="st">"wellr"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">timepoint_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_including_wavelength</span><span class="op">)</span></span>
-<span><span class="va">timepoint_values</span></span>
+<span><span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_including_wavelength</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 14,304 × 7</span></span>
 <span><span class="co">#&gt;     time well  od600 gfp_485 vio_575 vio_585 vio_595</span></span>
 <span><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
@@ -203,10 +203,28 @@
 <span><span class="co">#&gt;  8  469. A08   0.045     252   0.045   0.045   0.045</span></span>
 <span><span class="co">#&gt;  9  469. A09   0.045     251   0.045   0.045   0.045</span></span>
 <span><span class="co">#&gt; 10  469. A10   0.045     247   0.045   0.046   0.045</span></span>
-<span><span class="co">#&gt; # ℹ 14,294 more rows</span></span>
-<span></span>
-<span><span class="va">wl</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plate_read_biotek_wl.html">plate_read_biotek_wl</a></span><span class="op">(</span><span class="va">file_including_wavelength</span><span class="op">)</span></span>
-<span><span class="va">wl</span></span>
+<span><span class="co">#&gt; # ℹ 14,294 more rows</span></span></code></pre></div>
+<p>If reading in fluorescent data, there will sometimes be two wavelengths reported in the <code>.csv</code>. By default just the first wavelength will be used for the column names, but you can ensure that both wavelengths are included by useing <code>second_wl = TRUE</code>. The <code>gfp</code> column now includes the second wavelength that the fluorescence was measured at.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plate_read_biotek.html">plate_read_biotek</a></span><span class="op">(</span><span class="va">file_including_wavelength</span>, second_wl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 14,304 × 7</span></span>
+<span><span class="co">#&gt;     time well  od600 gfp_485_530 vio_575 vio_585 vio_595</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1  469. A01   0.041         260   0.042   0.041   0.041</span></span>
+<span><span class="co">#&gt;  2  469. A02   0.043         258   0.044   0.044   0.043</span></span>
+<span><span class="co">#&gt;  3  469. A03   0.043         258   0.044   0.044   0.044</span></span>
+<span><span class="co">#&gt;  4  469. A04   0.044         254   0.044   0.044   0.044</span></span>
+<span><span class="co">#&gt;  5  469. A05   0.044         256   0.044   0.044   0.044</span></span>
+<span><span class="co">#&gt;  6  469. A06   0.043         255   0.044   0.044   0.044</span></span>
+<span><span class="co">#&gt;  7  469. A07   0.043         244   0.044   0.044   0.044</span></span>
+<span><span class="co">#&gt;  8  469. A08   0.045         252   0.045   0.045   0.045</span></span>
+<span><span class="co">#&gt;  9  469. A09   0.045         251   0.045   0.045   0.045</span></span>
+<span><span class="co">#&gt; 10  469. A10   0.045         247   0.045   0.046   0.045</span></span>
+<span><span class="co">#&gt; # ℹ 14,294 more rows</span></span></code></pre></div>
+<p>When reading the spectral data from the file, the readings do not include time data.</p>
+<p>The resulting data frame will however include a <code>id</code> column with <code>id = 1</code> being the first reading, <code>id = 2</code> being the second reading etc.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plate_read_biotek_wl.html">plate_read_biotek_wl</a></span><span class="op">(</span><span class="va">file_including_wavelength</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 23,616 × 4</span></span>
 <span><span class="co">#&gt;    id    wavelength well  value</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
@@ -227,7 +245,7 @@
 <h2 id="creating-dummy-plates">Creating Dummy Plates<a class="anchor" aria-label="anchor" href="#creating-dummy-plates"></a>
 </h2>
 <p>Create a data frame for plate-based data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 96 × 3</span></span>
 <span><span class="co">#&gt;      row   col well </span></span>
@@ -247,13 +265,13 @@
 <div class="section level2">
 <h2 id="helpful-plotting-functions">Helpful Plotting Functions<a class="anchor" aria-label="anchor" href="#helpful-plotting-functions"></a>
 </h2>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">plate</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/well_plate.html">well_plate</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">12</span><span class="op">)</span><span class="op">[</span>, <span class="st">"well"</span><span class="op">]</span></span>
 <span><span class="va">plate</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">96</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/well_plot.html">well_plot</a></span><span class="op">(</span><span class="va">plate</span>, <span class="va">well</span>, <span class="va">value</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 </div>
   </div>

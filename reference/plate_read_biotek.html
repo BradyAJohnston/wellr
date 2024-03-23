@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wellr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plate_read_biotek</span><span class="op">(</span><span class="va">file</span>, time_average <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plate_read_biotek</span><span class="op">(</span><span class="va">file</span>, time_average <span class="op">=</span> <span class="cn">TRUE</span>, second_wl <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -71,7 +71,13 @@ reader.</p></dd>
 
 
 <dt>time_average</dt>
-<dd><p>Logical, whether to aveage the time points across different observations (LUM / OD) and pivot them mto their own columns.</p></dd>
+<dd><p>Logical, whether to average the time points across
+different observations (LUM / OD) and pivot them to their own columns.</p></dd>
+
+
+<dt>second_wl</dt>
+<dd><p>Whether to include the second wavelength when reading in
+data blocks, or to keep just the label and the first wavelength.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -103,6 +109,21 @@ reader.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  469. A08   0.045     252   0.045   0.045   0.045</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  469. A09   0.045     251   0.045   0.045   0.045</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  469. A10   0.045     247   0.045   0.046   0.045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14,294 more rows</span></span>
+<span class="r-in"><span><span class="fu">plate_read_biotek</span><span class="op">(</span><span class="va">file_data</span>, second_wl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14,304 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     time well  od600 gfp_485_530 vio_575 vio_585 vio_595</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  469. A01   0.041         260   0.042   0.041   0.041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  469. A02   0.043         258   0.044   0.044   0.043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  469. A03   0.043         258   0.044   0.044   0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  469. A04   0.044         254   0.044   0.044   0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  469. A05   0.044         256   0.044   0.044   0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  469. A06   0.043         255   0.044   0.044   0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  469. A07   0.043         244   0.044   0.044   0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  469. A08   0.045         252   0.045   0.045   0.045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  469. A09   0.045         251   0.045   0.045   0.045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  469. A10   0.045         247   0.045   0.046   0.045</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14,294 more rows</span></span>
 </code></pre></div>
     </div>

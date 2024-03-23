@@ -22,6 +22,21 @@
     <loc>https://bradyajohnston.github.io/wellr/index.html</loc>
   </url>
   <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/dot-plate_read_tecan_csv.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/dot-plate_read_tecan_xslx.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/dot-split_labels.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/drop_results.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/get_all_blocks.html</loc>
+  </url>
+  <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/index.html</loc>
   </url>
   <url>
@@ -40,6 +55,9 @@
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek.html</loc>
   </url>
   <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek2.html</loc>
+  </url>
+  <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_biotek_wl.html</loc>
   </url>
   <url>
@@ -47,6 +65,9 @@
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/plate_read_tecan.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/wellr/reference/read_data_block.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/wellr/reference/read_meta.html</loc>
