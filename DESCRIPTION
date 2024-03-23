@@ -1,6 +1,6 @@
 Package: wellr
 Title: Utilities for Working With Plate Based Data
-Version: 0.3.3
+Version: 0.3.4
 Authors@R: 
     person(given = "Brady",
            family = "Johnston",
@@ -40,6 +40,7 @@ Imports:
     purrr,
     readr,
     readxl,
-    lifecycle
+    lifecycle,
+    cli
 URL: https://github.com/bradyajohnston/wellr
 BugReports: https://github.com/bradyajohnston/wellr/issues

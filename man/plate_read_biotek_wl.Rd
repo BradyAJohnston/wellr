@@ -9,7 +9,8 @@ plate_read_biotek_wl(file, format_well = TRUE)
 \arguments{
 \item{file}{File path to the \code{.csv} file.}
 
-\item{format_well}{Whether to format the \code{well} column of the returned dataframes.}
+\item{format_well}{Whether to format the \code{well} column of the returned
+dataframes.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble}

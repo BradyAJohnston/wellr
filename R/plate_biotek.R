@@ -10,7 +10,8 @@
 #'
 #' @noRd
 is_block_start <- function(lines) {
-  stringr::str_detect(lines, .multi_entry("^,?(Time|Wavelength),"))
+  stringr::str_detect(lines, .multi_entry("^,?(Time|Wavelength),")) |
+    stringr::str_detect(lines, '^,?Cycle Nr\\.,')
 }
 
 #' Test if a line is part of a data block
@@ -45,7 +46,7 @@ is_data_lines <- function(lines) {
 #' @param format Whether to format the well column names.
 #'
 #'
-#' @noRd
+#' @keywords internal
 read_data_block <-
   function(lines,
            temp = FALSE,
@@ -87,7 +88,7 @@ read_data_block <-
 
 #' Split label lines into manageable chunks
 #'
-#' @noRd
+#' @keywords internal
 .split_labels <- function(label_lines) {
   label_lines |>
     stringr::str_remove_all("(^,|,,|\")") |>
@@ -100,7 +101,8 @@ read_data_block <-
 }
 
 
-#' Read all data blocks from a file, with each dataframe being an entry in a list
+#' Read all data blocks from a file, with each dataframe being an entry in a
+#'list
 #'
 #' @param lines Vector of strings that are lines from a .csv file.
 #' @param temp Whether to include the temp column of a file.
@@ -112,6 +114,7 @@ read_data_block <-
 #' @param rownum Whether to include row numbers from pre-pivoted blocks when
 #'  reading in.
 #'
+#' @keywords internal
 get_all_blocks <-
   function(lines,
            temp = FALSE,
@@ -165,6 +168,8 @@ get_all_blocks <-
 #'
 #' @param lines Character vector of lines. Drops all lines after the 'Results'
 #'  headings in biotek .csv files
+#'
+#' @keywords internal
 drop_results <- function(lines) {
   is_results <- cumsum(stringr::str_detect(lines, "^Results")) > 0
   lines[!is_results]
@@ -241,7 +246,7 @@ get_blocks_time <-
 }
 
 #' drop-in replacement for plate_read_biotek
-#' @noRd
+#' @keywords internal
 plate_read_biotek2 <- function(file,
                                average_time = TRUE,
                                accumulate_time = TRUE,
@@ -308,13 +313,15 @@ plate_read_biotek2 <- function(file,
 #' plate_read_biotek(file_data)
 #' plate_read_biotek(file_data, second_wl = TRUE)
 plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
+  .check_file_exists(file)
   plate_read_biotek2(file, average_time = time_average, second_wl = second_wl)
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
 #'
 #' @param file File path to the `.csv` file.
-#' @param format_well Whether to format the `well` column of the returned dataframes.
+#' @param format_well Whether to format the `well` column of the returned
+#'  dataframes.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #' @export
@@ -329,6 +336,7 @@ plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
 #' plate_read_biotek_wl(file_data)
 #' plate_read_biotek_wl(file_data, format = FALSE)
 plate_read_biotek_wl <- function(file, format_well = TRUE) {
+  .check_file_exists(file)
   # get the lines and drop irrelevant ones
   lines <- .plate_read_lines(file)
 

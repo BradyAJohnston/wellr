@@ -13,3 +13,4 @@ headings in biotek .csv files}
 \description{
 Drop the lines that are "results" from a biotek file
 }
+\keyword{internal}

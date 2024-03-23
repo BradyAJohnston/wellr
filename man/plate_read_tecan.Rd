@@ -17,3 +17,22 @@ a \code{tibble::tibble()} of the values from the file.
 \description{
 Read the output of Tecan Plate Readers
 }
+\examples{
+
+# read a .csv tecan file
+fl <- system.file(
+  'extdata', 'tecanON1.csv',
+  package = 'wellr'
+)
+
+plate_read_tecan(fl)
+
+# read a .xlsx tecan file
+fl <- system.file(
+  'extdata', 'tecanON1.xlsx',
+  package = 'wellr'
+)
+
+plate_read_tecan(fl)
+
+}
