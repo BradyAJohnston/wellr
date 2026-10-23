@@ -22,19 +22,6 @@
 
     Code
       plate_read_tecan(file)
-    Condition
-      Warning:
-      Use of .data in tidyselect expressions was deprecated in tidyselect 1.2.0.
-      i Please use `"chunk"` instead of `.data$chunk`
-      Warning:
-      Use of .data in tidyselect expressions was deprecated in tidyselect 1.2.0.
-      i Please use `"data"` instead of `.data$data`
-      Warning:
-      Use of .data in tidyselect expressions was deprecated in tidyselect 1.2.0.
-      i Please use `"cycle_nr"` instead of `.data$cycle_nr`
-      Warning:
-      Use of .data in tidyselect expressions was deprecated in tidyselect 1.2.0.
-      i Please use `"value"` instead of `.data$value`
     Output
       # A tibble: 11,520 x 5
          cycle_nr time_s well       od600  lumi

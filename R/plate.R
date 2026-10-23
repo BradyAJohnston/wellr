@@ -295,7 +295,7 @@ well_mat_frames_to_df <- function(mat, value = "value") {
 
   dat <- tidyr::pivot_longer(
     data = dat,
-    cols = -c(.data$frame),
+    cols = -"frame",
     names_to = "well",
     values_to = value
   )
