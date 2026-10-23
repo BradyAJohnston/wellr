@@ -40,6 +40,7 @@ scales = "*"
 stringr = "*"
 tibble = "*"
 tidyr = "*"
+vctrs = "*"
 
 [dependency-groups.dev]
 covr = "*"

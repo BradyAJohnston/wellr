@@ -29,7 +29,8 @@ Imports:
     scales,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    vctrs
 Suggests: 
     covr,
     rmarkdown,

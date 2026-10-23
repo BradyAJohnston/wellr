@@ -12,7 +12,8 @@ well_plate(nrow = 8, ncol = 12)
 \item{ncol}{NUmber of columns to have in the generated plate.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble}. The \code{well} column holds
+\code{\link[=well]{well()}} IDs on a plate with this many rows and columns.
 }
 \description{
 Generates a \link[tibble:tibble-package]{tibble} that contains row, col, and well

@@ -4,12 +4,13 @@
 \alias{well_from_index}
 \title{Convert Numeric Index to Well ID.}
 \usage{
-well_from_index(x, plate = 96, num_width = 2, colwise = FALSE)
+well_from_index(x, plate = NULL, num_width = 2, colwise = FALSE)
 }
 \arguments{
 \item{x}{numeric index to convert to a well ID}
 
-\item{plate}{number of wells in the plate. One of c(6, 12, 24, 96, 384)}
+\item{plate}{number of wells in the plate. One of c(6, 12, 24, 48, 96, 384),
+or the number of rows and columns. If \code{NULL}, a 96 well plate.}
 
 \item{num_width}{number of zeros to pad the column number with to the left.}
 
@@ -17,7 +18,7 @@ well_from_index(x, plate = 96, num_width = 2, colwise = FALSE)
 A12 is index 89 and B01 is index 2 for a 96 well plate.}
 }
 \value{
-a column ID as a vector of strings.
+\code{\link[=well]{well()}} IDs on the plate.
 }
 \description{
 Convert Numeric Index to Well ID.

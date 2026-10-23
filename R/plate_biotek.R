@@ -301,8 +301,12 @@ plate_read_biotek2 <- function(
 #'  different observations (LUM / OD) and pivot them to their own columns.
 #' @param second_wl Whether to include the second wavelength when reading in
 #'    data blocks, or to keep just the label and the first wavelength.
+#' @param plate The size of the plate, such as 96 or 384, or its number of
+#'   rows and columns. If `NULL`, the plate size recorded in the file is used,
+#'   or else the smallest standard plate that holds all the wells.
 #'
-#' @return tibble::tibble()
+#' @return A [tibble][tibble::tibble-package]. The `well` column holds
+#'   [well()] IDs that know the size of the plate.
 #' @export
 #'
 #' @examples
@@ -314,9 +318,20 @@ plate_read_biotek2 <- function(
 #'
 #' plate_read_biotek(file_data)
 #' plate_read_biotek(file_data, second_wl = TRUE)
-plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
+plate_read_biotek <- function(
+  file,
+  time_average = TRUE,
+  second_wl = FALSE,
+  plate = NULL
+) {
   .check_file_exists(file)
-  plate_read_biotek2(file, average_time = time_average, second_wl = second_wl)
+  dat <- plate_read_biotek2(
+    file,
+    average_time = time_average,
+    second_wl = second_wl
+  )
+  recorded <- recorded_plate_size(readr::read_lines(file), "Plate Type,")
+  as_plate_wells(dat, plate, recorded)
 }
 
 #' Read the `wavelength` data blocks from a _biotek_ `.csv` file.
@@ -324,8 +339,12 @@ plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
 #' @param file File path to the `.csv` file.
 #' @param format_well Whether to format the `well` column of the returned
 #'  dataframes.
+#' @param plate The size of the plate, such as 96 or 384, or its number of
+#'   rows and columns. If `NULL`, the plate size recorded in the file is used,
+#'   or else the smallest standard plate that holds all the wells.
 #'
-#' @return a [tibble][tibble::tibble-package]
+#' @return a [tibble][tibble::tibble-package]. The `well` column holds
+#'   [well()] IDs that know the size of the plate.
 #' @export
 #'
 #' @examples
@@ -337,7 +356,7 @@ plate_read_biotek <- function(file, time_average = TRUE, second_wl = FALSE) {
 #'
 #' plate_read_biotek_wl(file_data)
 #' plate_read_biotek_wl(file_data, format = FALSE)
-plate_read_biotek_wl <- function(file, format_well = TRUE) {
+plate_read_biotek_wl <- function(file, format_well = TRUE, plate = NULL) {
   .check_file_exists(file)
   # get the lines and drop irrelevant ones
   lines <- .plate_read_lines(file)
@@ -347,5 +366,7 @@ plate_read_biotek_wl <- function(file, format_well = TRUE) {
 
   blocks_wl <- get_blocks_wl(blocks)
 
-  dplyr::bind_rows(blocks_wl, .id = "id")
+  dat <- dplyr::bind_rows(blocks_wl, .id = "id")
+  recorded <- recorded_plate_size(readr::read_lines(file), "Plate Type,")
+  as_plate_wells(dat, plate, recorded)
 }

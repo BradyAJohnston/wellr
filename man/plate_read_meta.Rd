@@ -4,16 +4,21 @@
 \alias{plate_read_meta}
 \title{Read a \code{{plater}} Formatted Metadata File}
 \usage{
-plate_read_meta(file, sep = ",")
+plate_read_meta(file, sep = ",", plate = NULL)
 }
 \arguments{
 \item{file}{File path to a \code{{plater}} formatted \code{.csv} file which contains
 metadata information.}
 
 \item{sep}{The separator for the \code{.csv} file, defaults to ",".}
+
+\item{plate}{The size of the plate, such as 96 or 384, or its number of
+rows and columns. If \code{NULL}, the smallest standard plate that holds all
+the wells is used.}
 }
 \value{
-a tibble::tibble()
+a tibble::tibble(). The \code{well} column holds \code{\link[=well]{well()}} IDs that know
+the size of the plate.
 }
 \description{
 Read a \code{{plater}} Formatted Metadata File

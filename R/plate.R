@@ -8,7 +8,8 @@
 #' @param nrow Number of rows to have in the generated plate.
 #' @param ncol NUmber of columns to have in the generated plate.
 #'
-#' @return a [tibble][tibble::tibble-package]
+#' @return a [tibble][tibble::tibble-package]. The `well` column holds
+#'   [well()] IDs on a plate with this many rows and columns.
 #' @export
 #'
 #' @examples
@@ -30,7 +31,9 @@ well_plate <- function(nrow = 8, ncol = 12) {
     row = nrow
   )[, c("row", "col")]
 
-  plate$well <- well_join(plate$row, plate$col)
+  wells <- well_join(plate$row, plate$col)
+  dims <- c(max(well_to_row_num(wells)), max(well_to_col_num(wells)))
+  plate$well <- new_well(wells, dims)
 
   # return the plate as a tibble
   tibble::as_tibble(plate)
@@ -239,7 +242,7 @@ well_df_to_mat_frames <- function(data, value, frame, well) {
   )
 
   rownames(mat) <- frames
-  colnames(mat) <- well_from_index(seq(n_wells))
+  colnames(mat) <- well_from_index(seq(n_wells), plate = c(n_row, n_col))
 
   mat
 }
@@ -299,6 +302,7 @@ well_mat_frames_to_df <- function(mat, value = "value") {
 
   dat <- dplyr::mutate(
     .data = dat,
+    well = as_well(.data$well),
     row = well_to_row_num(.data$well),
     col = well_to_col_num(.data$well)
   )
@@ -327,7 +331,7 @@ well_mat_to_df <- function(matrix, value_col = "value") {
   index <- seq_along(values)
 
   df <- tibble::tibble(
-    well = well_from_index(index),
+    well = well_from_index(index, plate = dim(matrix)),
     row = well_to_row_num(.data$well),
     col = well_to_col_num(.data$well),
     value = values

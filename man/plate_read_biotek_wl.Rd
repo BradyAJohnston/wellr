@@ -4,16 +4,21 @@
 \alias{plate_read_biotek_wl}
 \title{Read the \code{wavelength} data blocks from a \emph{biotek} \code{.csv} file.}
 \usage{
-plate_read_biotek_wl(file, format_well = TRUE)
+plate_read_biotek_wl(file, format_well = TRUE, plate = NULL)
 }
 \arguments{
 \item{file}{File path to the \code{.csv} file.}
 
 \item{format_well}{Whether to format the \code{well} column of the returned
 dataframes.}
+
+\item{plate}{The size of the plate, such as 96 or 384, or its number of
+rows and columns. If \code{NULL}, the plate size recorded in the file is used,
+or else the smallest standard plate that holds all the wells.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble}. The \code{well} column holds
+\code{\link[=well]{well()}} IDs that know the size of the plate.
 }
 \description{
 Read the \code{wavelength} data blocks from a \emph{biotek} \code{.csv} file.

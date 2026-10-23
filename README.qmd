@@ -62,6 +62,24 @@ well_join(3, 8)
 well_join("E", 10)
 ```
 
+## Well IDs that know their plate
+
+Well IDs returned by wellr are `well()` vectors: they print, compare and join
+like the character vectors they are underneath, but also record the size of
+the plate they come from. Conversions use it automatically, so a 384 well plate
+is indexed correctly without saying so.
+
+```{r}
+x <- well(c("a1", "B2", "p24"), plate = 384)
+x
+
+x == "B02"
+well_to_index(x)
+well_plate_size(x)
+```
+
+Use `as.character()` to get a plain character vector.
+
 ## Reading Biotek
 
 Get the file paths of the demo files.

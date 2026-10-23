@@ -12,6 +12,7 @@ Provides a range of utility functions for working with plate-based data from mic
 Useful links:
 \itemize{
   \item \url{https://github.com/bradyajohnston/wellr}
+  \item \url{https://bradyajohnston.github.io/wellr}
   \item Report bugs at \url{https://github.com/bradyajohnston/wellr/issues}
 }
 

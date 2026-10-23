@@ -70,6 +70,10 @@ name = "tidyr"
 constraint = "*"
 
 [[targets.direct_dependencies]]
+name = "vctrs"
+constraint = "*"
+
+[[targets.direct_dependencies]]
 name = "covr"
 constraint = "*"
 
@@ -1373,12 +1377,13 @@ dependencies = [
     "stringr",
     "tibble",
     "tidyr",
+    "vctrs",
 ]
 sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "df2fbf66a4f76ef4053fa1c84e535169a34c35c75968493f75d3aaa10f962507", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -1439,6 +1444,10 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "tidyr"
+constraint = "*"
+
+[[targets.direct_dependencies]]
+name = "vctrs"
 constraint = "*"
 
 [[targets.direct_dependencies]]
@@ -2755,12 +2764,13 @@ dependencies = [
     "stringr",
     "tibble",
     "tidyr",
+    "vctrs",
 ]
 sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "df2fbf66a4f76ef4053fa1c84e535169a34c35c75968493f75d3aaa10f962507", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -2821,6 +2831,10 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "tidyr"
+constraint = "*"
+
+[[targets.direct_dependencies]]
+name = "vctrs"
 constraint = "*"
 
 [[targets.direct_dependencies]]
@@ -4127,12 +4141,13 @@ dependencies = [
     "stringr",
     "tibble",
     "tidyr",
+    "vctrs",
 ]
 sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "df2fbf66a4f76ef4053fa1c84e535169a34c35c75968493f75d3aaa10f962507", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -4193,6 +4208,10 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "tidyr"
+constraint = "*"
+
+[[targets.direct_dependencies]]
+name = "vctrs"
 constraint = "*"
 
 [[targets.direct_dependencies]]
@@ -5499,9 +5518,10 @@ dependencies = [
     "stringr",
     "tibble",
     "tidyr",
+    "vctrs",
 ]
 sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "df2fbf66a4f76ef4053fa1c84e535169a34c35c75968493f75d3aaa10f962507", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }

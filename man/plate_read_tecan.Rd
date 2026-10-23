@@ -4,15 +4,20 @@
 \alias{plate_read_tecan}
 \title{Read the output of Tecan Plate Readers}
 \usage{
-plate_read_tecan(file, temp = FALSE)
+plate_read_tecan(file, temp = FALSE, plate = NULL)
 }
 \arguments{
 \item{file}{File path to the \code{.xlsx} or \code{.csv} file.}
 
 \item{temp}{Logical, whether to include the temperature column.}
+
+\item{plate}{The size of the plate, such as 96 or 384, or its number of
+rows and columns. If \code{NULL}, the plate size recorded in the file is used,
+or else the smallest standard plate that holds all the wells.}
 }
 \value{
-a \code{tibble::tibble()} of the values from the file.
+a \code{tibble::tibble()} of the values from the file. The \code{well} column
+holds \code{\link[=well]{well()}} IDs that know the size of the plate.
 }
 \description{
 Read the output of Tecan Plate Readers

@@ -136,8 +136,12 @@
 #'
 #' @param file File path to the `.xlsx` or `.csv` file.
 #' @param temp Logical, whether to include the temperature column.
+#' @param plate The size of the plate, such as 96 or 384, or its number of
+#'   rows and columns. If `NULL`, the plate size recorded in the file is used,
+#'   or else the smallest standard plate that holds all the wells.
 #'
-#' @return a `tibble::tibble()` of the values from the file.
+#' @return a `tibble::tibble()` of the values from the file. The `well` column
+#'   holds [well()] IDs that know the size of the plate.
 #' @export
 #' @examples
 #'
@@ -158,7 +162,7 @@
 #' plate_read_tecan(fl)
 #'
 
-plate_read_tecan <- function(file, temp = FALSE) {
+plate_read_tecan <- function(file, temp = FALSE, plate = NULL) {
   .check_file_exists(file)
 
   ext <- tools::file_ext(file)
@@ -170,5 +174,22 @@ plate_read_tecan <- function(file, temp = FALSE) {
     cli::cli_abort("Unable to format of file: {.file {file}}")
   }
 
-  read_func(file = file, temp = temp)
+  dat <- read_func(file = file, temp = temp)
+  as_plate_wells(dat, plate, .tecan_recorded_plate(file, ext))
+}
+
+# The plate recorded in a Tecan file, on the row starting "Plate".
+.tecan_recorded_plate <- function(file, ext) {
+  if (ext == "csv") {
+    return(recorded_plate_size(readr::read_lines(file), "Plate,"))
+  }
+  sheet <- suppressMessages(
+    readxl::read_excel(file, col_names = FALSE, col_types = "text")
+  )
+  rows <- which(sheet[[1]] %in% "Plate")
+  if (length(rows) == 0) {
+    return(NULL)
+  }
+  values <- unlist(sheet[rows[[1]], ], use.names = FALSE)
+  plate_size_from_text(paste(values[!is.na(values)], collapse = " "))
 }

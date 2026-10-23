@@ -4,7 +4,7 @@
 \alias{plate_read_biotek}
 \title{Read Biotek Output CSV Files}
 \usage{
-plate_read_biotek(file, time_average = TRUE, second_wl = FALSE)
+plate_read_biotek(file, time_average = TRUE, second_wl = FALSE, plate = NULL)
 }
 \arguments{
 \item{file}{The filepath to a \code{.csv} file, exported from a Biotek plate
@@ -15,9 +15,14 @@ different observations (LUM / OD) and pivot them to their own columns.}
 
 \item{second_wl}{Whether to include the second wavelength when reading in
 data blocks, or to keep just the label and the first wavelength.}
+
+\item{plate}{The size of the plate, such as 96 or 384, or its number of
+rows and columns. If \code{NULL}, the plate size recorded in the file is used,
+or else the smallest standard plate that holds all the wells.}
 }
 \value{
-tibble::tibble()
+A \link[tibble:tibble-package]{tibble}. The \code{well} column holds
+\code{\link[=well]{well()}} IDs that know the size of the plate.
 }
 \description{
 Read Biotek Output CSV Files

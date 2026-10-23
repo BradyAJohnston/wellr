@@ -167,7 +167,9 @@ well_to_row_num <- function(x) {
 #'   13 for a 96 well plate.
 #'
 #' @param x string well ID
-#' @param plate size of the plate. One of c(6, 12, 24, 96, 384)
+#' @param plate size of the plate. One of c(6, 12, 24, 48, 96, 384), or the
+#'   number of rows and columns. If `NULL`, the plate of [well()] IDs is used,
+#'   or else a 96 well plate.
 #' @param colwise if TRUE, index instead down the columns, so H01 is index 8,
 #'   A12 is index 89 and B01 is index 2 for a 96 well plate.
 #'
@@ -187,18 +189,17 @@ well_to_row_num <- function(x) {
 #' well_to_index("H08", colwise = TRUE)
 #' well_to_index("h8", colwise = TRUE)
 #' well_to_index("C20", colwise = TRUE)
-well_to_index <- function(x, plate = 96, colwise = FALSE) {
+well_to_index <- function(x, plate = NULL, colwise = FALSE) {
   stopifnot(is.character(x))
+  dims <- resolve_plate_dims(x, plate)
 
   colnum <- well_to_col_num(x)
   rownum <- well_to_row_num(x)
 
   if (colwise) {
-    n_rows <- n_rows_from_wells(plate)
-    id <- (colnum - 1) * n_rows + rownum
+    id <- (colnum - 1) * dims[[1]] + rownum
   } else {
-    n_cols <- n_cols_from_wells(plate)
-    id <- (rownum - 1) * n_cols + colnum
+    id <- (rownum - 1) * dims[[2]] + colnum
   }
 
   id
@@ -207,12 +208,13 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #' Convert Numeric Index to Well ID.
 #'
 #' @param x numeric index to convert to a well ID
-#' @param plate number of wells in the plate. One of c(6, 12, 24, 96, 384)
+#' @param plate number of wells in the plate. One of c(6, 12, 24, 48, 96, 384),
+#'   or the number of rows and columns. If `NULL`, a 96 well plate.
 #' @param num_width number of zeros to pad the column number with to the left.
 #' @param colwise if TRUE, index instead down the columns, so H01 is index 8,
 #'   A12 is index 89 and B01 is index 2 for a 96 well plate.
 #'
-#' @return a column ID as a vector of strings.
+#' @return [well()] IDs on the plate.
 #' @export
 #'
 #' @examples
@@ -221,10 +223,11 @@ well_to_index <- function(x, plate = 96, colwise = FALSE) {
 #'
 #' # indexing first down the columns
 #' well_from_index(1:20, colwise = TRUE)
-well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
+well_from_index <- function(x, plate = NULL, num_width = 2, colwise = FALSE) {
   stopifnot(is.numeric(x))
-  n_rows <- n_rows_from_wells(plate)
-  n_cols <- n_cols_from_wells(plate)
+  dims <- resolve_plate_dims(x, plate)
+  n_rows <- dims[[1]]
+  n_cols <- dims[[2]]
 
   if (colwise) {
     id_row <- .count_row_down(x, n_rows)
@@ -236,7 +239,7 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 
   well <- well_join(id_row, id_col)
 
-  well
+  new_well(well, dims)
 }
 
 #' Format a Well to Uppercase and Padded Numbers
@@ -245,12 +248,15 @@ well_from_index <- function(x, plate = 96, num_width = 2, colwise = FALSE) {
 #' @param num_width Width to pad out number component with 0's.
 #' @param uppercase Logical, whether the letter should be upercase.
 #'
-#' @return Vector of strings as formatted well IDs.
+#' @return Vector of strings as formatted well IDs. [well()] IDs keep their
+#'   plate.
 #' @export
 #'
 #' @examples
 #' well_format(c("A9", "c3", "h12"))
 well_format <- function(x, num_width = 2, uppercase = TRUE) {
+  dims <- if (is_well(x)) well_plate_dims(x)
+
   x <- wellr::well_join(
     row = wellr::well_to_row_num(x),
     col = wellr::well_to_col_num(x),
@@ -258,10 +264,12 @@ well_format <- function(x, num_width = 2, uppercase = TRUE) {
   )
 
   if (!uppercase) {
-    stringr::str_to_lower(x)
-  } else {
-    x
+    x <- stringr::str_to_lower(x)
   }
+  if (!is.null(dims)) {
+    x <- new_well(x, dims)
+  }
+  x
 }
 
 #' Calculate number of columns from given number of wells.
@@ -272,7 +280,7 @@ well_format <- function(x, num_width = 2, uppercase = TRUE) {
 #' @keywords internal
 n_cols_from_wells <- function(x) {
   stopifnot(is.numeric(x))
-  switch(as.character(x), "6" = 3, "12" = 4, "24" = 6, "96" = 12, "384" = 24)
+  plate_dims(x)[[2]]
 }
 
 #' Calculate number of rows from given number of wells.
@@ -283,5 +291,5 @@ n_cols_from_wells <- function(x) {
 #' @keywords internal
 n_rows_from_wells <- function(x) {
   stopifnot(is.numeric(x))
-  switch(as.character(x), "6" = 2, "12" = 3, "24" = 4, "96" = 8, "384" = 16)
+  plate_dims(x)[[1]]
 }

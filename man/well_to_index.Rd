@@ -4,12 +4,14 @@
 \alias{well_to_index}
 \title{Converts Well ID to a Numeric Index}
 \usage{
-well_to_index(x, plate = 96, colwise = FALSE)
+well_to_index(x, plate = NULL, colwise = FALSE)
 }
 \arguments{
 \item{x}{string well ID}
 
-\item{plate}{size of the plate. One of c(6, 12, 24, 96, 384)}
+\item{plate}{size of the plate. One of c(6, 12, 24, 48, 96, 384), or the
+number of rows and columns. If \code{NULL}, the plate of \code{\link[=well]{well()}} IDs is used,
+or else a 96 well plate.}
 
 \item{colwise}{if TRUE, index instead down the columns, so H01 is index 8,
 A12 is index 89 and B01 is index 2 for a 96 well plate.}

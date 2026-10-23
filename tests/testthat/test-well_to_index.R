@@ -39,7 +39,7 @@ test_that("Well to Index: colwise = FALSE ", {
 
   lapply(seq_along(comparitors), function(x) {
     testthat::expect_equal(
-      well_from_index(comparitors[x]),
+      as.character(well_from_index(comparitors[x])),
       names(comparitors)[[x]]
     )
   })
@@ -54,7 +54,7 @@ test_that("Well to Index: colwise = TRUE ", {
 
   lapply(seq_along(comparitors), function(x) {
     testthat::expect_equal(
-      well_from_index(comparitors[x], colwise = TRUE),
+      as.character(well_from_index(comparitors[x], colwise = TRUE)),
       names(comparitors)[[x]]
     )
   })
@@ -85,7 +85,7 @@ test_that("Well from Index: plate = 384, colwise = FALSE ", {
 
   lapply(seq_along(comparitors), function(x) {
     testthat::expect_equal(
-      well_from_index(comparitors[x], plate = 384),
+      as.character(well_from_index(comparitors[x], plate = 384)),
       names(comparitors)[[x]]
     )
   })

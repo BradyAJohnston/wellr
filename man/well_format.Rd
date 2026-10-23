@@ -14,7 +14,8 @@ well_format(x, num_width = 2, uppercase = TRUE)
 \item{uppercase}{Logical, whether the letter should be upercase.}
 }
 \value{
-Vector of strings as formatted well IDs.
+Vector of strings as formatted well IDs. \code{\link[=well]{well()}} IDs keep their
+plate.
 }
 \description{
 Format a Well to Uppercase and Padded Numbers
