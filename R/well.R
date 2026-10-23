@@ -309,3 +309,42 @@ n_cols_from_wells <- function(x) {
 n_rows_from_wells <- function(x) {
   plate_dims(x)[[1]]
 }
+
+#' Rows and columns of a plate
+#'
+#' `well_row()` gives the row letter of each well and `well_col()` its column
+#' number, as factors whose levels are all the rows or all the columns of the
+#' plate, in order. Unlike [well_to_row_let()] and [well_to_col_num()], they
+#' keep rows and columns with no wells in the data, so sorting, counting,
+#' faceting and plotting show the whole plate.
+#'
+#' @param x Well IDs, such as `"A01"`.
+#' @param plate The size of the plate, such as 96 or 384, or its number of rows
+#'   and columns. If `NULL`, the plate of [well()] IDs is used, or else the
+#'   smallest standard plate that holds all the wells.
+#'
+#' @returns A factor the same length as `x`.
+#' @export
+#'
+#' @examples
+#' x <- well(c("A01", "C05"), plate = 96)
+#' well_row(x)
+#' well_col(x)
+#'
+#' # Every row of the plate is counted, even those with no wells
+#' table(well_row(x))
+#'
+#' well_row(c("A01", "C05"), plate = 384)
+well_row <- function(x, plate = NULL) {
+  check_character(x)
+  dims <- plate_dims_for(x, plate)
+  factor(well_to_row_let(x), levels = LETTERS[seq_len(dims[[1]])])
+}
+
+#' @rdname well_row
+#' @export
+well_col <- function(x, plate = NULL) {
+  check_character(x)
+  dims <- plate_dims_for(x, plate)
+  factor(well_to_col_num(x), levels = seq_len(dims[[2]]))
+}
