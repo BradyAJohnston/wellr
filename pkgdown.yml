@@ -1,10 +1,9 @@
-pandoc: 3.1.11
-pkgdown: 2.0.7
+pandoc: 3.8.3
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  plates: plates.html
-last_built: 2024-03-23T15:15Z
+  articles/plates: plates.html
+last_built: 2026-10-23T16:31Z
 urls:
   reference: https://bradyajohnston.github.io/wellr/reference
   article: https://bradyajohnston.github.io/wellr/articles
-
