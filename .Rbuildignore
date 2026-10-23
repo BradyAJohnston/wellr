@@ -1,5 +1,3 @@
-^renv$
-^renv\.lock$
 ^wellr\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
@@ -12,3 +10,8 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^rproj\.toml$
+^rproj\.lock$
+^\.rvenvlib$
+^\.rvenv$
+^\.Renviron$

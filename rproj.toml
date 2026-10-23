@@ -1,0 +1,60 @@
+[project]
+name = "wellr"
+version = "0.3.4"
+type = "package"
+title = "Utilities for Working With Plate Based Data"
+description = '''
+Provides a range of utility functions for working with 
+plate-based data from microtitre plates such as enzyme assays, bacterial 
+growth assays and protein binding experiments. Working with column IDs, row 
+numbers and letters and transforming between a matrix and a data frame are 
+all made simpler.'''
+license = "MIT + file LICENSE"
+
+[[project.authors]]
+name = "Brady Johnston"
+email = "brady.johnston@me.com"
+roles = [
+    "aut",
+    "cre",
+]
+orcid = "0000-0001-6301-2269"
+
+[project.urls]
+bugreports = "https://github.com/bradyajohnston/wellr/issues"
+homepage = "https://github.com/bradyajohnston/wellr"
+
+[dependencies]
+R = ">= 3.6.0"
+cli = "*"
+dplyr = "*"
+ggplot2 = "*"
+janitor = "*"
+lifecycle = "*"
+plater = "*"
+purrr = "*"
+readr = "*"
+readxl = "*"
+rlang = "*"
+scales = "*"
+stringr = "*"
+tibble = "*"
+tidyr = "*"
+
+[dependency-groups.dev]
+covr = "*"
+devtools = "*"
+rmarkdown = "*"
+roxygen2 = "*"
+testthat = ">= 3.0.0"
+usethis = "*"
+
+[config.testthat]
+edition = 3
+parallel = true
+
+[description]
+Encoding = "UTF-8"
+LazyData = "true"
+Roxygen = "list(markdown = TRUE)"
+RoxygenNote = "7.3.1"
