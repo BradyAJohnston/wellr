@@ -15,5 +15,7 @@ test_that("Splitting data block labels", {
     c('spe_1', 'spectrum')
   )
 
-  purrr::map2(label_lines, answers, \(x, y) expect_equal(.split_labels(x)[[1]], y))
+  purrr::map2(label_lines, answers, \(x, y) {
+    expect_equal(.split_labels(x)[[1]], y)
+  })
 })

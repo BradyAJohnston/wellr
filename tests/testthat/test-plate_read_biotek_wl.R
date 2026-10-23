@@ -4,5 +4,3 @@ test_that("Reading WL from biotek .csv", {
   expect_snapshot(head(dat))
   expect_snapshot(tail(dat))
 })
-
-

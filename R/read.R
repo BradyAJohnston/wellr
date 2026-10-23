@@ -1,5 +1,3 @@
-
-
 #' Read a `{plater}` formatted metadata file
 #'
 #' @param file to read metadata from.
@@ -19,7 +17,6 @@ read_meta <- function(file) {
     details = c(
       x = "This function will be removed in {wellr} v0.5.0"
     )
-
-    )
+  )
   plate_read_meta(file)
 }

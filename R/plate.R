@@ -32,7 +32,6 @@ well_plate <- function(nrow = 8, ncol = 12) {
 
   plate$well <- well_join(plate$row, plate$col)
 
-
   # return the plate as a tibble
   tibble::as_tibble(plate)
 }
@@ -56,10 +55,12 @@ well_plate <- function(nrow = 8, ncol = 12) {
 #' df <- well_reorder_df(df)
 #' head(df)
 #'
-well_reorder_df <- function(data,
-                            well_col = "well",
-                            row_col = NULL,
-                            col_col = NULL) {
+well_reorder_df <- function(
+  data,
+  well_col = "well",
+  row_col = NULL,
+  col_col = NULL
+) {
   if (well_col %in% colnames(data)) {
     wells <- data[, well_col]
   } else {
@@ -108,10 +109,7 @@ well_reorder_df <- function(data,
 #' plate$value <- seq(nrow(plate))
 #' well_df_to_mat(plate, values_from = "value", plate = 384)
 well_df_to_mat <-
-  function(df,
-           values_from,
-           well_col = "well",
-           plate = NULL) {
+  function(df, values_from, well_col = "well", plate = NULL) {
     # if (!is.null(plate)) {}
     stopifnot(well_col %in% colnames(df))
     df <- as.data.frame(df)
@@ -173,7 +171,6 @@ well_df_to_mat <-
 
     df_combined <- well_reorder_df(df)
 
-
     matrix(
       as.numeric(df_combined[, values_from]),
       nrow = nrows,
@@ -220,10 +217,7 @@ well_df_to_mat <-
 #'
 #' head(mat[, 1:14])
 #'
-well_df_to_mat_frames <- function(data,
-                                  value,
-                                  frame,
-                                  well) {
+well_df_to_mat_frames <- function(data, value, frame, well) {
   df_frames <- dplyr::arrange(
     .data = data,
     {{ frame }},

@@ -44,7 +44,7 @@
     dplyr::mutate(
       dplyr::across(dplyr::matches("temp|time"), mean),
       .by = "cycle_nr"
-      )
+    )
 
   if (!temp) {
     dat_combined <- dplyr::select(dat_combined, -dplyr::matches("temp"))
@@ -105,7 +105,10 @@
 
   dat <- dat |>
     tidyr::drop_na() |>
-    dplyr::mutate(dplyr::across(dplyr::matches("time|temp"), mean), .by = "cycle_nr") |>
+    dplyr::mutate(
+      dplyr::across(dplyr::matches("time|temp"), mean),
+      .by = "cycle_nr"
+    ) |>
     tidyr::pivot_wider(values_from = "value", names_from = "signal") |>
     janitor::clean_names()
 
@@ -119,9 +122,10 @@
 
 .check_file_exists <- function(file, env = rlang::caller_env()) {
   if (!file.exists(file)) {
-    cli::cli_abort(c(
-      "!" = 'File {.file {file}} doesn\'t exist!',
-      "i" = "Maybe you mistyped something?"
+    cli::cli_abort(
+      c(
+        "!" = 'File {.file {file}} doesn\'t exist!',
+        "i" = "Maybe you mistyped something?"
       ),
       .envir = env
     )

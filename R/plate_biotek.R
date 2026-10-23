@@ -48,10 +48,7 @@ is_data_lines <- function(lines) {
 #'
 #' @keywords internal
 read_data_block <-
-  function(lines,
-           temp = FALSE,
-           format_well = TRUE,
-           rownum = FALSE) {
+  function(lines, temp = FALSE, format_well = TRUE, rownum = FALSE) {
     lines |>
       stringr::str_remove("^,") |>
       stringr::str_remove(",$") |>
@@ -63,7 +60,6 @@ read_data_block <-
     if (rownum) {
       dat <- dplyr::mutate(dat, rownum = dplyr::row_number())
     }
-
 
     dat <- tidyr::pivot_longer(
       dat,
@@ -117,12 +113,14 @@ read_data_block <-
 #'
 #' @keywords internal
 get_all_blocks <-
-  function(lines,
-           temp = FALSE,
-           format_well = TRUE,
-           include_id = FALSE,
-           second_wl = TRUE,
-           rownum = FALSE) {
+  function(
+    lines,
+    temp = FALSE,
+    format_well = TRUE,
+    include_id = FALSE,
+    second_wl = TRUE,
+    rownum = FALSE
+  ) {
     data_block_starts <- which(is_block_start(lines))
     intervals <- c(diff(data_block_starts), NA)
 
@@ -133,7 +131,6 @@ get_all_blocks <-
         end <- start + interval - 4
       }
 
-
       dat <- read_data_block(
         lines = lines[start:end],
         temp = temp,
@@ -141,12 +138,10 @@ get_all_blocks <-
         rownum = rownum
       )
 
-
       id <- "value"
       if (include_id) {
         label_line <- lines[start - 2]
         split_label <- .split_labels(label_line)[[1]]
-
 
         name <- stringr::str_split(split_label[1], '_')[[1]][1]
         id_int <- as.integer(stringr::str_split(split_label[1], '_')[[1]][2])
@@ -213,17 +208,17 @@ get_blocks <- function(blocks, colname) {
 
 #' @noRd
 get_blocks_time <-
-  function(blocks,
-           interval = 0,
-           accumulate_time = TRUE) {
+  function(blocks, interval = 0, accumulate_time = TRUE) {
     dat <- get_blocks(blocks, "time") |>
       dplyr::bind_rows()
 
     average_time = TRUE
     if (average_time) {
-      dat <- dplyr::mutate(dat,
-                           time = mean(.data$time),
-                           .by = dplyr::matches("rownum|well"))
+      dat <- dplyr::mutate(
+        dat,
+        time = mean(.data$time),
+        .by = dplyr::matches("rownum|well")
+      )
     }
 
     if (accumulate_time) {
@@ -248,33 +243,39 @@ get_blocks_time <-
 
 #' drop-in replacement for plate_read_biotek
 #' @keywords internal
-plate_read_biotek2 <- function(file,
-                               average_time = TRUE,
-                               accumulate_time = TRUE,
-                               interval = 0,
-                               second_wl = TRUE,
-                               rename = TRUE) {
+plate_read_biotek2 <- function(
+  file,
+  average_time = TRUE,
+  accumulate_time = TRUE,
+  interval = 0,
+  second_wl = TRUE,
+  rename = TRUE
+) {
   lines <- .plate_read_lines(file)
 
   blocks <-
-    get_all_blocks(lines,
-                   temp = FALSE,
-                   include_id = TRUE,
-                   second_wl = second_wl,
-                   rownum = TRUE)
+    get_all_blocks(
+      lines,
+      temp = FALSE,
+      include_id = TRUE,
+      second_wl = second_wl,
+      rownum = TRUE
+    )
 
-  blocks_time <- get_blocks_time(blocks,
-                                 interval = interval,
-                                 accumulate_time = accumulate_time)
+  blocks_time <- get_blocks_time(
+    blocks,
+    interval = interval,
+    accumulate_time = accumulate_time
+  )
 
-  dat_wide <- tidyr::pivot_wider(dplyr::bind_rows(blocks_time),
-                                 names_from = "type",
-                                 values_from = "value")
-
+  dat_wide <- tidyr::pivot_wider(
+    dplyr::bind_rows(blocks_time),
+    names_from = "type",
+    values_from = "value"
+  )
 
   if (rename) {
-    new_col_names <- c("od600" = "od600_600",
-                       "lum" = "lum_lum")
+    new_col_names <- c("od600" = "od600_600", "lum" = "lum_lum")
     new_col_names <-
       new_col_names[new_col_names %in% colnames(dat_wide)]
 

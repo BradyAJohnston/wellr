@@ -22,11 +22,14 @@ well_plot <- function(data, well, value, colour = "black") {
     col = wellr::well_to_col_num({{ well }})
   )
 
-  ggplot2::ggplot(data, ggplot2::aes(
-    x = .data$col,
-    y = .data$row,
-    fill = {{ value }}
-  )) +
+  ggplot2::ggplot(
+    data,
+    ggplot2::aes(
+      x = .data$col,
+      y = .data$row,
+      fill = {{ value }}
+    )
+  ) +
     ggplot2::geom_tile(colour = "black") +
     ggplot2::scale_x_continuous(
       name = NULL,

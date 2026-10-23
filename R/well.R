@@ -74,7 +74,11 @@ well_join <- function(row, col, num_width = 2) {
         }
 
         if (y > 26 | y < 1) {
-          stop(paste("Row number", y, "cannot exceed the number of available letters (1:26)."))
+          stop(paste(
+            "Row number",
+            y,
+            "cannot exceed the number of available letters (1:26)."
+          ))
         }
         # return corresponding capital letter
         LETTERS[y]
@@ -86,7 +90,6 @@ well_join <- function(row, col, num_width = 2) {
       LETTERS[x]
     }
   })
-
 
   # pad out the column number for format "A01" properly.
   colnum <- stringr::str_pad(col, width = num_width, side = "left", pad = "0")
@@ -187,7 +190,6 @@ well_to_row_num <- function(x) {
 well_to_index <- function(x, plate = 96, colwise = FALSE) {
   stopifnot(is.character(x))
 
-
   colnum <- well_to_col_num(x)
   rownum <- well_to_row_num(x)
 
@@ -270,13 +272,7 @@ well_format <- function(x, num_width = 2, uppercase = TRUE) {
 #' @keywords internal
 n_cols_from_wells <- function(x) {
   stopifnot(is.numeric(x))
-  switch(as.character(x),
-    "6" = 3,
-    "12" = 4,
-    "24" = 6,
-    "96" = 12,
-    "384" = 24
-  )
+  switch(as.character(x), "6" = 3, "12" = 4, "24" = 6, "96" = 12, "384" = 24)
 }
 
 #' Calculate number of rows from given number of wells.
@@ -287,11 +283,5 @@ n_cols_from_wells <- function(x) {
 #' @keywords internal
 n_rows_from_wells <- function(x) {
   stopifnot(is.numeric(x))
-  switch(as.character(x),
-    "6" = 2,
-    "12" = 3,
-    "24" = 4,
-    "96" = 8,
-    "384" = 16
-  )
+  switch(as.character(x), "6" = 2, "12" = 3, "24" = 4, "96" = 8, "384" = 16)
 }
