@@ -8,23 +8,26 @@ well_df_to_mat(df, values_from, well_col = "well", plate = NULL)
 }
 \arguments{
 \item{df}{A dataframe containing at least a column called "well" that
-contains well IDs.}
+contains well IDs, with one row per well.}
 
 \item{values_from}{Column that contains values to populate matrix.}
 
 \item{well_col}{Column containing the well IDs to extract row and column
 information from.}
 
-\item{plate}{Size of the plate, to override the auto-detected plate size.}
+\item{plate}{Size of the plate, such as 96 or 384, or its number of rows and
+columns. If \code{NULL}, the plate of \code{\link[=well]{well()}} IDs is used, or else the smallest
+standard plate that holds all the wells.}
 }
 \value{
-A matrix containing the values that were present in the data frame in
-the \code{values_from} column
+A matrix with a row for each row of the plate and a column for each
+column, containing the values that were present in the data frame in the
+\code{values_from} column.
 }
 \description{
 Extracts row and column information from the column specified by \code{well_col}
 (defaults to 'well') and uses this to create a matrix that contains values
-from the \code{values_from} column.
+from the \code{values_from} column. Wells missing from \code{df} are \code{NA}.
 }
 \examples{
 library(wellr)

@@ -84,17 +84,20 @@ well_reorder_df <- function(
 #'
 #' Extracts row and column information from the column specified by `well_col`
 #' (defaults to 'well') and uses this to create a matrix that contains values
-#' from the `values_from` column.
+#' from the `values_from` column. Wells missing from `df` are `NA`.
 #'
 #' @param df A dataframe containing at least a column called "well" that
-#'   contains well IDs.
-#' @param plate Size of the plate, to override the auto-detected plate size.
+#'   contains well IDs, with one row per well.
+#' @param plate Size of the plate, such as 96 or 384, or its number of rows and
+#'   columns. If `NULL`, the plate of [well()] IDs is used, or else the smallest
+#'   standard plate that holds all the wells.
 #' @param values_from  Column that contains values to populate matrix.
 #' @param well_col Column containing the well IDs to extract row and column
 #'   information from.
 #'
-#' @return A matrix containing the values that were present in the data frame in
-#'   the `values_from` column
+#' @return A matrix with a row for each row of the plate and a column for each
+#'   column, containing the values that were present in the data frame in the
+#'   `values_from` column.
 #' @export
 #'
 #' @examples
@@ -111,76 +114,34 @@ well_reorder_df <- function(
 #' plate <- well_plate(7, 11)
 #' plate$value <- seq(nrow(plate))
 #' well_df_to_mat(plate, values_from = "value", plate = 384)
-well_df_to_mat <-
-  function(df, values_from, well_col = "well", plate = NULL) {
-    # if (!is.null(plate)) {}
-    stopifnot(well_col %in% colnames(df))
-    df <- as.data.frame(df)
-    df$row <- well_to_row_num(df[, well_col])
-    df$col <- well_to_col_num(df[, well_col])
+well_df_to_mat <- function(df, values_from, well_col = "well", plate = NULL) {
+  stopifnot(well_col %in% colnames(df))
+  df <- as.data.frame(df)
+  wells <- df[[well_col]]
 
-    max_cols <- max(df$col)
-    max_rows <- max(df$row)
-
-    if (max_cols <= 3) {
-      plate <- 6
-      ncols <- 3
-      nrows <- 2
-    } else if (max_cols <= 6) {
-      plate <- 24
-      ncols <- 6
-      nrows <- 4
-    } else if (max_cols <= 12) {
-      plate <- 96
-      ncols <- 12
-      nrows <- 8
-    } else if (max_cols <= 24) {
-      plate <- 384
-      ncols <- 24
-      nrows <- 16
-    } else if (max_cols <= 48) {
-      plate <- 1536
-      ncols <- 48
-      nrows <- 32
-    } else {
-      stop(
-        paste0(
-          "Detected Number of cols '",
-          max_cols,
-          "', no within acceptable plate parameters."
-        )
-      )
-    }
-    if (!is.null(plate)) {
-      ncols <- n_cols_from_wells(plate)
-      nrows <- n_rows_from_wells(plate)
-    }
-
-    empty_plate <- well_plate(nrow = nrows, ncol = ncols)
-
-    missing_wells <-
-      sapply(empty_plate$well, function(x) {
-        !(x %in% df[, well_col])
-      })
-
-    missing_wells <- empty_plate[missing_wells, ]
-    missing_wells[, values_from] <- NA
-
-    # df_only_relevant <- df[, c("well", "row", "col", values_from)]
-
-    # df_combined <- rbind(df_only_relevant, missing_wells)
-    # print(df_combined)
-    # print(df_only_relevant)
-
-    df_combined <- well_reorder_df(df)
-
-    matrix(
-      as.numeric(df_combined[, values_from]),
-      nrow = nrows,
-      ncol = ncols,
-      byrow = TRUE
-    )
+  dims <- if (!is.null(plate)) {
+    plate_dims(plate)
+  } else if (is_well(wells)) {
+    well_plate_dims(wells)
+  } else {
+    infer_plate_dims(wells)
   }
+  check_wells(as.character(wells), dims)
+
+  rows <- well_to_row_num(wells)
+  cols <- well_to_col_num(wells)
+  duplicated <- duplicated(cbind(rows, cols))
+  if (any(duplicated)) {
+    cli::cli_abort(c(
+      "{.arg df} must have one row per well.",
+      i = "{.val {unique(as.character(wells[duplicated]))[1:min(3, sum(duplicated))]}} appear{?s/} more than once."
+    ))
+  }
+
+  mat <- matrix(NA_real_, nrow = dims[[1]], ncol = dims[[2]])
+  mat[cbind(rows, cols)] <- as.numeric(df[[values_from]])
+  mat
+}
 
 
 #' Convert a DataFrame to a Multi-Frame Matrix
