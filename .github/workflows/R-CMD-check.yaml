@@ -33,6 +33,8 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # Skip the project .Renviron, which points R at the local rig library.
+      R_ENVIRON_USER: ${{ github.workspace }}/.no-renviron
       R_KEEP_PKG_SOURCE: yes
 
     steps:

@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # Skip the project .Renviron, which points R at the local rig library.
+      R_ENVIRON_USER: ${{ github.workspace }}/.no-renviron
 
     steps:
       - uses: actions/checkout@v4
