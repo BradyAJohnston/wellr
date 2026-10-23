@@ -45,6 +45,6 @@ well_plot <- function(data, well, value, colour = "black") {
     ggplot2::theme_bw(base_size = 15) +
     ggplot2::coord_equal() +
     ggplot2::theme(
-      panel.border = ggplot2::element_rect(colour = "black", size = 1)
+      panel.border = ggplot2::element_rect(colour = "black", linewidth = 1)
     )
 }
