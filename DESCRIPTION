@@ -25,7 +25,7 @@ Imports:
     purrr,
     readr (>= 2.0.0),
     readxl,
-    rlang,
+    rlang (>= 1.1.0),
     scales,
     stringr,
     tibble,

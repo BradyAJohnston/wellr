@@ -115,18 +115,12 @@ well_reorder_df <- function(
 #' plate$value <- seq(nrow(plate))
 #' well_df_to_mat(plate, values_from = "value", plate = 384)
 well_df_to_mat <- function(df, values_from, well_col = "well", plate = NULL) {
-  stopifnot(well_col %in% colnames(df))
+  check_data_frame(df)
+  check_column(df, well_col)
+  check_column(df, values_from)
   df <- as.data.frame(df)
   wells <- df[[well_col]]
-
-  dims <- if (!is.null(plate)) {
-    plate_dims(plate)
-  } else if (is_well(wells)) {
-    well_plate_dims(wells)
-  } else {
-    infer_plate_dims(wells)
-  }
-  check_wells(as.character(wells), dims)
+  dims <- plate_dims_for(wells, plate)
 
   rows <- well_to_row_num(wells)
   cols <- well_to_col_num(wells)

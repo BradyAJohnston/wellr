@@ -134,3 +134,25 @@ test_that("errors informatively", {
     abs(well("A1"))
   })
 })
+
+test_that("well helpers check their arguments", {
+  plate <- well_plate()
+  plate$value <- seq_len(96)
+
+  expect_snapshot(error = TRUE, {
+    well_join(30, 1)
+    well_join("1x", 1)
+    well_join(list(1), 1)
+    well_join(1, 1, num_width = 0)
+    well_to_index(1)
+    well_from_index("A01")
+    well_from_index(97)
+    well_df_to_mat(plate, "value", well_col = "id")
+    well_df_to_mat(plate, "missing")
+  })
+})
+
+test_that("well_join() gives missing wells for missing rows or columns", {
+  expect_equal(well_join(c(1, NA), c(2, 3)), c("A02", NA))
+  expect_equal(well_join(1, c(2, NA)), c("A02", NA))
+})

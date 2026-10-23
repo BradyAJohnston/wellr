@@ -188,6 +188,26 @@ resolve_plate_dims <- function(x, plate, default = 96) {
   }
 }
 
+# Plate dimensions for well IDs `x`: from `plate` if given, else the plate of
+# `well()` IDs, else the smallest standard plate that holds all the wells.
+# Errors if any wells are outside the plate.
+plate_dims_for <- function(
+  x,
+  plate = NULL,
+  arg = rlang::caller_arg(plate),
+  call = rlang::caller_env()
+) {
+  dims <- if (!is.null(plate)) {
+    plate_dims(plate, arg = arg, call = call)
+  } else if (is_well(x)) {
+    well_plate_dims(x)
+  } else {
+    infer_plate_dims(x)
+  }
+  check_wells(as.character(x), dims, call = call)
+  dims
+}
+
 # The plate size recorded in a plate reader file, e.g. "Greiner 96 Flat Bottom".
 plate_size_from_text <- function(text) {
   sizes <- names(plate_sizes)

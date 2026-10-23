@@ -57,48 +57,52 @@ is_well_id <- function(x) {
 #' well_join(c("A", "B", "H"), 9)
 #' well_join("C", 1:10)
 well_join <- function(row, col, num_width = 2) {
-  # rowlet <- ifelse(
-  #   is.numeric(row),
-  #   LETTERS[as.numeric(row)],
-  #   stringr::str_trim(row)
-  #   )
+  check_number_whole(num_width, min = 1)
+  if (is.factor(row)) {
+    row <- as.integer(row)
+  }
 
-  # if row is character, coerce first to a numeric. Stop if unsuccessful
-  rowlet <- sapply(row, function(x) {
-    if (is.character(x)) {
-      if (stringr::str_detect(x, "\\d+")) {
-        y <- as.numeric(x)
-
-        if (is.na(x)) {
-          stop(paste("Cannot coerce supplied row:", x))
-        }
-
-        if (y > 26 | y < 1) {
-          stop(paste(
-            "Row number",
-            y,
-            "cannot exceed the number of available letters (1:26)."
-          ))
-        }
-        # return corresponding capital letter
-        LETTERS[y]
-      } else {
-        # print(x)
-        x
-      }
-    } else {
-      LETTERS[x]
-    }
-  })
+  rowlet <- if (is.character(row)) {
+    # Rows given as numbers in strings, such as "3", are converted to letters.
+    numeric_row <- !is.na(row) & stringr::str_detect(row, "\\d")
+    out <- row
+    out[numeric_row] <- row_letters(row[numeric_row], arg = "row")
+    out
+  } else if (is.numeric(row)) {
+    row_letters(row, arg = "row")
+  } else {
+    stop_input_type(row, c("a character vector", "a numeric vector"))
+  }
 
   # pad out the column number for format "A01" properly.
   colnum <- stringr::str_pad(col, width = num_width, side = "left", pad = "0")
 
-  # join the final well
-  well <- as.character(paste0(rowlet, colnum))
-  # quality control the well
-
+  joined <- vctrs::vec_recycle_common(row = rowlet, col = colnum)
+  well <- paste0(joined$row, joined$col)
+  well[is.na(joined$row) | is.na(joined$col)] <- NA
   well
+}
+
+# Converts row numbers to letters, erroring informatively for anything that
+# isn't a whole number from 1 to 26.
+row_letters <- function(
+  x,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
+) {
+  number <- suppressWarnings(as.numeric(x))
+  bad <- (!is.na(x) & is.na(number)) |
+    (!is.na(number) & (number < 1 | number > 26 | number != round(number)))
+  if (any(bad)) {
+    cli::cli_abort(
+      c(
+        "{.arg {arg}} must be row letters or whole numbers from 1 to 26.",
+        x = "Can't use {.val {x[bad][1:min(3, sum(bad))]}}."
+      ),
+      call = call
+    )
+  }
+  LETTERS[number]
 }
 
 #' Extract number from well ID.
@@ -190,7 +194,8 @@ well_to_row_num <- function(x) {
 #' well_to_index("h8", colwise = TRUE)
 #' well_to_index("C20", colwise = TRUE)
 well_to_index <- function(x, plate = NULL, colwise = FALSE) {
-  stopifnot(is.character(x))
+  check_character(x)
+  check_bool(colwise)
   dims <- resolve_plate_dims(x, plate)
 
   colnum <- well_to_col_num(x)
@@ -224,10 +229,23 @@ well_to_index <- function(x, plate = NULL, colwise = FALSE) {
 #' # indexing first down the columns
 #' well_from_index(1:20, colwise = TRUE)
 well_from_index <- function(x, plate = NULL, num_width = 2, colwise = FALSE) {
-  stopifnot(is.numeric(x))
+  if (!is.numeric(x)) {
+    stop_input_type(x, "a numeric vector")
+  }
+  check_bool(colwise)
   dims <- resolve_plate_dims(x, plate)
   n_rows <- dims[[1]]
   n_cols <- dims[[2]]
+
+  outside <- !is.na(x) & (x < 1 | x > n_rows * n_cols | x != round(x))
+  if (any(outside)) {
+    cli::cli_abort(
+      c(
+        "{.arg x} must be whole numbers from 1 to {n_rows * n_cols}, the wells of the plate.",
+        x = "Can't use {.val {x[outside][1:min(3, sum(outside))]}}."
+      )
+    )
+  }
 
   if (colwise) {
     id_row <- .count_row_down(x, n_rows)
@@ -279,7 +297,6 @@ well_format <- function(x, num_width = 2, uppercase = TRUE) {
 #' @return integer
 #' @keywords internal
 n_cols_from_wells <- function(x) {
-  stopifnot(is.numeric(x))
   plate_dims(x)[[2]]
 }
 
@@ -290,6 +307,5 @@ n_cols_from_wells <- function(x) {
 #' @return integer
 #' @keywords internal
 n_rows_from_wells <- function(x) {
-  stopifnot(is.numeric(x))
   plate_dims(x)[[1]]
 }
