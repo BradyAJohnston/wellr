@@ -43,7 +43,7 @@ is_data_lines <- function(lines) {
 #'
 #' @param lines The vector of lines for the csv
 #' @param temp Whether to include the temp column or not.
-#' @param format Whether to format the well column names.
+#' @param format_well Whether to format the well column names.
 #'
 #'
 #' @keywords internal
@@ -57,6 +57,7 @@ read_data_block <-
       stringr::str_remove(",$") |>
       stringr::str_subset("^[,]+,[,]+,[,]+", negate = TRUE) |>
       stringr::str_c(collapse = "\n") |>
+      I() |>
       readr::read_csv(col_types = readr::cols()) -> dat
 
     if (rownum) {

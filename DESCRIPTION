@@ -26,7 +26,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-Depends: R (>= 3.6.0)
+Depends: R (>= 4.1.0)
 Imports: 
     stringr,
     tibble,
@@ -38,7 +38,7 @@ Imports:
     plater,
     janitor,
     purrr,
-    readr,
+    readr (>= 2.0.0),
     readxl,
     lifecycle,
     cli

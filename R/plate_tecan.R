@@ -20,7 +20,7 @@
     mask <- mask[1:(length(mask) - 1)]
 
     dat <- readr::read_csv(
-      file = stringr::str_c(lines[mask], collapse = "\n"),
+      file = I(stringr::str_c(lines[mask], collapse = "\n")),
       col_types = readr::cols()
     )
 
@@ -34,14 +34,8 @@
       names_to = "well",
       names_transform = well_format
     )
-    dat <- dplyr::mutate(
-      dat,
-      type = dplyr::case_match(
-        .data$type,
-        "OD600:600" ~ 'od600',
-        "LUMI:Lum" ~ 'lumi'
-      )
-    )
+    types <- c("OD600:600" = "od600", "LUMI:Lum" = "lumi")
+    dat$type <- unname(types[dat$type])
     blocks[[group]] <- dat
   }
 
