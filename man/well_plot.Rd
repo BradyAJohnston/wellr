@@ -4,7 +4,7 @@
 \alias{well_plot}
 \title{Plot a Plate Map}
 \usage{
-well_plot(data, well, value, colour = "black")
+well_plot(data, well, value, colour = "black", plate = NULL)
 }
 \arguments{
 \item{data}{Dataframe containing data.}
@@ -14,16 +14,24 @@ well_plot(data, well, value, colour = "black")
 \item{value}{Name of the column with the values to plot.}
 
 \item{colour}{Colour of the well borders.}
+
+\item{plate}{The size of the plate, such as 96 or 384, or its number of rows
+and columns. If \code{NULL}, the plate of \code{\link[=well]{well()}} IDs is used, or else the
+smallest standard plate that holds all the wells.}
 }
 \value{
 ggplot2 object.
 }
 \description{
-Plot a Plate Map
+Draws every well of the plate, coloured by \code{value}. Wells with no data are
+drawn in grey, so the whole plate is shown even when only some wells were
+used.
 }
 \examples{
 dat <- wellr::well_plate()[, "well"]
 dat$value <- rnorm(96)
 well_plot(dat, well, value)
 
+# Only some wells used: the rest of the plate is drawn empty
+well_plot(dat[1:30, ], well, value)
 }

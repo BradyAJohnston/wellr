@@ -51,11 +51,7 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "rlang"
-constraint = "*"
-
-[[targets.direct_dependencies]]
-name = "scales"
-constraint = "*"
+constraint = ">= 1.1.0"
 
 [[targets.direct_dependencies]]
 name = "stringr"
@@ -1373,7 +1369,6 @@ dependencies = [
     "readr",
     "readxl",
     "rlang",
-    "scales",
     "stringr",
     "tibble",
     "tidyr",
@@ -1383,7 +1378,7 @@ sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "da5f31270f665f05303c0eca2c4aa2cafdc17e1b8a1638e762a2df4f5ab2ec1d", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -1428,11 +1423,7 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "rlang"
-constraint = "*"
-
-[[targets.direct_dependencies]]
-name = "scales"
-constraint = "*"
+constraint = ">= 1.1.0"
 
 [[targets.direct_dependencies]]
 name = "stringr"
@@ -2760,7 +2751,6 @@ dependencies = [
     "readr",
     "readxl",
     "rlang",
-    "scales",
     "stringr",
     "tibble",
     "tidyr",
@@ -2770,7 +2760,7 @@ sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "da5f31270f665f05303c0eca2c4aa2cafdc17e1b8a1638e762a2df4f5ab2ec1d", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -2815,11 +2805,7 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "rlang"
-constraint = "*"
-
-[[targets.direct_dependencies]]
-name = "scales"
-constraint = "*"
+constraint = ">= 1.1.0"
 
 [[targets.direct_dependencies]]
 name = "stringr"
@@ -4137,7 +4123,6 @@ dependencies = [
     "readr",
     "readxl",
     "rlang",
-    "scales",
     "stringr",
     "tibble",
     "tidyr",
@@ -4147,7 +4132,7 @@ sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "da5f31270f665f05303c0eca2c4aa2cafdc17e1b8a1638e762a2df4f5ab2ec1d", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
 
 [[targets]]
 r_version = "4.6.1"
@@ -4192,11 +4177,7 @@ constraint = "*"
 
 [[targets.direct_dependencies]]
 name = "rlang"
-constraint = "*"
-
-[[targets.direct_dependencies]]
-name = "scales"
-constraint = "*"
+constraint = ">= 1.1.0"
 
 [[targets.direct_dependencies]]
 name = "stringr"
@@ -5514,7 +5495,6 @@ dependencies = [
     "readr",
     "readxl",
     "rlang",
-    "scales",
     "stringr",
     "tibble",
     "tidyr",
@@ -5524,4 +5504,4 @@ sources = ["file:///Users/brady/git/r/wellr/"]
 target = ""
 groups = ["main"]
 is_project = true
-metadata = { RemoteSha = "a5a58312b9f47fb83087db9672958ff27af5f0eb69549bfe2ec11e42054d5902", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
+metadata = { RemoteSha = "da5f31270f665f05303c0eca2c4aa2cafdc17e1b8a1638e762a2df4f5ab2ec1d", RemoteType = "local", RemoteUrl = "/Users/brady/git/r/wellr" }
