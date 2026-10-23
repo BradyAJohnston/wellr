@@ -20,3 +20,4 @@
 ^AGENTS\.md$
 ^\.claude$
 ^vignettes/articles/\.quarto$
+^vignettes/\.quarto$
