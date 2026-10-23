@@ -19,5 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Brady Johnston \email{brady.johnston@me.com} (\href{https://orcid.org/0000-0001-6301-2269}{ORCID})
 
+Authors:
+\itemize{
+  \item Brady Johnston \email{brady.johnston@me.com} (\href{https://orcid.org/0000-0001-6301-2269}{ORCID})
+}
+
 }
 \keyword{internal}

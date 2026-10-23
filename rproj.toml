@@ -25,7 +25,7 @@ bugreports = "https://github.com/bradyajohnston/wellr/issues"
 homepage = "https://github.com/bradyajohnston/wellr"
 
 [dependencies]
-R = ">= 3.6.0"
+R = ">= 4.1.0"
 cli = "*"
 dplyr = "*"
 ggplot2 = "*"
@@ -33,7 +33,7 @@ janitor = "*"
 lifecycle = "*"
 plater = "*"
 purrr = "*"
-readr = "*"
+readr = ">= 2.0.0"
 readxl = "*"
 rlang = "*"
 scales = "*"
@@ -43,15 +43,15 @@ tidyr = "*"
 
 [dependency-groups.dev]
 covr = "*"
-devtools = "*"
 rmarkdown = "*"
-roxygen2 = "*"
 testthat = ">= 3.0.0"
-usethis = "*"
 
 [config.testthat]
 edition = 3
 parallel = true
+
+[config.roxygen2]
+version = "8.1.1"
 
 [description]
 Encoding = "UTF-8"
