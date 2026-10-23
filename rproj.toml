@@ -46,6 +46,9 @@ covr = "*"
 testthat = ">= 3.0.0"
 rmarkdown = "*"
 
+[dependency-groups.website]
+quarto = "*"
+
 [config.testthat]
 edition = 3
 parallel = true
