@@ -5,8 +5,8 @@ authors:
     href: https://bradyajohnston.github.io
 
 template:
-  params:
-    bootswatch: flatly
+  bootstrap: 5
+  bootswatch: flatly
 
 reference:
   - title: 'Plate Functions'

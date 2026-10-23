@@ -44,6 +44,7 @@ tidyr = "*"
 [dependency-groups.dev]
 covr = "*"
 testthat = ">= 3.0.0"
+rmarkdown = "*"
 
 [config.testthat]
 edition = 3
