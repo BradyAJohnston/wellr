@@ -28,7 +28,7 @@ homepage = "https://github.com/bradyajohnston/wellr"
 R = ">= 4.1.0"
 cli = "*"
 dplyr = "*"
-ggplot2 = "*"
+ggplot2 = ">= 3.4.0"
 janitor = "*"
 lifecycle = "*"
 plater = "*"
@@ -43,7 +43,6 @@ tidyr = "*"
 
 [dependency-groups.dev]
 covr = "*"
-rmarkdown = "*"
 testthat = ">= 3.0.0"
 
 [config.testthat]

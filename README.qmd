@@ -1,10 +1,13 @@
 ---
-output: github_document
+format:
+  gfm:
+    default-image-extension: ""
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -16,12 +19,13 @@ knitr::opts_chunk$set(
 # wellr
 
 <!-- badges: start -->
-
-[![CRAN status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr) [![R-CMD-check](https://github.com/bradyajohnston/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/bradyajohnston/wellr/actions) [![Codecov test coverage](https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/wellr?branch=master)
 [![R-CMD-check](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/BradyAJohnston/wellr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/BradyAJohnston/wellr?branch=main)
 <!-- badges: end -->
 
 A set of _tidy_ utilities for working with plate based data. Wet-lab experiments are often carried out in microplates of varying sizes. `{wellr}` aims to provide a cleaner interface to working with data from plate readers that works well within the `{tidyverse}` [design principles](https://design.tidyverse.org/unifying.html).
+
+`{wellr}` provides a consistent and reliable interface for dealing with plate-based data and related calculations. It provides functions for reading the output of various plate readers, indexing through and reformatting microtitre plates, converting between well IDs ("C05") and their respective rows, columns and index.
 
 
 ## Installation
@@ -43,7 +47,8 @@ remotes::install_github("bradyajohnston/wellr")
 
 ## Basic Examples
 
-```{r example}
+```{r}
+#| label: example
 library(wellr)
 
 well_format("G8")

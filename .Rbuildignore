@@ -1,7 +1,7 @@
 ^wellr\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-^README\.Rmd$
+^README\.qmd$
 ^cran-comments\.md$
 ^\.github$
 ^CRAN-SUBMISSION$
@@ -19,3 +19,4 @@
 ^\.vscode$
 ^AGENTS\.md$
 ^\.claude$
+^vignettes/articles/\.quarto$

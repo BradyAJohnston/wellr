@@ -1,23 +1,21 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # wellr
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/wellr)](https://CRAN.R-project.org/package=wellr)
-[![R-CMD-check](https://github.com/bradyajohnston/wellr/workflows/R-CMD-check/badge.svg)](https://github.com/bradyajohnston/wellr/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/bradyajohnston/wellr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/wellr?branch=master)
 [![R-CMD-check](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/BradyAJohnston/wellr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/BradyAJohnston/wellr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/BradyAJohnston/wellr?branch=main)
 <!-- badges: end -->
 
-A suite of *tidy* utilities for working with plate based data. Wet-lab
-experiments are often carried out in in microplates of varying sizes.
+A set of *tidy* utilities for working with plate based data. Wet-lab
+experiments are often carried out in microplates of varying sizes.
 `{wellr}` aims to provide a cleaner interface to working with data from
-plate readers that works well within the `{tidyverse}`
-[principles](https://design.tidyverse.org/unifying.html).
+plate readers that works well within the `{tidyverse}` [design
+principles](https://design.tidyverse.org/unifying.html).
 
 `{wellr}` provides a consistent and reliable interface for dealing with
 plate-based data and related calculations. It provides functions for
@@ -240,4 +238,5 @@ plate$value <- rnorm(96, sd = 10)
 well_plot(plate, well, value)
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png"
+style="width:100.0%" />

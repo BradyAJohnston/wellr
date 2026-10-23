@@ -12,3 +12,4 @@ docs
 # in .rvenvlib instead.
 /.rvenv/
 # rig rvenv end
+**/.quarto/
