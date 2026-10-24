@@ -1,6 +1,6 @@
 Package: wellr
 Title: Utilities for Working With Plate Based Data
-Version: 0.3.4
+Version: 0.4.0
 Authors@R: 
     person("Brady", "Johnston", , "brady.johnston@me.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6301-2269"))
